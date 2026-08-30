@@ -1,5 +1,5 @@
 {
-  "_note": "Wires for the conflict feed: invasions and offensives, strikes, attacks on civilians, the arms industry and the money behind it, bases and corridors, officials and command, law and accountability, nuclear and strategic forces, and humanitarian consequence. Each wire carries a 'standing': official (UN bodies, courts, ministries, alliances), research (SIPRI, ACLED, HRW, Amnesty, Bellingcat, Airwars), trade (defence trade press), or press. Locale coverage is expanded by the same market-and-slice method as the other feeds. Locale coverage is expanded: several country editions per language, and each query split into slices so no single search hits Google News's ~100-result cap.",
+  "_note": "Wires for the conflict feed: invasions and offensives, strikes, attacks on civilians, the arms industry and the money behind it, bases and corridors, officials and command, law and accountability, nuclear and strategic forces, and humanitarian consequence. Each wire carries a 'standing': official (UN bodies, courts, ministries, alliances), research (SIPRI, ACLED, HRW, Amnesty, Bellingcat, Airwars), trade (defence trade press), or press. Locale coverage is expanded by the same market-and-slice method as the other feeds. Locale coverage is expanded: several country editions per language, and each query split into slices so no single search hits Google News's ~100-result cap. Seven direct feeds were dropped after the first live run returned 403 or 404 for them (war.gov, OHCHR, The New Humanitarian, ICRC, NATO, SIPRI, the old Kyiv Independent path); those organisations are now read through site-scoped searches, and four working feeds replaced them.",
   "direct": [
     {
       "name": "UN News — Peace & Security",
@@ -8,40 +8,10 @@
       "url": "https://news.un.org/feed/subscribe/en/news/topic/peace-and-security/feed/rss.xml"
     },
     {
-      "name": "OHCHR — news",
-      "lang": "en",
-      "standing": "official",
-      "url": "https://www.ohchr.org/en/rss/news"
-    },
-    {
       "name": "ReliefWeb — updates",
       "lang": "en",
       "standing": "official",
       "url": "https://reliefweb.int/updates/rss.xml"
-    },
-    {
-      "name": "ICRC",
-      "lang": "en",
-      "standing": "official",
-      "url": "https://www.icrc.org/en/rss.xml"
-    },
-    {
-      "name": "NATO — news",
-      "lang": "en",
-      "standing": "official",
-      "url": "https://www.nato.int/cps/en/natohq/rss_news.xml"
-    },
-    {
-      "name": "US Department of Defense",
-      "lang": "en",
-      "standing": "official",
-      "url": "https://www.war.gov/DesktopModules/ArticleCS/RSS.aspx?ContentType=1&Site=945&max=25"
-    },
-    {
-      "name": "SIPRI",
-      "lang": "en",
-      "standing": "research",
-      "url": "https://www.sipri.org/rss.xml"
     },
     {
       "name": "Bellingcat",
@@ -66,12 +36,6 @@
       "lang": "en",
       "standing": "research",
       "url": "https://www.amnesty.org/en/rss/"
-    },
-    {
-      "name": "The New Humanitarian",
-      "lang": "en",
-      "standing": "research",
-      "url": "https://www.thenewhumanitarian.org/rss/all"
     },
     {
       "name": "War on the Rocks",
@@ -116,16 +80,34 @@
       "url": "https://www.theguardian.com/world/rss"
     },
     {
-      "name": "Kyiv Independent",
-      "lang": "en",
-      "standing": "press",
-      "url": "https://kyivindependent.com/feed/"
-    },
-    {
       "name": "Middle East Eye",
       "lang": "en",
       "standing": "press",
       "url": "https://www.middleeasteye.net/rss"
+    },
+    {
+      "name": "UN News — all",
+      "lang": "en",
+      "standing": "official",
+      "url": "https://news.un.org/feed/subscribe/en/news/all/rss.xml"
+    },
+    {
+      "name": "Crisis Group",
+      "lang": "en",
+      "standing": "research",
+      "url": "https://www.crisisgroup.org/rss.xml"
+    },
+    {
+      "name": "The Kyiv Independent",
+      "lang": "en",
+      "standing": "press",
+      "url": "https://kyivindependent.com/rss/"
+    },
+    {
+      "name": "Defense One",
+      "lang": "en",
+      "standing": "trade",
+      "url": "https://www.defenseone.com/rss/all/"
     }
   ],
   "gnews": [
@@ -1714,6 +1696,24 @@
       "gl": "US",
       "ceid": "US:en",
       "query": "military coup OR junta announced OR mutiny soldiers OR mercenaries deployed OR private military company"
+    },
+    {
+      "label": "NATO, ICRC & ministries (site)",
+      "lang": "en",
+      "standing": "official",
+      "hl": "en-US",
+      "gl": "US",
+      "ceid": "US:en",
+      "query": "site:nato.int OR site:icrc.org OR site:ohchr.org OR site:war.gov statement OR operation OR deployment"
+    },
+    {
+      "label": "SIPRI & humanitarian monitors (site)",
+      "lang": "en",
+      "standing": "official",
+      "hl": "en-US",
+      "gl": "US",
+      "ceid": "US:en",
+      "query": "site:sipri.org OR site:thenewhumanitarian.org OR site:reliefweb.int arms OR conflict OR displacement"
     }
   ]
 }

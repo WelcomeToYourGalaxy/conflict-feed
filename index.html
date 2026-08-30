@@ -149,11 +149,27 @@
 .cf-pin-sm { border-width: 0.5px !important; box-shadow: 0 0 0 1px rgba(0,0,0,0.4) !important; }
 .cf-pin { border-radius: 50%; border: 1px solid rgba(255,255,255,0.55); box-shadow: 0 0 0 2px rgba(0,0,0,0.35);
     display: flex; align-items: center; justify-content: center; font-size: 0.55rem; color: #131311; font-weight: 600; }
-@media (max-width: 900px) {
+/* Narrow: the map goes under the list rather than beside it. Two regimes.
+   In a narrow FRAME on a desktop page the column has a definite height, so the
+   pieces take shares of it and the list scrolls inside — nothing lands below
+   the fold. In FLOW mode there is no definite height to take a share of, so
+   the map gets real pixels and the page scrolls. */
+/* 1200, not 900. A half-width column on a wide theme is 800–1000px, which
+   cleared a 900px breakpoint and stayed side-by-side. At 1200 a half-width
+   column stacks on any normal page width. */
+@media (max-width: 1200px) {
     .cf-body { flex-direction: column; }
-    .cf-body > .cf-list { flex: 1 1 auto; min-height: 60vh; }
-    .cf-map-wrap { flex: 0 0 320px; height: 320px; border-left: 0; border-top: 1px solid var(--line-soft); }
-    .cf-map-wrap.gm-open { flex: 0 0 620px; height: 620px; } }
+    /* Stacked and inside a frame of definite height: the three pieces take
+       shares of it, so the list, the map and the overlays are all on screen at
+       once and only the list scrolls. Nothing sits below the fold, because
+       there is no fold — the frame does not grow. */
+    .cf-body > .cf-list { flex: 1 1 auto; min-height: 120px; }
+    .cf-map-wrap { flex: 0 0 52%; height: auto; min-height: 200px;
+        border-left: 0; border-top: 1px solid var(--line-soft); }
+    .cf-map-wrap.gm-open { flex: 0 0 68%; height: auto; }
+    .cf-map-wrap.gm-open .cf-map { flex: 1 1 52%; min-height: 150px; }
+    .cf-map-wrap.gm-open .cf-gm { flex: 0 0 48%; min-height: 150px; }
+ }
 .cf-list { flex: 1 1 auto; min-height: 130px; overflow-y: auto; scrollbar-width: thin; overscroll-behavior: contain; }
 .cf-item { display: block; padding: 0.55rem 0.9rem; border-bottom: 1px solid var(--line-soft); text-decoration: none; color: inherit; }
 .cf-item:last-child { border-bottom: 0; }
@@ -194,10 +210,13 @@
 .cf-tab { font-family: inherit; font-size: 0.58rem; letter-spacing: 0.08em; color: var(--ink-dim); background: rgba(255,255,255,0.04); border: 1px solid var(--line-soft); border-radius: 999px; padding: 0.2rem 0.6rem; cursor: pointer; }
 .cf-tab:hover, .cf-tab.on { color: var(--ink); border-color: rgba(255,255,255,0.24); }
 
+/* No flow mode. The feed always has a definite height and scrolls inside
+   itself — on a phone as much as in a sidebar. It never grows to its content
+   and never asks the page around it to resize, because a frame sized from
+   content that is itself sized from the frame can run away in either
+   direction: upward when a child is a share of the viewport, downward when
+   the frame moves first. */
 @media (max-width: 900px) {
-    .cf { height: auto; min-height: 0; overflow: visible; }
-    .cf-panel { flex: 0 0 auto; }
-    .cf-list { max-height: 70vh; }
     .cf-sheet { position: fixed; left: 0.6rem; right: 0.6rem; bottom: 0.6rem; max-height: 72vh; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -317,6 +336,27 @@
             ending on a line, so it hands over to the ice gradually. No place labels: the ground is left to
             read as ground, and the pins carry the names. Every coastline on screen is still Esri's — nothing is redrawn, only lit
             differently. If the hillshade fails to load it is dropped and the plain imagery stands.
+        </p>
+        <p class="cf-note">
+            <strong>Guerillamap overlays.</strong> The panel under the map is guerillamap.com in a frame,
+            open by default, with the conflict, news, losses, minefield, nuclear-test, terror, migration and
+            border layers switched on. It is their live map, not a copy of their data: a page cannot read
+            across into another site's frame, so nothing is extracted here and nothing goes stale behind them.
+            What it can do is follow — their app takes its whole state from its address, so the frame is
+            rebuilt to whatever this map is looking at, a moment after you stop moving. Their view sits a
+            little south of this one, by a share of their frame height rather than a fixed number of degrees,
+            because their panel is shorter and wider than this map. Untick "follow this map" to hold their view
+            while this one carries on, and use the button on the status strip to close the panel. Their terms
+            allow the use with attribution; the credit line under the panel is that attribution.
+        </p>
+        <p class="cf-note">
+            <strong>In a narrow frame.</strong> Below 1200px the map and the overlays move under the list
+            instead of beside it — 1200 rather than 900 because a half-width column on a wide theme is often
+            800 to 1000px, which clears a 900px breakpoint and stays side by side. Stacked, the list takes
+            about a third and scrolls on its own; the map and the overlays split the rest and are both fully
+            visible. The frame itself is a fixed height set in the embed tag, so nothing measures anything and
+            nothing resizes: every self-sizing version of this wandered, upward or downward, until the content
+            was gone.
         </p>
         <p class="cf-note">
             <strong>Where the pins come from.</strong> Nothing is geocoded by a service: a story is placed by the

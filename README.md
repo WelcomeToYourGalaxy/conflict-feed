@@ -1,3 +1,14 @@
+## Embedding
+
+The embed frame is a FIXED height, written into the iframe tag in both the `height` attribute and the
+inline style, so it exists before any script runs. The shell script only injects the document — no
+measuring, no resize listener, no messages. To change the length, change both numbers in the tag.
+
+Stacking switches at 1200px, not 900: a half-width column on a wide theme is often 800–1000px, which
+cleared a 900px breakpoint and stayed side-by-side. Stacked, the list takes a third and scrolls; the map
+and the guerillamap panel split the rest — `.cf-map-wrap.gm-open { flex: 0 0 68% }` in the stacked media
+query is that split.
+
 # conflict-feed
 
 Armed conflict and the machinery around it, worldwide, in 25 languages: invasions and offensives,
@@ -45,10 +56,55 @@ can carry both — a ceasefire announced after a night of strikes — and then i
 ## The map
 
 A satellite panel sits beside the list, drawn from Esri's free World Imagery layer — no account, no
-key, no tracking beyond the tiles the browser requests. Every story that resolved to a place gets its
-own pin, and clicking one opens that story at its publisher exactly as a row does. Stories resolving
-to the same country are fanned onto a ring around the centroid so none hides another; the offsets are
-deterministic, so pins do not move between renders.
+key, no tracking beyond the tiles the browser requests.
+
+Stories sharing a coordinate are spread along a jittered phyllotaxis spiral rather than concentric
+rings, so a crowded city reads as scattered rather than drawn. The spread is measured in screen
+pixels against the current zoom, so the geographic error halves with every zoom step and the pins
+converge on their true coordinates; below zoom 5 it is capped, and a crowded city collapses to one
+dot whose popup still lists every story on it.
+
+A companion panel under the map embeds guerillamap.com with a fixed overlay set, open by default, and
+follows this map's centre and zoom by rebuilding the iframe address ~900ms after movement stops. One-way only: a cross-origin
+frame cannot be read from this page. Their centre is dropped south by 22% of their frame height, since their panel is shorter and wider than
+this map — `gmShift(0.3)` in the console to retune, `gmShift(0)` to switch it off. No guerillamap data is
+copied or stored here; attribution sits under
+the panel, as their terms require.
+
+Pins scale with the zoom — about half size at world view so they do not blot out the plate, full size
+from zoom 6 in.
+
+Above the imagery sits the painted plate from the projects map, cross-faded out between zoom 3 and
+zoom 5.6 and redrawn through the zoom animation, so the map reads as a drawn chart wide out and as ground close in. Its southern
+edge carries the social-spheres envelope: the paint thins away through the forties instead of ending on
+a ruled line. The imagery carries the
+projects map's treatment: it supplies the luminance, a sea screen and a green soft-light wash shift
+the colour, a warm overlay supplies the sunlight, and an Esri hillshade multiplied on top restores
+the relief. Tints ease off with zoom, relief strengthens. There are no place labels — the pins carry
+the names. Nothing is redrawn: every coastline is still Esri's. If the hillshade fails it is dropped
+and the plain imagery stands.
+
+Title and body type are Uncial Antiqua and Marcellus, matching the projects map, and the plate's
+cartouche carries this feed's own name.
+
+## Placement
+
+Stories are placed by the names they contain — no geocoding service is called. The gazetteer covers
+countries, cities, provinces, bases and waterways in Chinese, Japanese, Korean, Thai, Greek, Hebrew,
+Arabic, Bengali, Hindi, Russian, Ukrainian, Turkish and the major European languages, so 基輔, Kiew,
+キーву and Kyiv resolve to one point. Where a story names two countries, one carrying a locative
+marker (`im`, `in`, `en`, `au`, `on`, `在`, `في`) is treated as the scene and the other as the actor.
+
+Three outcomes, counted separately under the status line: pinned on a named place, pinned on a
+country's centre, or not located and left off the map. On a 1,200-story sample: 230 named places,
+786 countries, 184 unplaced — 85% mapped, against 35% before this pass. Every story that resolved to a place gets its
+own pin, fanned onto a ring around the point so none hides another; the offsets are deterministic, so
+pins do not move between renders.
+
+Clicking a pin opens a box listing **every story within a few pixels of it**, not only the one
+clicked — the clicked story first, then its neighbours with their sources and, where they differ,
+their own places. Zoomed out, Gaza and Rafah open together because they genuinely overlap on screen;
+zoom in and they separate. Every title links to its publisher exactly as a row does.
 
 The pins are built from the same filtered set as the list, so every toggle applies to both. Stories
 that named nowhere in particular are counted as unplaced beneath the map rather than dropped
@@ -65,6 +121,10 @@ Only when no such place is named does the pin fall back to a country centroid, t
 a region. Both the row and the popup name whichever level was used, so the precision of any pin is
 visible rather than implied. A country-level pin is not the location of an event, and the small
 offset that separates neighbouring pins is not a location either.
+
+Choosing a region, subregion or place frames the map on that geography in full, using the gazetteer
+rather than the stories — so a quiet region still shows you the whole region. Subject, direction,
+evidence and language filters leave the view where you left it.
 
 The top bar reports how many of the whole wire are placed, and the strip under the map reports how
 many of the current filter are drawn and how many are unplaced.
