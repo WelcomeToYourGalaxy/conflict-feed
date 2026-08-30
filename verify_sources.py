@@ -13,8 +13,9 @@ import argparse, importlib, os, sys
 from concurrent.futures import ThreadPoolExecutor
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-CANDIDATES = ["harvest", "harvest_space", "harvest_env", "harvest_uap",
-              "harvest_neo", "harvest_abortion", "harvest_invasion", "harvest_indigenous", "harvest_conflict"]
+CANDIDATES = ["harvest_space", "harvest_env", "harvest_uap",
+              "harvest_neo", "harvest_abortion", "harvest_invasion",
+              "harvest_indigenous", "harvest_conflict", "harvest"]
 
 
 def load_harvester():

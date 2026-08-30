@@ -188,7 +188,11 @@ def _compile(term):
         # substring matching is already prefix-like in scripts without word
         # breaks, so a trailing * is a no-op — strip it rather than search for
         # a literal asterisk, which is what used to happen.
-        return term[:-1] if term.endswith("*") else term
+        term = term[:-1] if term.endswith("*") else term
+        # The text is case-folded before matching. That is a no-op in CJK,
+        # Arabic, Hebrew and Thai, but Greek and Cyrillic do have case, so a
+        # term left capitalised here would never match anything.
+        return term.lower()
     if term.endswith("*"):
         return re.compile(r"(?<![a-z0-9])" + re.escape(term[:-1]) + r"[a-z0-9\-]*", re.I)
     return re.compile(r"(?<![a-z0-9])" + re.escape(term) + r"(?![a-z0-9])", re.I)
@@ -550,6 +554,187 @@ TERM_EXTRAS = {
 }
 
 
+# --------------------------------------------------------------------------
+# The gazetteer above is Latin-only, so a headline in Chinese, Japanese,
+# Korean, Thai, Greek, Hebrew, Arabic or Bengali matched nothing at all and
+# the story went on the map nowhere. Roughly two thirds of the wire arrives in
+# those scripts. Below is the country layer written out in them, plus the
+# Latin spellings other European languages use (Kiew, Kijów, Ucrania), merged
+# into TERM_EXTRAS before the gazetteer is compiled.
+#
+# Terms are chosen to be unambiguous on their own. Single characters are never
+# used - 美 alone means "beautiful" as often as it means America - and a term
+# is left out where it collides with an unrelated word, which is why Mali has
+# no Chinese entry: 马里 is also the first half of Maryland.
+# --------------------------------------------------------------------------
+MULTILINGUAL = {
+ "ua": ["烏克蘭","乌克兰","俄烏","俄乌","ウクライナ","우크라이나","ยูเครน","Ουκραν","אוקראינה",
+        "أوكرانيا","ইউক্রেন","यूक्रेन","اوکراین","Ukrayna","Ucrania","Ucrânia","Ucraina",
+        "Oekraïne","Ukraina","Україна","Украина","Kiew","Kijów","Kijev","Kiova","基輔","基辅",
+        "キーウ","키이우","哈爾科夫","哈尔科夫","敖德薩","敖德萨","Charkiw","澤連斯基","泽连斯基",
+        "ゼレンスキー","젤렌스키","Selenskyj","Зеленськ","Зеленски"],
+ "ru": ["俄羅斯","俄罗斯","俄軍","俄军","ロシア","러시아","รัสเซีย","Ρωσ","רוסיה","روسيا","রাশিয়া",
+        "रूस","روسیه","Rusya","Rusia","Rússia","Russland","Russie","Rusland","Rosja","Россия",
+        "Росія","莫斯科","モスクワ","모스크바","Moskau","Moscou","Moscú","Mosca","Kreml","普京",
+        "プーチン","푸틴","Putin"],
+ "il": ["以色列","イスラエル","이스라엘","อิสราเอล","Ισραήλ","ישראל","إسرائيل","ইসরায়েল","इजरायल",
+        "İsrail","Israël","Israele","Izrael","Израиль","內塔尼亞胡","内塔尼亚胡","ネタニヤフ",
+        "네타냐후","נתניהו","نتنياهو","Netanjahu","特拉維夫","特拉维夫","耶路撒冷","エルサレム","예루살렘"],
+ "ps": ["加沙","加薩","ガザ","가자지구","กาซา","Γάζα","עזה","غزة","গাজা","Gazze","Gazastreifen",
+        "巴勒斯坦","パレスチナ","팔레스타인","ปาเลสไตน์","Παλαιστίν","פלסטין","فلسطين","Filistin",
+        "Palestina","Palästina","Palestyna","Палестин","哈馬斯","哈马斯","ハマス","하마스","חמאס",
+        "حماس","拉法","ラファ","رفح","汗尤尼斯","خان يونس","約旦河西岸","约旦河西岸","Westjordanland"],
+ "ir": ["伊朗","美伊","イラン","이란","อิหร่าน","Ιράν","איראן","إيران","ইরান","ایران","İran","Irán",
+        "Irã","Иран","德黑蘭","德黑兰","テヘラン","테헤란","طهران","تهران","革命衛隊","革命卫队",
+        "革命防衛隊","الحرس الثوري"],
+ "sy": ["敘利亞","叙利亚","シリア","시리아","ซีเรีย","Συρία","סוריה","سوريا","Suriye","Siria","Syrien",
+        "Syrie","Syrië","Сирия","সিরিয়া","大馬士革","大马士革","ダマスカス","다마스쿠스","دمشق",
+        "阿勒頗","阿勒颇","حلب"],
+ "lb": ["黎巴嫩","レバノン","레바논","เลบานอน","Λίβανο","לבנון","لبنان","লেবানন","Lübnan","Líbano",
+        "Libanon","Liban","Ливан","貝魯特","贝鲁特","ベイルート","베이루트","بيروت","真主黨","真主党",
+        "ヒズボラ","헤즈볼라","חזבאללה","حزب الله","Hisbollah","Hizbullah"],
+ "ye": ["也門","也门","葉門","イエメン","예멘","เยเมน","Υεμέν","תימן","اليمن","Jemen","Yémen","Йемен",
+        "ইয়েমেন","胡塞","フーシ","후티","الحوثي","Huthi","薩那","萨那","صنعاء"],
+ "iq": ["伊拉克","イラク","이라크","อิรัก","Ιράκ","עיראק","العراق","ইরাক","Irak","Ирак","巴格達",
+        "巴格达","バグダッド","바그다드","بغداد","摩蘇爾","摩苏尔","الموصل","埃爾比勒","أربيل"],
+ "tr": ["土耳其","トルコ","튀르키예","터키","ตุรกี","Τουρκ","טורקיה","تركيا","Türkiye","Turquía",
+        "Turquia","Turchia","Türkei","Turquie","Turkije","Turcja","Турция","তুরস্ক","安卡拉","アンカラ",
+        "앙카라","伊斯坦布爾","伊斯坦布尔","イスタンブール","埃爾多安","埃尔多安","エルドアン","에르도안",
+        "Ερντογάν","أردوغان","Erdoğan","Erdogan","Άγκυρα"],
+ "eg": ["埃及","エジプト","이집트","อียิปต์","Αίγυπτο","מצרים","مصر","Mısır","Egipto","Egito","Egitto",
+        "Ägypten","Égypte","Egypte","Египет","মিশর","開羅","开罗","カイロ","القاهرة","西奈","سيناء"],
+ "sd": ["蘇丹","苏丹","スーダン","수단","ซูดาน","Σουδάν","סודן","السودان","Soudan","Судан","সুদান",
+        "喀土穆","ハルツーム","الخرطوم","達爾富爾","达尔富尔","دارفور","快速支援部隊","快速支援部队"],
+ "so": ["索馬里","索马里","索馬利亞","ソマリア","소말리아","โซมาเลีย","Σομαλία","סומליה","الصومال",
+        "Somalia","Сомали","摩加迪沙","مقديشو","青年黨","青年党","الشباب"],
+ "et": ["埃塞俄比亞","埃塞俄比亚","衣索比亞","エチオピア","에티오피아","เอธิโอเปีย","Αιθιοπία","אתיופיה",
+        "إثيوبيا","Etiyopya","Etiopía","Etiópia","Äthiopien","Éthiopie","Эфиопия","提格雷","تيغراي",
+        "亞的斯亞貝巴","亚的斯亚贝巴"],
+ "ly": ["利比亞","利比亚","リビア","리비아","ลิเบีย","Λιβύη","לוב","ليبيا","Libia","Libyen","Libye",
+        "Ливия","的黎波里","طرابلس","班加西","بنغازي"],
+ "af": ["阿富汗","アフガニスタン","아프가니스탄","อัฟกานิสถาน","Αφγανιστάν","אפגניסטן","أفغانستان",
+        "Afganistan","Afganistán","Afeganistão","Афганистан","আফগানিস্তান","喀布爾","喀布尔","カブール",
+        "카불","كابل","塔利班","タリバン","탈레반","طالبان","Taliban"],
+ "pk": ["巴基斯坦","パキスタン","파키스탄","ปากีสถาน","Πακιστάν","פקיסטן","باكستان","Пакистан",
+        "পাকিস্তান","伊斯蘭堡","伊斯兰堡","イスラマバード","إسلام آباد","克什米爾","克什米尔","カシミール",
+        "كشمير","Kaschmir"],
+ "in-c": ["印度","インド","인도","อินเดีย","Ινδία","הודו","الهند","ভারত","भारत","Hindistan","Indien",
+          "Inde","Индия","新德里","ニューデリー","뉴델리","نيودلهي"],
+ "cn": ["中國","中国","中共","解放軍","解放军","北京","ペキン","베이징","จีน","Κίνα","סין","الصين",
+        "Çin","China","Chine","Китай","চীন","चीन","習近平","习近平","시진핑","Си Цзиньпин",
+        "شي جين بينغ","南海","南シナ海"],
+ "tw": ["台灣","台湾","臺灣","대만","타이완","ไต้หวัน","Ταϊβάν","טייוואן","تايوان","Tayvan","Taiwán",
+        "Тайвань","台北","타이베이","台海","台灣海峽","台湾海峡"],
+ "jp": ["日本","일본","ญี่ปุ่น","Ιαπωνία","יפן","اليابان","Japonya","Japón","Japão","Giappone","Japon",
+        "Япония","জাপান","जापान","東京","东京","도쿄","طوكيو","自衛隊","自衛隊法","防衛省"],
+ "kr": ["韓國","韩国","韓国","한국","대한민국","เกาหลีใต้","Νότια Κορέα","קוריאה הדרומית",
+        "كوريا الجنوبية","Güney Kore","Corea del Sur","Coreia do Sul","Südkorea","Corée du Sud",
+        "Южная Корея","首爾","首尔","서울","ソウル"],
+ "kp": ["北韓","北朝鮮","朝鮮民主主義","朝鲜","북한","조선민주주의","เกาหลีเหนือ","Βόρεια Κορέα",
+        "קוריאה הצפונית","كوريا الشمالية","Kuzey Kore","Corea del Norte","Coreia do Norte","Nordkorea",
+        "Corée du Nord","Северная Корея","উত্তর কোরিয়া","平壤","평양","ピョンヤン","金正恩"],
+ "th": ["泰國","泰国","태국","ไทย","Ταϊλάνδη","תאילנד","تايلاند","Tayland","Tailandia","Tailândia",
+        "Thaïlande","Таиланд","กรุงเทพ","曼谷","バンコク","방콕","กองทัพเรือ","กองทัพไทย"],
+ "kh": ["柬埔寨","カンボジア","캄보디아","กัมพูชา","เขมร","Καμπότζη","קמבודיה","كمبوديا","Kamboçya",
+        "Camboya","Camboja","Kambodscha","Cambodge","Камбоджа","金邊","金边","พนมเปญ","ฮุน เซน","洪森"],
+ "mm": ["緬甸","缅甸","ミャンマー","미얀마","เมียนมา","พม่า","Μιανμάρ","מיאנמר","ميانمار","Мьянма",
+        "মিয়ানমার","若開","ロヒンギャ","若开"],
+ "ph": ["菲律賓","菲律宾","フィリピン","필리핀","ฟิลิปปินส์","Φιλιππίν","פיליפינים","الفلبين",
+        "Filipinler","Filipinas","Philippinen","Филиппины","馬尼拉","马尼拉","マニラ"],
+ "ve": ["委內瑞拉","委内瑞拉","ベネズエラ","베네수엘라","เวเนซุเอลา","Βενεζουέλα","ונצואלה","فنزويلا",
+        "Венесуэла","加拉加斯","カラカス","馬杜羅","马杜罗","Maduro"],
+ "co": ["哥倫比亞","哥伦比亚","コロンビア","콜롬비아","โคลอมเบีย","Κολομβία","קולומביה","كولومبيا",
+        "Kolombiya","Kolumbien","Colombie","Колумбия","波哥大","ボゴタ"],
+ "ht": ["海地","ハイチ","아이티","เฮติ","Αϊτή","האיטי","هايتي","Haïti","Haití","Гаити","太子港"],
+ "mx": ["墨西哥","メキシコ","멕시코","เม็กซิโก","Μεξικό","מקסיקו","المكسيك","Meksika","Mexiko",
+        "Mexique","Мексика"],
+ "us": ["美國","美国","米国","米軍","アメリカ軍","미국","สหรัฐ","ΗΠΑ","Ηνωμένες Πολιτείες",
+        "ארצות הברית","الولايات المتحدة","যুক্তরাষ্ট্র","अमेरिका","Estados Unidos","Vereinigte Staaten",
+        "États-Unis","Verenigde Staten","США","五角大樓","五角大楼","ペンタゴン","펜타곤","البنتاغون",
+        "華盛頓","华盛顿","ワシントン"],
+ "uk": ["英國","英国","イギリス","영국","อังกฤษ","สหราชอาณาจักร","Βρετανία","בריטניה","بريطانيا",
+        "İngiltere","Reino Unido","Großbritannien","Royaume-Uni","Великобритания","倫敦","伦敦",
+        "ロンドン","런던"],
+ "fr": ["法國","法国","フランス","프랑스","ฝรั่งเศส","Γαλλία","צרפת","فرنسا","Fransa","Francia",
+        "França","Frankreich","Frankrijk","Франция","巴黎","パリ","파리","馬克龍","马克龙","マクロン",
+        "마크롱","Macron","ماكرون"],
+ "de": ["德國","德国","ドイツ","독일","เยอรมนี","Γερμανία","גרמניה","ألمانيا","Almanya","Alemania",
+        "Alemanha","Germania","Deutschland","Allemagne","Duitsland","Германия","柏林","ベルリン",
+        "베를린","Bundeswehr"],
+ "pl": ["波蘭","波兰","ポーランド","폴란드","โปแลนด์","Πολωνία","פולין","بولندا","Polonya","Polonia",
+        "Polen","Pologne","Польша","Polska","華沙","华沙","ワルシャワ"],
+ "balt": ["立陶宛","拉脫維亞","拉脱维亚","愛沙尼亞","爱沙尼亚","リトアニア","エストニア","ラトビア",
+          "리투아니아","에스토니아","라트비아","Λιθουανία","ליטא","ليتوانيا","Litvanya","Lituania",
+          "Litauen","Литва","Эстония","Латвия","Estland","Lettland"],
+ "by": ["白俄羅斯","白俄罗斯","ベラルーシ","벨라루스","เบลารุส","Λευκορωσία","בלארוס","بيلاروسيا",
+        "Bielorrusia","Weißrussland","Biélorussie","Беларусь","Белоруссия"],
+ "ne": ["尼日爾","尼日尔","ニジェール","니제르","ไนเจอร์","Νίγηρα","النيجر","Nijer","Níger","Нигер"],
+ "ml": ["マリ共和国","말리","มาลี","Μάλι","مالي","Мали"],
+ "ng": ["尼日利亞","尼日利亚","奈及利亞","ナイジェリア","나이지리아","ไนจีเรีย","Νιγηρία","نيجيريا",
+        "Nijerya","Нигерия","博科聖地","博科圣地"],
+ "cd": ["剛果","刚果","コンゴ","콩고","คองโก","Κονγκό","קונגו","الكونغو","Kongo","Конго","戈馬","戈马"],
+ "am": ["亞美尼亞","亚美尼亚","アルメニア","아르메니아","Αρμενία","أرمينيا","Ermenistan","Armenien",
+        "Arménie","Армения","納卡","纳卡"],
+ "az": ["阿塞拜疆","亞塞拜然","アゼルバイジャン","아제르바이잔","Αζερμπαϊτζάν","أذربيجان","Azerbaycan",
+        "Aserbaidschan","Azerbaïdjan","Азербайджан","巴庫","巴库"],
+ "sa": ["沙特","沙烏地","サウジ","사우디","ซาอุ","Σαουδική","السعودية","Suudi","Arabia Saudí",
+        "Saudi-Arabien","Саудовская","卡塔爾","卡塔尔","カタール","카타르","قطر","Katar","阿聯酋",
+        "阿联酋","الإمارات","阿曼","科威特","巴林","迪拜","杜拜","多哈","الدوحة"],
+ "gr": ["希臘","希腊","ギリシャ","그리스","กรีซ","Ελλάδα","Ελλην","יוון","اليونان","Yunanistan",
+        "Grecia","Griechenland","Grèce","Греция","雅典","アテネ","Αθήνα"],
+ "cy": ["塞浦路斯","キプロス","키프로스","Κύπρο","קפריסין","قبرص","Kıbrıs","Chipre","Zypern","Chypre",
+        "Кипр"],
+ "id": ["印尼","印度尼西亞","印度尼西亚","インドネシア","인도네시아","อินโดนีเซีย","Ινδονησία",
+        "אינדונזיה","إندونيسيا","Endonezya","Indonesien","Индонезия","雅加達","雅加达"],
+ "vn": ["越南","ベトナム","베트남","เวียดนาม","Βιετνάμ","וייטנאם","فيتنام","Việt Nam","Вьетнам",
+        "河內","河内"],
+ "es": ["西班牙","スペイン","스페인","สเปน","Ισπανία","ספרד","إسبانيا","İspanya","España","Spanien",
+        "Espagne","Испания","馬德里","马德里"],
+ "it": ["意大利","義大利","イタリア","이탈리아","อิตาลี","Ιταλία","איטליה","إيطاليا","İtalya","Italien",
+        "Italie","Италия","羅馬","罗马"],
+ "nl": ["荷蘭","荷兰","オランダ","네덜란드","Ολλανδία","הולנד","هولندا","Hollanda","Países Bajos",
+        "Niederlande","Pays-Bas","Nederland","Нидерланды"],
+ "ca": ["加拿大","カナダ","캐나다","แคนาดา","Καναδά","קנדה","كندا","Kanada","Canadá","Канада",
+        "渥太華","渥太华"],
+ "au": ["澳大利亞","澳大利亚","澳洲","オーストラリア","호주","ออสเตรเลีย","Αυστραλία","אוסטרליה",
+        "أستراليا","Avustralya","Australien","Australie","Австралия","堪培拉"],
+ "in-h": ["拉達克","拉达克","Ladakh"],
+ "sy-kur": ["敘利亞民主軍","叙利亚民主军","قسد","YPG"],
+}
+# Latin-script gaps the first measurement exposed: an adjective form no term
+# covered, an abbreviation the trade press uses, a country left out of its own
+# gazetteer entry to dodge a collision that word boundaries already prevent.
+MULTILINGUAL.update({
+ "ne": MULTILINGUAL["ne"] + ["niger", "tiani", "niamey"],
+ "us": MULTILINGUAL["us"] + ["u.s. army", "u.s. navy", "u.s. air force", "u.s. marine",
+        "us army", "us navy", "us air force", "us marine", "u.s. military", "us military",
+        "american forces", "washington"],
+ "ru": MULTILINGUAL["ru"] + ["russisch*", "russe*", "ruso*", "russo*", "ryss*", "rosyjsk*"],
+ "ua": MULTILINGUAL["ua"] + ["ukrainisch*", "ukrainien*", "ucranian*", "ucraniano*",
+        "ukrainsk*", "ukraińsk*"],
+ "uk": MULTILINGUAL["uk"] + ["ब्रिटेन", "britisch*", "britannique*", "británic*"],
+ "tw": MULTILINGUAL["tw"] + ["對台", "对台", "台軍", "台军"],
+ "il": MULTILINGUAL["il"] + ["israelisch*", "israélien*", "israelí*", "ισραηλιν"],
+ # a second round, from the same measurement: plain adjectives, national arms
+ # firms (a Roketsan story is a Turkey story), and provinces named without
+ # their country.
+ "in-c": ["india", "indian", "indian air force", "indian navy"],
+ "cn2": [],
+ "sd2": [],
+})
+MULTILINGUAL["ru"] += ["russian"]
+MULTILINGUAL["cn"] += ["xi jinping", "chinese army", "chinese navy"]
+MULTILINGUAL["sd"] += ["kordofan", "blue nile", "sudanese armed forces"]
+MULTILINGUAL["tr"] += ["roketsan", "aselsan", "baykar", "bayraktar"]
+MULTILINGUAL["balk"] = ["sarajevo", "サラエボ", "塞拉耶佛", "belgrade", "kosovo", "pristina"]
+MULTILINGUAL["us"] += ["boeing", "lockheed", "raytheon", "northrop", "general dynamics",
+                       "anduril", "l3harris"]
+MULTILINGUAL.pop("cn2"); MULTILINGUAL.pop("sd2")
+
+for _pid, _terms in MULTILINGUAL.items():
+    TERM_EXTRAS.setdefault(_pid, []).extend(_terms)
+
+
 def _merge_gazetteer():
     """Fold the additions into GEO3 in place, so everything downstream — the
     matcher, the payload, the map — sees one gazetteer."""
@@ -816,6 +1001,100 @@ _AREA_NAMES = {"Darfur", "Tigray", "Amhara", "Donbas", "Crimea", "Kashmir", "Bal
                "North Kivu", "South Kivu", "Golan Heights", "Senkaku Islands",
                "South Lebanon", "Line of Control", "Manipur", "Assam", "Gotland", "Okinawa",
                "Guam", "Bougainville", "Kinmen", "Essequibo"}
+
+
+# Cities and waterways in the same scripts, so a story about Kyiv pins on Kyiv
+# rather than on the middle of Ukraine whatever language it arrived in.
+PRECISE.update({
+ "基輔": ("Kyiv", 50.45, 30.52), "基辅": ("Kyiv", 50.45, 30.52),
+ "キーウ": ("Kyiv", 50.45, 30.52), "키이우": ("Kyiv", 50.45, 30.52),
+ "Kiew": ("Kyiv", 50.45, 30.52), "Kijów": ("Kyiv", 50.45, 30.52),
+ "Kiova": ("Kyiv", 50.45, 30.52), "Κίεβο": ("Kyiv", 50.45, 30.52),
+ "كييف": ("Kyiv", 50.45, 30.52), "קייב": ("Kyiv", 50.45, 30.52),
+ "哈爾科夫": ("Kharkiv", 49.99, 36.23), "哈尔科夫": ("Kharkiv", 49.99, 36.23),
+ "ハルキウ": ("Kharkiv", 49.99, 36.23), "Charkiw": ("Kharkiv", 49.99, 36.23),
+ "敖德薩": ("Odesa", 46.48, 30.73), "敖德萨": ("Odesa", 46.48, 30.73),
+ "オデーサ": ("Odesa", 46.48, 30.73),
+ "頓巴斯": ("Donbas", 48.30, 38.20), "顿巴斯": ("Donbas", 48.30, 38.20),
+ "扎波羅熱": ("Zaporizhzhia", 47.84, 35.14), "扎波罗热": ("Zaporizhzhia", 47.84, 35.14),
+ "克里米亞": ("Crimea", 45.30, 34.30), "克里米亚": ("Crimea", 45.30, 34.30),
+ "クリミア": ("Crimea", 45.30, 34.30), "Krim": ("Crimea", 45.30, 34.30),
+ "莫斯科": ("Moscow", 55.75, 37.62), "モスクワ": ("Moscow", 55.75, 37.62),
+ "모스크바": ("Moscow", 55.75, 37.62), "Moskau": ("Moscow", 55.75, 37.62),
+ "Moscou": ("Moscow", 55.75, 37.62), "Moscú": ("Moscow", 55.75, 37.62),
+ "Москва": ("Moscow", 55.75, 37.62), "موسكو": ("Moscow", 55.75, 37.62),
+ "加沙": ("Gaza", 31.50, 34.47), "加薩": ("Gaza", 31.50, 34.47),
+ "ガザ": ("Gaza", 31.50, 34.47), "가자지구": ("Gaza", 31.50, 34.47),
+ "غزة": ("Gaza", 31.50, 34.47), "עזה": ("Gaza", 31.50, 34.47),
+ "Γάζα": ("Gaza", 31.50, 34.47), "กาซา": ("Gaza", 31.50, 34.47),
+ "拉法": ("Rafah", 31.29, 34.25), "رفح": ("Rafah", 31.29, 34.25),
+ "汗尤尼斯": ("Khan Younis", 31.34, 34.30), "خان يونس": ("Khan Younis", 31.34, 34.30),
+ "特拉維夫": ("Tel Aviv", 32.08, 34.78), "特拉维夫": ("Tel Aviv", 32.08, 34.78),
+ "テルアビブ": ("Tel Aviv", 32.08, 34.78), "تل أبيب": ("Tel Aviv", 32.08, 34.78),
+ "耶路撒冷": ("Jerusalem", 31.78, 35.22), "エルサレム": ("Jerusalem", 31.78, 35.22),
+ "예루살렘": ("Jerusalem", 31.78, 35.22), "القدس": ("Jerusalem", 31.78, 35.22),
+ "德黑蘭": ("Tehran", 35.69, 51.39), "德黑兰": ("Tehran", 35.69, 51.39),
+ "テヘラン": ("Tehran", 35.69, 51.39), "테헤란": ("Tehran", 35.69, 51.39),
+ "طهران": ("Tehran", 35.69, 51.39), "تهران": ("Tehran", 35.69, 51.39),
+ "大馬士革": ("Damascus", 33.51, 36.29), "大马士革": ("Damascus", 33.51, 36.29),
+ "ダマスカス": ("Damascus", 33.51, 36.29), "دمشق": ("Damascus", 33.51, 36.29),
+ "阿勒頗": ("Aleppo", 36.20, 37.13), "阿勒颇": ("Aleppo", 36.20, 37.13),
+ "حلب": ("Aleppo", 36.20, 37.13),
+ "貝魯特": ("Beirut", 33.89, 35.50), "贝鲁特": ("Beirut", 33.89, 35.50),
+ "ベイルート": ("Beirut", 33.89, 35.50), "بيروت": ("Beirut", 33.89, 35.50),
+ "薩那": ("Sanaa", 15.35, 44.21), "萨那": ("Sanaa", 15.35, 44.21),
+ "صنعاء": ("Sanaa", 15.35, 44.21),
+ "巴格達": ("Baghdad", 33.31, 44.36), "巴格达": ("Baghdad", 33.31, 44.36),
+ "バグダッド": ("Baghdad", 33.31, 44.36), "بغداد": ("Baghdad", 33.31, 44.36),
+ "喀布爾": ("Kabul", 34.53, 69.17), "喀布尔": ("Kabul", 34.53, 69.17),
+ "カブール": ("Kabul", 34.53, 69.17), "كابل": ("Kabul", 34.53, 69.17),
+ "喀土穆": ("Khartoum", 15.55, 32.53), "الخرطوم": ("Khartoum", 15.55, 32.53),
+ "摩加迪沙": ("Mogadishu", 2.04, 45.34), "مقديشو": ("Mogadishu", 2.04, 45.34),
+ "的黎波里": ("Tripoli", 32.89, 13.19), "طرابلس": ("Tripoli", 32.89, 13.19),
+ "開羅": ("Cairo", 30.04, 31.24), "开罗": ("Cairo", 30.04, 31.24),
+ "カイロ": ("Cairo", 30.04, 31.24), "القاهرة": ("Cairo", 30.04, 31.24),
+ "安卡拉": ("Ankara", 39.93, 32.86), "アンカラ": ("Ankara", 39.93, 32.86),
+ "Άγκυρα": ("Ankara", 39.93, 32.86), "أنقرة": ("Ankara", 39.93, 32.86),
+ "伊斯坦布爾": ("Istanbul", 41.01, 28.98), "伊斯坦布尔": ("Istanbul", 41.01, 28.98),
+ "イスタンブール": ("Istanbul", 41.01, 28.98), "إسطنبول": ("Istanbul", 41.01, 28.98),
+ "台北": ("Taipei", 25.03, 121.57), "타이베이": ("Taipei", 25.03, 121.57),
+ "北京": ("Beijing", 39.90, 116.41), "ペキン": ("Beijing", 39.90, 116.41),
+ "베이징": ("Beijing", 39.90, 116.41), "بكين": ("Beijing", 39.90, 116.41),
+ "首爾": ("Seoul", 37.57, 126.98), "首尔": ("Seoul", 37.57, 126.98),
+ "서울": ("Seoul", 37.57, 126.98), "ソウル": ("Seoul", 37.57, 126.98),
+ "平壤": ("Pyongyang", 39.02, 125.75), "평양": ("Pyongyang", 39.02, 125.75),
+ "ピョンヤン": ("Pyongyang", 39.02, 125.75),
+ "東京": ("Tokyo", 35.68, 139.69), "东京": ("Tokyo", 35.68, 139.69),
+ "도쿄": ("Tokyo", 35.68, 139.69), "طوكيو": ("Tokyo", 35.68, 139.69),
+ "曼谷": ("Bangkok", 13.75, 100.50), "バンコク": ("Bangkok", 13.75, 100.50),
+ "방콕": ("Bangkok", 13.75, 100.50), "กรุงเทพ": ("Bangkok", 13.75, 100.50),
+ "金邊": ("Phnom Penh", 11.56, 104.92), "金边": ("Phnom Penh", 11.56, 104.92),
+ "พนมเปญ": ("Phnom Penh", 11.56, 104.92),
+ "馬尼拉": ("Manila", 14.60, 120.98), "马尼拉": ("Manila", 14.60, 120.98),
+ "マニラ": ("Manila", 14.60, 120.98),
+ "雅加達": ("Jakarta", -6.21, 106.85), "雅加达": ("Jakarta", -6.21, 106.85),
+ "加拉加斯": ("Caracas", 10.49, -66.88), "カラカス": ("Caracas", 10.49, -66.88),
+ "太子港": ("Port-au-Prince", 18.59, -72.31),
+ "波哥大": ("Bogotá", 4.71, -74.07),
+ "華盛頓": ("Washington DC", 38.90, -77.04), "华盛顿": ("Washington DC", 38.90, -77.04),
+ "ワシントン": ("Washington DC", 38.90, -77.04), "五角大樓": ("The Pentagon", 38.87, -77.06),
+ "五角大楼": ("The Pentagon", 38.87, -77.06), "ペンタゴン": ("The Pentagon", 38.87, -77.06),
+ "البنتاغون": ("The Pentagon", 38.87, -77.06),
+ "倫敦": ("London", 51.51, -0.13), "伦敦": ("London", 51.51, -0.13),
+ "ロンドン": ("London", 51.51, -0.13), "런던": ("London", 51.51, -0.13),
+ "巴黎": ("Paris", 48.86, 2.35), "パリ": ("Paris", 48.86, 2.35), "باريس": ("Paris", 48.86, 2.35),
+ "柏林": ("Berlin", 52.52, 13.40), "ベルリン": ("Berlin", 52.52, 13.40),
+ "戈馬": ("Goma", -1.68, 29.23), "戈马": ("Goma", -1.68, 29.23),
+ "霍爾木茲": ("Strait of Hormuz", 26.57, 56.25), "霍尔木兹": ("Strait of Hormuz", 26.57, 56.25),
+ "ホルムズ": ("Strait of Hormuz", 26.57, 56.25), "호르무즈": ("Strait of Hormuz", 26.57, 56.25),
+ "مضيق هرمز": ("Strait of Hormuz", 26.57, 56.25),
+ "紅海": ("Red Sea", 20.00, 38.50), "红海": ("Red Sea", 20.00, 38.50),
+ "紅海航線": ("Red Sea", 20.00, 38.50), "البحر الأحمر": ("Red Sea", 20.00, 38.50),
+ "南シナ海": ("South China Sea", 13.00, 114.00), "南海": ("South China Sea", 13.00, 114.00),
+ "남중국해": ("South China Sea", 13.00, 114.00),
+ "台灣海峽": ("Taiwan Strait", 24.50, 119.50), "台湾海峡": ("Taiwan Strait", 24.50, 119.50),
+ "台海": ("Taiwan Strait", 24.50, 119.50), "대만해협": ("Taiwan Strait", 24.50, 119.50),
+})
 
 
 def _rank(label):
@@ -1158,6 +1437,66 @@ def precise_for(text):
     return None, None
 
 
+
+# --------------------------------------------------------------------------
+# Which country a story is IN, not merely which countries it names.
+#
+# "Krieg im Libanon: Tote bei israelischem Luftangriff" names Lebanon and
+# Israel. Taking whichever comes first in the gazetteer put the pin on Israel,
+# which is the actor, not the place. Almost every language marks the location
+# with a preposition or particle immediately before the name - im, in, en, à,
+# sur, в, на, στη, في, ב, ที่, 在 - so a name carrying one of those is treated
+# as the scene and wins. Nothing marked means nothing changes: the old order
+# still decides, so this can only move a pin off an actor and onto a place.
+# --------------------------------------------------------------------------
+LOCATIVE = [
+ " in ", " im ", " en ", " au ", " aux ", " a ", " à ", " al ", " nel ", " nella ",
+ " on ", " over ", " near ", " into ", " inside ", " across ", " throughout ",
+ " sur ", " dans ", " van ", " naar ", " uit ", " w ", " na ", " do ", " em ", " no ",
+ " v ", " в ", " на ", " у ", " до ", " στη", " στο", " την ", " στην ",
+ "في ", "ب", "ל", "ב", "ที่", "ใน", "在", "で", "へ", "에서", "로",
+]
+_LOC_MAX = 12          # how far back to look for the marker
+
+
+def _first_pos(text, compiled):
+    """Where a place's terms first appear in the text, or None."""
+    best = None
+    for c in compiled:
+        if isinstance(c, str):
+            i = text.find(c)
+        else:
+            mo = c.search(text)
+            i = mo.start() if mo else -1
+        if i >= 0 and (best is None or i < best):
+            best = i
+    return best
+
+
+def _is_scene(text, pos):
+    """True when the name at this position is preceded by a locative marker."""
+    if pos is None:
+        return False
+    window = text[max(0, pos - _LOC_MAX):pos]
+    return any(mark in window for mark in LOCATIVE)
+
+
+def scene_first(text, places):
+    """Reorder matched places so any marked as the scene of the story lead."""
+    if len(places) < 2:
+        return places
+    terms = {}
+    for _rid, _rl, sublist in GEO3_C:
+        for _sid, _sl, plist in sublist:
+            for pid, _pl, compiled in plist:
+                if pid in places:
+                    terms[pid] = compiled
+    scene, rest = [], []
+    for pid in places:
+        (scene if _is_scene(text, _first_pos(text, terms.get(pid, []))) else rest).append(pid)
+    return scene + rest
+
+
 def point_for(text, places, subs, regions):
     """The most specific point a story resolved to: a named sub-national place
     if there is one, otherwise the country, otherwise the subregion or region.
@@ -1165,6 +1504,7 @@ def point_for(text, places, subs, regions):
     label, point = precise_for(text)
     if point:
         return label, point
+    places = scene_first(text, places)
     for level in (places, subs, regions):
         for pid in level:
             if pid in COORDS:
