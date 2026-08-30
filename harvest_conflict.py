@@ -655,6 +655,182 @@ COORDS.update({
  "au": [-25.0, 134.0], "bn": [4.5, 114.7], "mv": [3.2, 73.2],
 })
 
+# Sub-national placement. Matched before the country layer, so a story naming
+# Kharkiv is pinned on Kharkiv rather than the middle of Ukraine. Longest match
+# wins, so "north kivu" beats "kivu" and "port sudan" beats "sudan".
+PRECISE = {
+ # --- Ukraine & Russia ---
+ "kyiv": ("Kyiv", 50.45, 30.52), "kiev": ("Kyiv", 50.45, 30.52),
+ "kharkiv": ("Kharkiv", 49.99, 36.23), "odesa": ("Odesa", 46.48, 30.73),
+ "odessa": ("Odesa", 46.48, 30.73), "lviv": ("Lviv", 49.84, 24.03),
+ "dnipro": ("Dnipro", 48.46, 35.05), "zaporizhzhia": ("Zaporizhzhia", 47.84, 35.14),
+ "kherson": ("Kherson", 46.64, 32.61), "mykolaiv": ("Mykolaiv", 46.98, 31.99),
+ "donetsk": ("Donetsk", 48.02, 37.80), "luhansk": ("Luhansk", 48.57, 39.31),
+ "donbas": ("Donbas", 48.30, 38.20), "mariupol": ("Mariupol", 47.10, 37.55),
+ "bakhmut": ("Bakhmut", 48.60, 38.00), "avdiivka": ("Avdiivka", 48.14, 37.75),
+ "pokrovsk": ("Pokrovsk", 48.28, 37.18), "kupiansk": ("Kupiansk", 49.71, 37.62),
+ "sumy": ("Sumy", 50.91, 34.80), "chernihiv": ("Chernihiv", 51.49, 31.29),
+ "crimea": ("Crimea", 45.30, 34.40), "sevastopol": ("Sevastopol", 44.62, 33.53),
+ "moscow": ("Moscow", 55.75, 37.62), "kremlin": ("Moscow", 55.75, 37.62),
+ "belgorod": ("Belgorod", 50.60, 36.59), "kursk region": ("Kursk", 51.73, 36.19),
+ "rostov": ("Rostov-on-Don", 47.24, 39.71), "novorossiysk": ("Novorossiysk", 44.72, 37.77),
+ "st petersburg": ("St Petersburg", 59.94, 30.31), "vladivostok": ("Vladivostok", 43.12, 131.89),
+ # --- Israel, Palestine, Lebanon, Syria ---
+ "gaza city": ("Gaza City", 31.51, 34.45), "gaza strip": ("Gaza", 31.42, 34.35),
+ "gaza": ("Gaza", 31.42, 34.35), "rafah": ("Rafah", 31.29, 34.25),
+ "khan younis": ("Khan Younis", 31.34, 34.30), "deir al-balah": ("Deir al-Balah", 31.42, 34.35),
+ "west bank": ("West Bank", 31.95, 35.30), "jenin": ("Jenin", 32.46, 35.30),
+ "nablus": ("Nablus", 32.22, 35.26), "hebron": ("Hebron", 31.53, 35.10),
+ "ramallah": ("Ramallah", 31.90, 35.21), "jerusalem": ("Jerusalem", 31.78, 35.22),
+ "tel aviv": ("Tel Aviv", 32.09, 34.78), "haifa": ("Haifa", 32.79, 34.99),
+ "golan": ("Golan Heights", 32.95, 35.75), "sderot": ("Sderot", 31.52, 34.60),
+ "beirut": ("Beirut", 33.89, 35.50), "south lebanon": ("South Lebanon", 33.30, 35.40),
+ "tyre": ("Tyre", 33.27, 35.20), "baalbek": ("Baalbek", 34.01, 36.21),
+ "damascus": ("Damascus", 33.51, 36.29), "aleppo": ("Aleppo", 36.20, 37.13),
+ "idlib": ("Idlib", 35.93, 36.63), "homs": ("Homs", 34.73, 36.71),
+ "latakia": ("Latakia", 35.52, 35.79), "deir ez-zor": ("Deir ez-Zor", 35.34, 40.14),
+ "hasakah": ("Hasakah", 36.50, 40.75), "rojava": ("North-east Syria", 36.40, 40.70),
+ # --- Iraq, Iran, Gulf, Yemen ---
+ "baghdad": ("Baghdad", 33.31, 44.36), "mosul": ("Mosul", 36.35, 43.13),
+ "erbil": ("Erbil", 36.19, 44.01), "basra": ("Basra", 30.51, 47.78),
+ "fallujah": ("Fallujah", 33.35, 43.78), "kirkuk": ("Kirkuk", 35.47, 44.39),
+ "tehran": ("Tehran", 35.69, 51.39), "isfahan": ("Isfahan", 32.65, 51.67),
+ "natanz": ("Natanz", 33.72, 51.73), "fordow": ("Fordow", 34.88, 50.99),
+ "bandar abbas": ("Bandar Abbas", 27.19, 56.28), "strait of hormuz": ("Strait of Hormuz", 26.57, 56.25),
+ "riyadh": ("Riyadh", 24.71, 46.68), "jeddah": ("Jeddah", 21.49, 39.19),
+ "doha": ("Doha", 25.29, 51.53), "al udeid": ("Al Udeid air base", 25.12, 51.32),
+ "abu dhabi": ("Abu Dhabi", 24.45, 54.38), "dubai": ("Dubai", 25.20, 55.27),
+ "manama": ("Manama", 26.23, 50.59), "kuwait city": ("Kuwait City", 29.38, 47.99),
+ "muscat": ("Muscat", 23.59, 58.41),
+ "sanaa": ("Sanaa", 15.37, 44.19), "sana'a": ("Sanaa", 15.37, 44.19),
+ "aden": ("Aden", 12.79, 45.02), "hodeidah": ("Hodeidah", 14.80, 42.95),
+ "marib": ("Marib", 15.46, 45.32), "bab el-mandeb": ("Bab el-Mandeb", 12.58, 43.33),
+ "red sea": ("Red Sea", 20.00, 38.00),
+ # --- Turkey, Caucasus, Central Asia, Afghanistan ---
+ "ankara": ("Ankara", 39.93, 32.86), "istanbul": ("Istanbul", 41.01, 28.98),
+ "incirlik": ("Incirlik air base", 37.00, 35.43), "diyarbakir": ("Diyarbakır", 37.91, 40.24),
+ "yerevan": ("Yerevan", 40.18, 44.51), "baku": ("Baku", 40.41, 49.87),
+ "nagorno-karabakh": ("Nagorno-Karabakh", 39.82, 46.75), "karabakh": ("Nagorno-Karabakh", 39.82, 46.75),
+ "tbilisi": ("Tbilisi", 41.72, 44.78), "abkhazia": ("Abkhazia", 43.00, 41.00),
+ "south ossetia": ("South Ossetia", 42.35, 43.97),
+ "kabul": ("Kabul", 34.53, 69.17), "kandahar": ("Kandahar", 31.61, 65.71),
+ "herat": ("Herat", 34.35, 62.20), "jalalabad": ("Jalalabad", 34.43, 70.45),
+ "dushanbe": ("Dushanbe", 38.56, 68.79), "tashkent": ("Tashkent", 41.30, 69.24),
+ "almaty": ("Almaty", 43.24, 76.89), "astana": ("Astana", 51.17, 71.45),
+ # --- South Asia ---
+ "islamabad": ("Islamabad", 33.68, 73.05), "rawalpindi": ("Rawalpindi", 33.60, 73.04),
+ "karachi": ("Karachi", 24.86, 67.01), "peshawar": ("Peshawar", 34.01, 71.58),
+ "quetta": ("Quetta", 30.18, 66.98), "balochistan": ("Balochistan", 28.50, 65.50),
+ "kashmir": ("Kashmir", 34.08, 74.80), "srinagar": ("Srinagar", 34.08, 74.80),
+ "line of control": ("Line of Control", 34.20, 74.20),
+ "new delhi": ("New Delhi", 28.61, 77.21), "mumbai": ("Mumbai", 19.08, 72.88),
+ "manipur": ("Manipur", 24.66, 93.91), "assam": ("Assam", 26.20, 92.94),
+ "dhaka": ("Dhaka", 23.81, 90.41), "chittagong hill tracts": ("Chittagong Hill Tracts", 22.60, 92.20),
+ "colombo": ("Colombo", 6.93, 79.86), "kathmandu": ("Kathmandu", 27.72, 85.32),
+ # --- East & Southeast Asia ---
+ "beijing": ("Beijing", 39.90, 116.41), "shanghai": ("Shanghai", 31.23, 121.47),
+ "taiwan strait": ("Taiwan Strait", 24.50, 119.50), "taipei": ("Taipei", 25.03, 121.57),
+ "kinmen": ("Kinmen", 24.44, 118.32), "south china sea": ("South China Sea", 13.00, 114.00),
+ "spratly": ("Spratly Islands", 9.50, 114.00), "paracel": ("Paracel Islands", 16.50, 112.00),
+ "scarborough shoal": ("Scarborough Shoal", 15.15, 117.76),
+ "senkaku": ("Senkaku Islands", 25.75, 123.48), "diaoyu": ("Senkaku Islands", 25.75, 123.48),
+ "xinjiang": ("Xinjiang", 41.00, 85.00), "tibet": ("Tibet", 31.00, 88.00),
+ "pyongyang": ("Pyongyang", 39.04, 125.76), "yongbyon": ("Yongbyon", 39.80, 125.75),
+ "panmunjom": ("Panmunjom", 37.96, 126.68), "seoul": ("Seoul", 37.57, 126.98),
+ "tokyo": ("Tokyo", 35.68, 139.69), "okinawa": ("Okinawa", 26.34, 127.80),
+ "guam": ("Guam", 13.44, 144.79), "manila": ("Manila", 14.60, 120.98),
+ "mindanao": ("Mindanao", 7.50, 124.50), "jakarta": ("Jakarta", -6.21, 106.85),
+ "west papua": ("West Papua", -4.00, 138.00), "papua": ("Papua", -4.00, 138.00),
+ "naypyidaw": ("Naypyidaw", 19.75, 96.10), "yangon": ("Yangon", 16.87, 96.20),
+ "rakhine": ("Rakhine State", 20.10, 93.50), "kachin": ("Kachin State", 25.80, 97.40),
+ "karen state": ("Karen State", 17.30, 97.70), "shan state": ("Shan State", 21.50, 98.00),
+ "bangkok": ("Bangkok", 13.76, 100.50), "hanoi": ("Hanoi", 21.03, 105.85),
+ "phnom penh": ("Phnom Penh", 11.56, 104.92),
+ # --- Africa ---
+ "khartoum": ("Khartoum", 15.50, 32.56), "omdurman": ("Omdurman", 15.65, 32.48),
+ "port sudan": ("Port Sudan", 19.62, 37.22), "darfur": ("Darfur", 13.00, 24.00),
+ "el fasher": ("El Fasher", 13.63, 25.35), "nyala": ("Nyala", 12.05, 24.88),
+ "juba": ("Juba", 4.85, 31.58), "addis ababa": ("Addis Ababa", 9.03, 38.74),
+ "tigray": ("Tigray", 14.00, 38.50), "amhara": ("Amhara", 11.50, 38.00),
+ "mekelle": ("Mekelle", 13.50, 39.47), "asmara": ("Asmara", 15.34, 38.93),
+ "mogadishu": ("Mogadishu", 2.05, 45.32), "kismayo": ("Kismayo", -0.36, 42.55),
+ "puntland": ("Puntland", 8.50, 49.00), "nairobi": ("Nairobi", -1.29, 36.82),
+ "kinshasa": ("Kinshasa", -4.44, 15.27), "goma": ("Goma", -1.68, 29.22),
+ "north kivu": ("North Kivu", -0.80, 29.00), "south kivu": ("South Kivu", -3.00, 28.30),
+ "bukavu": ("Bukavu", -2.51, 28.86), "ituri": ("Ituri", 1.80, 29.90),
+ "bangui": ("Bangui", 4.39, 18.56), "n'djamena": ("N'Djamena", 12.13, 15.06),
+ "bamako": ("Bamako", 12.64, -8.00), "gao": ("Gao", 16.27, -0.04),
+ "timbuktu": ("Timbuktu", 16.77, -3.01), "ouagadougou": ("Ouagadougou", 12.37, -1.52),
+ "niamey": ("Niamey", 13.51, 2.13), "lake chad": ("Lake Chad basin", 13.00, 14.00),
+ "abuja": ("Abuja", 9.06, 7.49), "borno": ("Borno State", 11.80, 13.10),
+ "maiduguri": ("Maiduguri", 11.83, 13.15), "lagos": ("Lagos", 6.52, 3.38),
+ "tripoli libya": ("Tripoli", 32.89, 13.19), "benghazi": ("Benghazi", 32.12, 20.07),
+ "cairo": ("Cairo", 30.04, 31.24), "sinai": ("Sinai", 29.50, 33.80),
+ "cabo delgado": ("Cabo Delgado", -12.50, 39.50), "maputo": ("Maputo", -25.97, 32.57),
+ "harare": ("Harare", -17.83, 31.05), "pretoria": ("Pretoria", -25.75, 28.19),
+ "johannesburg": ("Johannesburg", -26.20, 28.05), "cape town": ("Cape Town", -33.92, 18.42),
+ # --- Europe ---
+ "brussels": ("Brussels", 50.85, 4.35), "the hague": ("The Hague", 52.08, 4.31),
+ "geneva": ("Geneva", 46.20, 6.14), "vienna": ("Vienna", 48.21, 16.37),
+ "london": ("London", 51.51, -0.13), "paris": ("Paris", 48.86, 2.35),
+ "berlin": ("Berlin", 52.52, 13.40), "ramstein": ("Ramstein air base", 49.44, 7.60),
+ "rome": ("Rome", 41.90, 12.50), "madrid": ("Madrid", 40.42, -3.70),
+ "warsaw": ("Warsaw", 52.23, 21.01), "rzeszow": ("Rzeszów", 50.04, 22.00),
+ "kaliningrad": ("Kaliningrad", 54.71, 20.51), "suwalki": ("Suwałki gap", 54.10, 23.00),
+ "minsk": ("Minsk", 53.90, 27.57), "chisinau": ("Chișinău", 47.01, 28.86),
+ "transnistria": ("Transnistria", 47.20, 29.20), "vilnius": ("Vilnius", 54.69, 25.28),
+ "riga": ("Riga", 56.95, 24.11), "tallinn": ("Tallinn", 59.44, 24.75),
+ "helsinki": ("Helsinki", 60.17, 24.94), "stockholm": ("Stockholm", 59.33, 18.07),
+ "oslo": ("Oslo", 59.91, 10.75), "gotland": ("Gotland", 57.50, 18.50),
+ "belgrade": ("Belgrade", 44.79, 20.45), "pristina": ("Pristina", 42.66, 21.16),
+ "sarajevo": ("Sarajevo", 43.86, 18.41), "black sea": ("Black Sea", 43.40, 34.30),
+ "baltic sea": ("Baltic Sea", 57.00, 19.00), "arctic circle": ("Arctic", 70.00, 20.00),
+ # --- Americas ---
+ "washington": ("Washington DC", 38.91, -77.04), "pentagon": ("The Pentagon", 38.87, -77.06),
+ "white house": ("White House", 38.90, -77.04), "new york": ("New York", 40.71, -74.01),
+ "guantanamo": ("Guantánamo Bay", 19.90, -75.15), "diego garcia": ("Diego Garcia", -7.31, 72.41),
+ "ottawa": ("Ottawa", 45.42, -75.70), "mexico city": ("Mexico City", 19.43, -99.13),
+ "bogota": ("Bogotá", 4.71, -74.07), "bogotá": ("Bogotá", 4.71, -74.07),
+ "caracas": ("Caracas", 10.49, -66.88), "essequibo": ("Essequibo", 6.00, -59.00),
+ "port-au-prince": ("Port-au-Prince", 18.59, -72.31), "havana": ("Havana", 23.11, -82.37),
+ "brasilia": ("Brasília", -15.79, -47.88), "brasília": ("Brasília", -15.79, -47.88),
+ "buenos aires": ("Buenos Aires", -34.60, -58.38), "santiago": ("Santiago", -33.45, -70.67),
+ "lima": ("Lima", -12.05, -77.04), "quito": ("Quito", -0.18, -78.47),
+ "guayaquil": ("Guayaquil", -2.19, -79.89), "tegucigalpa": ("Tegucigalpa", 14.07, -87.19),
+ "san salvador": ("San Salvador", 13.69, -89.19), "guatemala city": ("Guatemala City", 14.63, -90.51),
+ # --- Oceania ---
+ "canberra": ("Canberra", -35.28, 149.13), "darwin": ("Darwin", -12.46, 130.85),
+ "wellington": ("Wellington", -41.29, 174.78), "noumea": ("Nouméa", -22.28, 166.46),
+ "nouméa": ("Nouméa", -22.28, 166.46), "bougainville": ("Bougainville", -6.20, 155.20),
+ "port moresby": ("Port Moresby", -9.44, 147.18), "honiara": ("Honiara", -9.43, 159.95),
+}
+
+# A city beats the province it sits in: "Goma in North Kivu" should pin Goma.
+# Anything whose label reads as an area is ranked below a point.
+_AREA_WORDS = ("state", "region", "sea", "strait", "basin", "islands", "gap", "arctic",
+               "heights", "tracts", "province", "peninsula", "shoal", "circle")
+_AREA_NAMES = {"Darfur", "Tigray", "Amhara", "Donbas", "Crimea", "Kashmir", "Balochistan",
+               "Xinjiang", "Tibet", "Sinai", "Papua", "West Papua", "North-east Syria",
+               "Puntland", "Nagorno-Karabakh", "Abkhazia", "South Ossetia", "West Bank",
+               "Gaza", "Transnistria", "Ituri", "Cabo Delgado", "Mindanao",
+               "North Kivu", "South Kivu", "Golan Heights", "Senkaku Islands",
+               "South Lebanon", "Line of Control", "Manipur", "Assam", "Gotland", "Okinawa",
+               "Guam", "Bougainville", "Kinmen", "Essequibo"}
+
+
+def _rank(label):
+    low = label.lower()
+    if label in _AREA_NAMES or any(w in low for w in _AREA_WORDS):
+        return 0          # an area
+    return 1              # a point: city, base, facility
+
+
+PRECISE_C = sorted(
+    ((term, label, lat, lon, _compile(term), _rank(label))
+     for term, (label, lat, lon) in PRECISE.items()),
+    key=lambda row: (-row[5], -len(row[0])))   # points before areas, longest term first
+
+
 # --------------------------------------------------------------------------
 # Subjects
 # --------------------------------------------------------------------------
@@ -972,15 +1148,28 @@ def places_for(text):
     return (regions or ["unlocated"], subs or ["unlocated"], places or ["unlocated"])
 
 
-def point_for(places, subs, regions):
-    """The most specific point a story resolved to, or None if it named nowhere.
-    A story about several places gets the first; the map is a locator, not an
-    atlas of every mention."""
+def precise_for(text):
+    """A city, province, base or waterway named in the story. Checked before the
+    country layer so a headline about Kharkiv is pinned on Kharkiv rather than
+    the middle of Ukraine. Longest term wins."""
+    for term, label, lat, lon, rx, _rk in PRECISE_C:
+        if hit(text, [rx]):
+            return label, [lat, lon]
+    return None, None
+
+
+def point_for(text, places, subs, regions):
+    """The most specific point a story resolved to: a named sub-national place
+    if there is one, otherwise the country, otherwise the subregion or region.
+    Returns (label_or_None, point_or_None)."""
+    label, point = precise_for(text)
+    if point:
+        return label, point
     for level in (places, subs, regions):
         for pid in level:
             if pid in COORDS:
-                return COORDS[pid]
-    return None
+                return None, COORDS[pid]
+    return None, None
 
 
 def load_sources():
@@ -1059,7 +1248,7 @@ def run(dry_run=False, fixtures=None):
                 row["pl"] = places
                 row["p"] = total
                 row["y"] = reasons
-                row["ll"] = point_for(places, subs, regions)
+                row["pn"], row["ll"] = point_for(text, places, subs, regions)
                 row["st"] = src["standing"]
                 row["k"] = kind_of(text)
                 if absorb(row):

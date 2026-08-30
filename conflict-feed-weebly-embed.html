@@ -272,9 +272,14 @@
             particular are counted as unplaced under the map rather than guessed at and dropped somewhere false.
         </p>
         <p class="cf-note">
-            <strong>What a pin means.</strong> It is a point near the centroid of the most specific place the
-            story resolved to — a country, or a subregion when only that was named — offset so it does not hide
-            its neighbours. It is not the location of the event, and the offset is not a location either. A story
+            <strong>How precise a pin is.</strong> The harvester looks for a named place first: a city,
+            province, base, island or waterway — Kharkiv, Rafah, El Fasher, Goma, Ramstein, Al Udeid, Bab
+            el-Mandeb, the Taiwan Strait. Roughly 260 of those are known, and a city beats the province
+            containing it, so "M23 advances on Goma in North Kivu" pins Goma rather than the province. Only when
+            no such place is named does the pin fall back to a country centroid, then a subregion, then a region.
+            The row and the popup both name whichever level was used, so you can always see how precise a given
+            pin is. A country-level pin is not the location of an event, and the small offset that keeps
+            neighbouring pins apart is not a location either. A story
             about a strike in eastern Ukraine sits at the middle of Ukraine, because the feed reads headlines, not
             coordinates. Treat the map as a locator for what is being covered where, not as a map of events.
         </p>
@@ -291,7 +296,7 @@
         </p>
         <p class="cf-note">
             <strong>Why some stories are not mapped.</strong> A story is placed only if its headline or snippet
-            names somewhere the gazetteer knows. Two things keep that number down. Headlines often name no place
+            names somewhere the gazetteer or the place table knows. Two things keep that number down. Headlines often name no place
             at all — "defence budget raised", "arms exports approved" — and those are genuinely unplaceable.
             And the gazetteer only knows the places written into it: it carries 217 entries, including capitals
             and demonyms, because headlines say Kyiv, Pentagon and Israeli far more often than they say the
@@ -504,7 +509,9 @@ function timeAgo(ts) {
 }
 function langName(c) { return state.languages[c] || c; }
 function placeLabel(item) {
-    // name the most specific thing known: the place, else the subregion, else the region
+    // a named city, province or base if the harvest found one, then the place,
+    // the subregion, the region
+    if (item.pin) return item.pin;
     const spots = (item.spots || []).filter(p => p !== 'unlocated');
     const subs = (item.subs || []).filter(p => p !== 'unlocated');
     const regs = (item.places || []).filter(p => p !== 'unlocated');
@@ -555,7 +562,7 @@ async function load() {
         score: i.p || 0, why: i.y || [], places: i.w || ['unlocated'],
         standing: i.st || 'press', kinds: i.k || ['escalation'],
         subs: i.sr || ['unlocated'], spots: i.pl || ['unlocated'],
-        ll: (i.ll && i.ll.length === 2) ? i.ll : null
+        ll: (i.ll && i.ll.length === 2) ? i.ll : null, pin: i.pn || null
     }));
     state.docScore = data.notable_score || 3;
     state.standings = data.standings || [];

@@ -54,10 +54,17 @@ The pins are built from the same filtered set as the list, so every toggle appli
 that named nowhere in particular are counted as unplaced beneath the map rather than dropped
 somewhere false.
 
-A pin is the centroid of the most specific place a story resolved to — a country, or a subregion when
-only that was named. **It is not the location of the event.** A strike in eastern Ukraine sits at the
-middle of Ukraine, because the feed reads headlines, not coordinates. The map locates coverage, not
-events.
+### How precise a pin is
+
+The harvester looks for a named place first — roughly **260 cities, provinces, bases, islands and
+waterways**: Kharkiv, Rafah, El Fasher, Goma, Mekelle, Ramstein, Al Udeid, Diego Garcia, Bab
+el-Mandeb, the Taiwan Strait, the Line of Control. A point beats the area containing it, so "M23
+advances on Goma in North Kivu" pins Goma, not the province.
+
+Only when no such place is named does the pin fall back to a country centroid, then a subregion, then
+a region. Both the row and the popup name whichever level was used, so the precision of any pin is
+visible rather than implied. A country-level pin is not the location of an event, and the small
+offset that separates neighbouring pins is not a location either.
 
 The top bar reports how many of the whole wire are placed, and the strip under the map reports how
 many of the current filter are drawn and how many are unplaced.
