@@ -248,16 +248,18 @@
         </p>
         <p class="cf-note">
             <strong>The map.</strong> Satellite imagery from Esri's free World Imagery layer — no account, no
-            key, nothing tracked beyond the tiles your browser requests. Every story that resolved to a place is
-            drawn at that place; several stories on one point collapse into a single pin carrying the count, and
-            clicking it lists them, each linking out to the publisher exactly as the rows do. The pins are built
-            from the same filtered set as the list, so every toggle above applies to both — filter to
-            de-escalation in the Levant and the map shows only that. Stories that named nowhere in particular are
-            counted as unplaced under the map rather than being guessed at and dropped somewhere false.
+            key, nothing tracked beyond the tiles your browser requests. Every story that resolved to a place
+            gets its own pin, and clicking one opens that story at its publisher exactly as a row does. Stories
+            resolving to the same country would sit on top of each other, so each is nudged onto a ring around
+            the centroid: a country with forty stories shows forty pins fanned around it rather than one. The
+            placement is deterministic, so a pin does not jump between renders. The pins are built from the same
+            filtered set as the list, so every toggle above applies to both. Stories that named nowhere in
+            particular are counted as unplaced under the map rather than guessed at and dropped somewhere false.
         </p>
         <p class="cf-note">
-            <strong>What a pin means.</strong> It is the centroid of the most specific place the story resolved
-            to — a country, or a subregion when only that was named. It is not the location of the event. A story
+            <strong>What a pin means.</strong> It is a point near the centroid of the most specific place the
+            story resolved to — a country, or a subregion when only that was named — offset so it does not hide
+            its neighbours. It is not the location of the event, and the offset is not a location either. A story
             about a strike in eastern Ukraine sits at the middle of Ukraine, because the feed reads headlines, not
             coordinates. Treat the map as a locator for what is being covered where, not as a map of events.
         </p>
@@ -271,6 +273,17 @@
             bidding wars, culture wars, wars of words, battles for market share, battleground states. Sport,
             where attacks and battles are constant. The shooter franchises. The status line reports how many
             stories each harvest refused.
+        </p>
+        <p class="cf-note">
+            <strong>Why some stories are not mapped.</strong> A story is placed only if its headline or snippet
+            names somewhere the gazetteer knows. Two things keep that number down. Headlines often name no place
+            at all — "defence budget raised", "arms exports approved" — and those are genuinely unplaceable.
+            And the gazetteer only knows the places written into it: it carries 217 entries, including capitals
+            and demonyms, because headlines say Kyiv, Pentagon and Israeli far more often than they say the
+            country. Anything it does not carry falls to unplaced. The list is in <code>ADDITIONS</code> and
+            <code>TERM_EXTRAS</code> at the top of <code>harvest_conflict.py</code> and is meant to grow — adding
+            a city, a force name or an armed group is one line, and the next harvest maps everything that names
+            it.
         </p>
         <p class="cf-note">
             <strong>Limits worth knowing.</strong> The gate is mechanical: it reads words, not meaning. Casualty
@@ -543,8 +556,10 @@ async function load() {
     const c = data.counts || {};
     const ageH = state.generated ? (Date.now() - state.generated) / 3600000 : null;
     const docd = state.items.filter(i => i.score >= state.docScore).length;
+    const mappable = state.items.filter(i => i.ll).length;
     setStatus(
-        (c.stories || state.items.length) + ' stories · ' + docd + ' well-documented · ' + (c.too_local ? c.too_local + ' too local · ' : '') +
+        (c.stories || state.items.length) + ' stories · ' +
+        mappable + ' placed on the map · ' + docd + ' well-documented · ' + (c.too_local ? c.too_local + ' too local · ' : '') +
         (c.refused ? c.refused + ' refused · ' : '') +
         (c.languages || new Set(state.items.map(i => i.lang)).size) + ' languages · ' +
         (c.wires_ok || '?') + '/' + (c.wires_total || '?') + ' wires answered · harvested ' +
@@ -926,41 +941,51 @@ function renderMap(items) {
     if (!cfMap || !cfLayer) return;
     cfLayer.clearLayers();
 
-    // one pin per point, however many stories sit on it
-    const byPoint = new Map();
-    let unplaced = 0;
+    // Every story gets its own pin. Stories resolving to the same country would
+    // otherwise sit on top of each other, so each is nudged onto a ring around
+    // the centroid — deterministic, so a pin does not move between renders.
+    const seenAt = new Map();
+    let mapped = 0, unplaced = 0;
+
     items.forEach(i => {
         if (!i.ll || i.ll.length !== 2) { unplaced++; return; }
+        mapped++;
         const key = i.ll[0] + ',' + i.ll[1];
-        if (!byPoint.has(key)) byPoint.set(key, { ll: i.ll, items: [] });
-        byPoint.get(key).items.push(i);
-    });
+        const n = seenAt.get(key) || 0;
+        seenAt.set(key, n + 1);
 
-    byPoint.forEach(group => {
-        const n = group.items.length;
-        const size = Math.min(30, 12 + Math.round(Math.sqrt(n) * 5));
-        const colour = TOPIC_COLOR[group.items[0].topics[0]] || '#a49f98';
+        let lat = i.ll[0], lon = i.ll[1];
+        if (n > 0) {
+            const ring = Math.ceil(Math.sqrt(n));          // 1, 2, 3 … outward
+            const perRing = ring * 6;
+            const idx = n - ((ring - 1) * (ring - 1));
+            const angle = (idx / perRing) * Math.PI * 2;
+            const r = 0.9 * ring;                          // degrees
+            lat += r * Math.sin(angle) * 0.75;
+            lon += r * Math.cos(angle) / Math.max(0.25, Math.cos(lat * Math.PI / 180));
+        }
+
+        const colour = TOPIC_COLOR[i.topics[0]] || '#a49f98';
+        const size = i.score >= state.docScore ? 13 : 10;
         const icon = L.divIcon({
             className: '',
             html: '<div class="cf-pin" style="width:' + size + 'px;height:' + size + 'px;background:' +
-                  colour + ';">' + (n > 1 ? n : '') + '</div>',
+                  colour + ';opacity:' + (n > 0 ? 0.92 : 1) + ';"></div>',
             iconSize: [size, size], iconAnchor: [size / 2, size / 2]
         });
-        const marker = L.marker(group.ll, { icon: icon }).addTo(cfLayer);
-        const head = '<div class="cf-pop-place">' + esc(placeNameFor(group.items[0])) +
-                     (n > 1 ? ' · ' + n + ' stories' : '') + '</div>';
-        const body = group.items.slice(0, 12).map(i =>
+        const marker = L.marker([lat, lon], { icon: icon, title: i.title }).addTo(cfLayer);
+        marker.bindPopup(
+            '<div class="cf-pop-place">' + esc(placeLabel(i)) + ' · ' + esc(i.source) + '</div>' +
             '<a href="' + esc(i.link) + '" target="_blank" rel="noopener noreferrer">' +
-            esc(trText(i.title, state.tl)) + '</a>').join('');
-        const more = n > 12 ? '<div class="cf-pop-place">and ' + (n - 12) + ' more</div>' : '';
-        marker.bindPopup(head + body + more, { maxWidth: 280 });
+            esc(trText(i.title, state.tl)) + '</a>', { maxWidth: 280 });
     });
 
-    const drawn = items.length - unplaced;
     const c = document.getElementById('cfMapCount');
     const u = document.getElementById('cfMapUnplaced');
-    if (c) c.textContent = drawn + (drawn === 1 ? ' story mapped' : ' stories mapped');
+    if (c) c.textContent = mapped + (mapped === 1 ? ' story mapped' : ' stories mapped');
     if (u) u.textContent = unplaced ? unplaced + ' unplaced' : '';
+    state.mapped = mapped;
+    state.unplaced = unplaced;
 }
 
 /* translation control */

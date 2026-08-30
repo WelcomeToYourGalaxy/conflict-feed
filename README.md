@@ -45,9 +45,10 @@ can carry both — a ceasefire announced after a night of strikes — and then i
 ## The map
 
 A satellite panel sits beside the list, drawn from Esri's free World Imagery layer — no account, no
-key, no tracking beyond the tiles the browser requests. Every story that resolved to a place is
-pinned there; stories sharing a point collapse into one pin carrying the count, and clicking it lists
-them, each linking to the publisher exactly as the rows do.
+key, no tracking beyond the tiles the browser requests. Every story that resolved to a place gets its
+own pin, and clicking one opens that story at its publisher exactly as a row does. Stories resolving
+to the same country are fanned onto a ring around the centroid so none hides another; the offsets are
+deterministic, so pins do not move between renders.
 
 The pins are built from the same filtered set as the list, so every toggle applies to both. Stories
 that named nowhere in particular are counted as unplaced beneath the map rather than dropped
@@ -58,8 +59,25 @@ only that was named. **It is not the location of the event.** A strike in easter
 middle of Ukraine, because the feed reads headlines, not coordinates. The map locates coverage, not
 events.
 
-The coordinate table lives in `COORDS` at the top of `harvest_conflict.py`, one entry for each of the
-172 gazetteer ids. If Leaflet cannot load, the panel hides itself and the list works as before.
+The top bar reports how many of the whole wire are placed, and the strip under the map reports how
+many of the current filter are drawn and how many are unplaced.
+
+### Why a story is not mapped
+
+It is placed only if its text names somewhere the gazetteer knows. Many headlines name nowhere —
+"defence budget raised", "arms exports approved" — and are genuinely unplaceable. The rest come down
+to gazetteer coverage: it carries **217 entries**, including capitals, demonyms and force names,
+because headlines say Kyiv, Pentagon and Israeli far more often than they name the country.
+
+The base gazetteer was built for territorial subjects and was missing most of what a war feed names —
+Syria, Lebanon, Yemen, Gaza, Afghanistan, North Korea, Armenia, Azerbaijan, Belarus, the Baltics, the
+Balkans, Haiti, Colombia, Venezuela and the United States as a single entry all had to be added.
+`ADDITIONS` and `TERM_EXTRAS` at the top of `harvest_conflict.py` hold that work and are meant to
+grow: adding a city, a force name or an armed group is one line, and the next harvest maps every
+story naming it.
+
+`COORDS` holds one coordinate per gazetteer id. If Leaflet cannot load, the panel hides itself and
+the list works as before.
 
 ## Eleven subjects
 

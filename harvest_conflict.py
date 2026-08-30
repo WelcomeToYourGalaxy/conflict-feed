@@ -377,7 +377,7 @@ GEO3 = [
      ("tw","Taiwan",["taiwan","原住民族","傳統領域","amis","atayal","bunun"]),
      ("jp","Japan",["japan","ainu","hokkaido","okinawa","ryukyu"]),
      ("cn","China",["china","tibet","tibetan","xinjiang","uyghur","inner mongolia","yunnan minority"]),
-     ("kr","Korea",["korea","korean"]),
+     ("kr","South Korea",["south korea","republic of korea","seoul","south korean"]),
      ("mn","Mongolia",["mongolia","mongolian","dukha","tsaatan"]),
    ]),
    ("ea-c", "Central Asia & Siberia", [
@@ -443,6 +443,134 @@ GEO3 = [
 # Approximate centroids for the gazetteer: place, then subregion, then region.
 # A marker sits at the most specific level a story resolved to, so a story that
 # names only "the Sahel" lands on the Sahel rather than nowhere.
+# --------------------------------------------------------------------------
+# The gazetteer above was built for territorial subjects and named the places
+# those stories name. A conflict feed names different ones: Syria, Yemen,
+# Afghanistan, North Korea and half of Europe were simply absent, and any story
+# about them fell to "unlocated". These fill that in, and add the capitals and
+# demonyms that headlines use instead of country names — "Kyiv says", "Pentagon
+# confirms", "Israeli strikes" — which is the other half of what was missing.
+# --------------------------------------------------------------------------
+ADDITIONS = {
+ "me-lev": [
+   ("sy", "Syria", ["syria", "syrian", "damascus", "aleppo", "idlib", "homs", "latakia"]),
+   ("lb", "Lebanon", ["lebanon", "lebanese", "beirut", "hezbollah", "south lebanon"]),
+   ("ye", "Yemen", ["yemen", "yemeni", "sanaa", "houthi", "aden", "hodeidah"]),
+   ("ps", "Gaza & West Bank", ["gaza", "west bank", "palestin*", "rafah", "khan younis", "ramallah", "jenin"]),
+   ("sy-kur", "Kurdish north-east Syria", ["rojava", "sdf", "syrian democratic forces", "hasakah"]),
+   ("cy", "Cyprus", ["cyprus", "cypriot", "nicosia"]),
+ ],
+ "ea-c": [
+   ("af", "Afghanistan", ["afghanistan", "afghan", "kabul", "kandahar", "taliban"]),
+   ("tj", "Tajikistan", ["tajikistan", "dushanbe"]),
+   ("tm", "Turkmenistan", ["turkmenistan"]),
+   ("am", "Armenia", ["armenia", "armenian", "yerevan", "nagorno-karabakh", "karabakh"]),
+   ("az", "Azerbaijan", ["azerbaijan", "azerbaijani", "baku"]),
+   ("ge", "Georgia (Caucasus)", ["georgia tbilisi", "georgian forces", "abkhazia", "south ossetia"]),
+ ],
+ "ea-e": [
+   ("kp", "North Korea", ["north korea", "dprk", "pyongyang", "kim jong un"]),
+   ("hk", "Hong Kong & Macau", ["hong kong", "macau"]),
+ ],
+ "eu-o": [
+   ("pl", "Poland", ["poland", "polish", "warsaw"]),
+   ("ro", "Romania", ["romania", "romanian", "bucharest"]),
+   ("md", "Moldova", ["moldova", "chisinau", "transnistria"]),
+   ("by", "Belarus", ["belarus", "belarusian", "minsk", "lukashenko"]),
+   ("balt", "Baltic states", ["estonia", "latvia", "lithuania", "tallinn", "riga", "vilnius", "kaliningrad"]),
+   ("balk", "Western Balkans", ["serbia", "kosovo", "bosnia", "belgrade", "pristina", "sarajevo", "republika srpska", "north macedonia", "montenegro", "albania"]),
+   ("it", "Italy", ["italy", "italian", "rome"]),
+   ("nl", "Netherlands & Belgium", ["netherlands", "dutch", "the hague", "belgium", "brussels"]),
+   ("at", "Austria & Switzerland", ["austria", "vienna", "switzerland", "swiss", "geneva", "bern"]),
+   ("pt", "Portugal", ["portugal", "lisbon"]),
+   ("gr", "Greece", ["greece", "greek", "athens"]),
+   ("ie", "Ireland", ["ireland", "irish", "dublin"]),
+   ("hu", "Hungary & Czechia & Slovakia", ["hungary", "budapest", "czech", "prague", "slovakia", "bratislava"]),
+ ],
+ "na-us": [("us", "United States", ["united states", "u.s. military", "us military", "washington",
+                                    "pentagon", "white house", "american forces", "us forces", "americans"])],
+ "na-ca": [("ca", "Canada", ["canada", "canadian", "ottawa"])],
+ "na-mx": [("mx", "Mexico", ["mexico", "mexican", "mexico city"])],
+ "la-br": [("br", "Brazil", ["brazil", "brazilian", "brasília", "brasilia"])],
+ "la-and": [("co", "Colombia", ["colombia", "colombian", "bogotá", "bogota"]),
+            ("ve", "Venezuela", ["venezuela", "venezuelan", "caracas"])],
+ "la-car": [("ht", "Haiti", ["haiti", "haitian", "port-au-prince"]),
+            ("cu", "Cuba", ["cuba", "cuban", "havana"]),
+            ("dom", "Dominican Republic", ["dominican republic", "santo domingo"])],
+ "africa-e": [("er", "Eritrea", ["eritrea", "asmara"]),
+              ("dj", "Djibouti", ["djibouti"]),
+              ("km", "Comoros", ["comoros"])],
+ "africa-w": [("bj", "Benin & Togo", ["benin", "togo", "cotonou", "lomé"]),
+              ("mr", "Mauritania", ["mauritania", "nouakchott"]),
+              ("gw", "Guinea-Bissau & Gambia", ["guinea-bissau", "gambia", "banjul"])],
+ "oc-au": [("au", "Australia", ["australia", "australian", "canberra"])],
+ "se-main": [("bn", "Brunei", ["brunei"])],
+ "sa-oth": [("mv", "Maldives", ["maldives", "malé"])],
+}
+
+# capitals, demonyms and force names that headlines use instead of the country
+TERM_EXTRAS = {
+ "ua": ["kyiv", "kiev", "ukrainian", "kharkiv", "odesa", "donbas", "donetsk", "luhansk",
+        "zaporizhzhia", "kherson", "crimea", "mariupol", "bakhmut"],
+ "ru": ["moscow", "kremlin", "russian forces", "russians", "putin", "belgorod", "kursk region"],
+ "il": ["israel", "israeli", "idf", "tel aviv", "jerusalem", "golan"],
+ "iq": ["baghdad", "iraqi", "mosul", "erbil", "kurdistan region"],
+ "ir": ["tehran", "iranian", "irgc", "revolutionary guard"],
+ "tr": ["ankara", "istanbul", "turkish forces", "turkish army"],
+ "sa": ["riyadh", "saudi", "abu dhabi", "dubai", "doha", "kuwait city", "manama", "muscat"],
+ "eg": ["cairo", "egyptian", "sinai"],
+ "ly": ["tripoli libya", "benghazi", "libyan"],
+ "sd": ["khartoum", "sudanese", "darfur", "rsf", "rapid support forces", "port sudan"],
+ "ss": ["juba", "south sudanese"],
+ "so": ["mogadishu", "somali forces", "al-shabaab", "puntland"],
+ "et": ["addis ababa", "ethiopian", "tigray", "amhara", "oromo"],
+ "ke": ["nairobi", "kenyan"],
+ "ng": ["abuja", "nigerian", "boko haram", "lagos", "borno"],
+ "ml": ["bamako", "malian"], "bf": ["ouagadougou", "burkinabè", "burkinabe"],
+ "ne": ["niamey", "nigerien"], "cm": ["yaoundé", "yaounde", "cameroonian"],
+ "cd": ["kinshasa", "goma", "m23", "north kivu", "congolese army"],
+ "za": ["pretoria", "johannesburg", "cape town"],
+ "cn": ["beijing", "chinese military", "pla", "people's liberation army", "taiwan strait"],
+ "tw": ["taipei", "taiwanese"], "jp": ["tokyo", "japanese", "self-defense forces"],
+ "kr": ["seoul", "south korean"], "in-c": ["new delhi", "indian army", "indian forces"],
+ "pk": ["islamabad", "pakistani", "rawalpindi", "kashmir"],
+ "mm": ["naypyidaw", "myanmar military", "tatmadaw", "rakhine", "rohingya"],
+ "th": ["bangkok", "thai army"], "ph": ["manila", "philippine army", "west philippine sea"],
+ "id": ["jakarta", "indonesian military", "tni"], "vn": ["hanoi", "vietnamese"],
+ "uk": ["london", "british forces", "royal navy", "raf", "whitehall", "ministry of defence"],
+ "fr": ["paris", "french forces", "élysée", "elysee"],
+ "de": ["berlin", "german forces", "bundeswehr"],
+ "es": ["madrid", "spanish forces"],
+ "no": ["oslo", "norwegian"], "se": ["stockholm", "swedish forces"],
+ "fi": ["helsinki", "finnish forces"],
+ "gt": ["guatemala city"], "hn": ["tegucigalpa"], "ni": ["managua"],
+ "ar": ["buenos aires", "argentine"], "cl": ["santiago", "chilean"], "pe": ["lima", "peruvian"],
+ "nz": ["wellington", "new zealand defence"],
+ "eu": ["european commission", "eu council", "european parliament", "nato headquarters"],
+}
+
+
+def _merge_gazetteer():
+    """Fold the additions into GEO3 in place, so everything downstream — the
+    matcher, the payload, the map — sees one gazetteer."""
+    by_sub = {}
+    for _rid, _rl, subs in GEO3:
+        for sid, _sl, places in subs:
+            by_sub[sid] = places
+    for sid, extra in ADDITIONS.items():
+        if sid in by_sub:
+            have = {pid for pid, _l, _t in by_sub[sid]}
+            by_sub[sid].extend([e for e in extra if e[0] not in have])
+    for _rid, _rl, subs in GEO3:
+        for _sid, _sl, places in subs:
+            for idx, (pid, label, terms) in enumerate(places):
+                if pid in TERM_EXTRAS:
+                    places[idx] = (pid, label, terms + [t for t in TERM_EXTRAS[pid] if t not in terms])
+
+
+_merge_gazetteer()
+
+
 COORDS = {
  # --- regions ---
  "africa": [1.5, 20.0], "americas-n": [45.0, -100.0], "americas-s": [-12.0, -60.0],
@@ -510,6 +638,22 @@ COORDS = {
  # --- polar ---
  "arctic": [80.0, 0.0],
 }
+
+COORDS.update({
+ "sy": [35.0, 38.0], "lb": [33.9, 35.9], "ye": [15.5, 48.0], "ps": [31.5, 34.5],
+ "sy-kur": [36.4, 40.7], "cy": [35.1, 33.4],
+ "af": [33.9, 67.7], "tj": [38.9, 71.3], "tm": [39.0, 59.6], "am": [40.1, 45.0],
+ "az": [40.1, 47.6], "ge": [42.3, 43.4],
+ "kp": [40.3, 127.5], "hk": [22.3, 114.2],
+ "pl": [52.0, 19.1], "ro": [45.9, 25.0], "md": [47.0, 28.4], "by": [53.7, 27.95],
+ "balt": [56.9, 24.6], "balk": [43.8, 20.5], "it": [42.5, 12.6], "nl": [52.1, 5.3],
+ "at": [47.6, 12.0], "pt": [39.4, -8.2], "gr": [39.1, 22.0], "ie": [53.3, -8.0], "hu": [47.9, 18.5],
+ "us": [39.0, -98.0], "ca": [58.0, -100.0], "mx": [23.0, -102.0], "br": [-13.0, -47.0],
+ "co": [4.6, -74.1], "ve": [8.0, -66.0], "ht": [18.9, -72.3], "cu": [21.9, -79.5], "dom": [18.7, -70.2],
+ "er": [15.3, 39.0], "dj": [11.8, 42.6], "km": [-11.9, 43.9],
+ "bj": [8.5, 1.6], "mr": [20.0, -10.9], "gw": [12.4, -14.5],
+ "au": [-25.0, 134.0], "bn": [4.5, 114.7], "mv": [3.2, 73.2],
+})
 
 # --------------------------------------------------------------------------
 # Subjects
