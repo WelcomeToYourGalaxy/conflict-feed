@@ -42,6 +42,25 @@ can carry both — a ceasefire announced after a night of strikes — and then i
 | Defence trade press | Defense News, Breaking Defense, Naval News, Defence Blog |
 | Press | Al Jazeera, the Guardian, Kyiv Independent, Middle East Eye, and 25 language editions |
 
+## The map
+
+A satellite panel sits beside the list, drawn from Esri's free World Imagery layer — no account, no
+key, no tracking beyond the tiles the browser requests. Every story that resolved to a place is
+pinned there; stories sharing a point collapse into one pin carrying the count, and clicking it lists
+them, each linking to the publisher exactly as the rows do.
+
+The pins are built from the same filtered set as the list, so every toggle applies to both. Stories
+that named nowhere in particular are counted as unplaced beneath the map rather than dropped
+somewhere false.
+
+A pin is the centroid of the most specific place a story resolved to — a country, or a subregion when
+only that was named. **It is not the location of the event.** A strike in eastern Ukraine sits at the
+middle of Ukraine, because the feed reads headlines, not coordinates. The map locates coverage, not
+events.
+
+The coordinate table lives in `COORDS` at the top of `harvest_conflict.py`, one entry for each of the
+172 gazetteer ids. If Leaflet cannot load, the panel hides itself and the list works as before.
+
 ## Eleven subjects
 
 Offensives & incursions, Strikes & bombardment, Civilians & atrocities, Arms industry & trade,

@@ -246,6 +246,7 @@ GEO3 = [
      ("zm","Zambia",["zambia","zambian"]),
      ("zw","Zimbabwe",["zimbabwe","zimbabwean"]),
      ("mw","Malawi",["malawi"]),
+     ("horn","Horn of Africa",["horn of africa"]),
    ]),
    ("africa-w", "West Africa", [
      ("ng","Nigeria",["nigeria","nigerian","ogoni","niger delta","ijaw"]),
@@ -259,6 +260,7 @@ GEO3 = [
      ("sl","Sierra Leone",["sierra leone"]),
      ("gn","Guinea",["guinea conakry","guinean"]),
      ("cm","Cameroon",["cameroon","cameroonian","baka"]),
+     ("sahel","Sahel",["sahel","liptako","lake chad basin"]),
    ]),
    ("africa-c", "Central Africa", [
      ("cd","DR Congo",["democratic republic of congo","drc","congolese","kivu","batwa"]),
@@ -437,6 +439,77 @@ GEO3 = [
    ]),
  ]),
 ]
+
+# Approximate centroids for the gazetteer: place, then subregion, then region.
+# A marker sits at the most specific level a story resolved to, so a story that
+# names only "the Sahel" lands on the Sahel rather than nowhere.
+COORDS = {
+ # --- regions ---
+ "africa": [1.5, 20.0], "americas-n": [45.0, -100.0], "americas-s": [-12.0, -60.0],
+ "asia-s": [22.0, 79.0], "asia-se": [2.0, 112.0], "asia-e": [40.0, 100.0],
+ "mena": [28.0, 42.0], "europe": [52.0, 15.0], "oceania": [-25.0, 140.0], "polar": [78.0, 0.0],
+ # --- subregions ---
+ "africa-e": [1.0, 37.0], "africa-w": [10.0, -2.0], "africa-c": [0.0, 20.0],
+ "africa-s": [-24.0, 24.0], "africa-n": [28.0, 12.0],
+ "na-us": [39.0, -98.0], "na-ca": [58.0, -100.0], "na-mx": [23.0, -102.0],
+ "la-amz": [-4.0, -62.0], "la-and": [-25.0, -68.0], "la-ca": [14.0, -87.0],
+ "la-car": [8.0, -60.0], "la-br": [-13.0, -47.0],
+ "sa-in": [22.0, 79.0], "sa-oth": [27.0, 85.0],
+ "se-mar": [-2.0, 118.0], "se-main": [16.0, 101.0],
+ "ea-e": [35.0, 118.0], "ea-c": [50.0, 80.0],
+ "me-lev": [32.0, 40.0],
+ "eu-n": [65.0, 20.0], "eu-o": [50.0, 15.0],
+ "oc-au": [-25.0, 134.0], "oc-nz": [-41.0, 174.0], "oc-pac": [-15.0, 170.0],
+ "pol-arc": [80.0, 0.0],
+ # --- places: Africa ---
+ "ke": [0.2, 37.9], "tz": [-6.4, 34.9], "ug": [1.4, 32.3], "et": [9.1, 40.5],
+ "so": [5.2, 46.2], "rw": [-1.9, 29.9], "bi": [-3.4, 29.9], "sd": [15.6, 30.2],
+ "ss": [7.9, 30.0], "mg": [-18.8, 46.9], "mz": [-18.7, 35.5], "zm": [-13.1, 27.8],
+ "zw": [-19.0, 29.2], "mw": [-13.3, 34.3],
+ "ng": [9.1, 8.7], "gh": [7.9, -1.0], "ci": [7.5, -5.5], "sn": [14.5, -14.5],
+ "ml": [17.6, -4.0], "bf": [12.2, -1.6], "ne": [17.6, 8.1], "lr": [6.4, -9.4],
+ "sl": [8.5, -11.8], "gn": [9.9, -9.7], "cm": [7.4, 12.4], "sahel": [15.0, 2.0], "horn": [8.0, 45.0],
+ "cd": [-4.0, 21.8], "cg": [-0.2, 15.8], "ga": [-0.8, 11.6], "cf": [6.6, 20.9], "td": [15.5, 18.7],
+ "za": [-30.6, 22.9], "bw": [-22.3, 24.7], "na": [-22.9, 18.5], "ao": [-11.2, 17.9], "ls": [-29.6, 28.2],
+ "ma": [31.8, -7.1], "dz": [28.0, 1.7], "tn": [33.9, 9.5], "ly": [26.3, 17.2], "eg": [26.8, 30.8],
+ # --- places: North America ---
+ "us-ak": [64.0, -152.0], "us-sw": [34.5, -110.0], "us-pl": [44.0, -100.0],
+ "us-pnw": [46.5, -121.0], "us-e": [35.5, -80.0], "us-hi": [20.8, -156.3],
+ "ca-bc": [54.0, -125.0], "ca-pr": [52.0, -106.0], "ca-on": [49.0, -80.0],
+ "ca-n": [64.0, -105.0], "ca-at": [46.5, -63.0],
+ "mx-s": [17.0, -94.0], "mx-n": [28.5, -108.0],
+ # --- places: Latin America ---
+ "br-amz": [-4.5, -60.0], "pe-amz": [-6.0, -75.0], "co-amz": [-1.0, -72.0],
+ "ec-amz": [-1.5, -76.5], "bo-amz": [-14.5, -65.0], "ve-amz": [5.0, -65.0],
+ "cl": [-35.7, -71.5], "ar": [-38.4, -63.6], "pe": [-9.2, -75.0], "bo": [-16.3, -63.6],
+ "py": [-23.4, -58.4], "uy": [-32.5, -55.8],
+ "gt": [15.8, -90.2], "hn": [15.2, -86.2], "ni": [12.9, -85.2], "cr": [9.7, -83.8],
+ "pa": [8.5, -80.8], "bz": [17.2, -88.5], "sv": [13.8, -88.9],
+ "gy": [4.9, -58.9], "sr": [3.9, -56.0], "gf": [3.9, -53.1], "do": [18.7, -70.2],
+ "br-ne": [-10.0, -45.0],
+ # --- places: South Asia ---
+ "in-c": [21.5, 82.0], "in-ne": [26.0, 93.0], "in-s": [13.0, 77.5], "in-h": [32.0, 78.0],
+ "bd": [23.7, 90.4], "np": [28.4, 84.1], "pk": [30.4, 69.3], "lk": [7.9, 80.8], "bt": [27.5, 90.4],
+ # --- places: Southeast Asia ---
+ "id": [-2.5, 118.0], "ph": [12.9, 121.8], "my": [4.2, 109.5], "tl": [-8.9, 125.7], "pg-ind": [-6.3, 143.9],
+ "th": [15.9, 100.99], "mm": [21.9, 95.96], "vn": [14.1, 108.3], "kh": [12.6, 104.99], "la": [19.9, 102.5],
+ # --- places: East & Central Asia ---
+ "tw": [23.7, 121.0], "jp": [36.2, 138.3], "cn": [35.9, 104.2], "kr": [36.5, 127.9], "mn": [46.9, 103.8],
+ "ru-sib": [62.0, 105.0], "kz": [48.0, 66.9], "kg": [41.2, 74.8], "uz": [41.4, 64.6],
+ # --- places: MENA ---
+ "il": [31.5, 35.0], "jo": [30.6, 36.2], "iq": [33.2, 43.7], "ir": [32.4, 53.7],
+ "sa": [24.0, 45.0], "tr": [39.0, 35.2],
+ # --- places: Europe ---
+ "no": [64.6, 12.0], "se": [62.0, 15.0], "fi": [64.0, 26.0], "gl": [71.7, -42.6], "ru-eu": [67.5, 35.0],
+ "ua": [48.4, 31.2], "ru": [56.0, 40.0], "eu": [50.8, 4.4], "uk": [54.0, -2.5],
+ "es": [40.2, -3.7], "fr": [46.6, 2.4], "de": [51.2, 10.4],
+ # --- places: Oceania ---
+ "au-n": [-15.0, 133.0], "au-w": [-25.0, 121.0], "au-e": [-30.0, 148.0], "au-c": [-29.0, 135.0],
+ "nz": [-41.0, 174.0], "fj": [-17.7, 178.0], "nc": [-21.3, 165.5], "sb": [-9.6, 160.2],
+ "vu": [-15.4, 166.9], "ws": [-13.8, -172.1],
+ # --- polar ---
+ "arctic": [80.0, 0.0],
+}
 
 # --------------------------------------------------------------------------
 # Subjects
@@ -755,6 +828,17 @@ def places_for(text):
     return (regions or ["unlocated"], subs or ["unlocated"], places or ["unlocated"])
 
 
+def point_for(places, subs, regions):
+    """The most specific point a story resolved to, or None if it named nowhere.
+    A story about several places gets the first; the map is a locator, not an
+    atlas of every mention."""
+    for level in (places, subs, regions):
+        for pid in level:
+            if pid in COORDS:
+                return COORDS[pid]
+    return None
+
+
 def load_sources():
     with open(SOURCES_PATH, encoding="utf-8") as fh:
         cfg = json.load(fh)
@@ -831,6 +915,7 @@ def run(dry_run=False, fixtures=None):
                 row["pl"] = places
                 row["p"] = total
                 row["y"] = reasons
+                row["ll"] = point_for(places, subs, regions)
                 row["st"] = src["standing"]
                 row["k"] = kind_of(text)
                 if absorb(row):
@@ -884,6 +969,7 @@ def run(dry_run=False, fixtures=None):
                            for sid, slabel, places in subs]}
                  for rid, rlabel, subs in GEO3] +
                 [{"id": "unlocated", "label": "No single region", "subs": []}]),
+        "coords": COORDS,
         "sources": stats,
         "items": items,
     }

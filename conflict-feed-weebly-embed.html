@@ -21,6 +21,8 @@
 <title>The Conflict Wire — worldwide</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="">@@GALAXY_END_SCRIPT@@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
@@ -106,6 +108,27 @@
 .cf-mt { color: var(--ink-faint); border: 1px solid var(--line-soft); border-radius: 999px;
     padding: 0.02rem 0.38rem; letter-spacing: 0.1em; }
 .cf-orig { color: var(--ink-faint); text-decoration: underline; text-underline-offset: 2px; }
+.cf-body { flex: 1 1 auto; min-height: 0; display: flex; }
+.cf-map-wrap { flex: 0 0 38%; min-width: 260px; border-left: 1px solid var(--line-soft);
+    position: relative; display: flex; flex-direction: column; }
+.cf-map { flex: 1 1 auto; min-height: 0; background: #0e0f0c; }
+.cf-map-note { flex: 0 0 auto; font-size: 0.55rem; color: var(--ink-faint); padding: 0.28rem 0.6rem;
+    border-top: 1px solid var(--line-soft); display: flex; justify-content: space-between; gap: 0.5rem; }
+.cf-map .leaflet-container { background: #0e0f0c; font-family: inherit; }
+.cf-map .leaflet-popup-content-wrapper { background: rgba(19,19,17,0.97); color: var(--ink);
+    border: 1px solid var(--line); border-radius: 10px; }
+.cf-map .leaflet-popup-tip { background: rgba(19,19,17,0.97); }
+.cf-map .leaflet-popup-content { margin: 0.6rem 0.7rem; font-size: 0.7rem; line-height: 1.4; max-height: 220px; overflow-y: auto; }
+.cf-map .leaflet-popup-content a { color: var(--accent); text-decoration: none; display: block; margin-bottom: 0.4rem; }
+.cf-map .leaflet-popup-content a:hover { text-decoration: underline; }
+.cf-map .leaflet-popup-content .cf-pop-place { font-size: 0.55rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink-faint); margin-bottom: 0.35rem; }
+.cf-map .leaflet-control-attribution { background: rgba(19,19,17,0.8); color: var(--ink-faint); font-size: 0.5rem; }
+.cf-map .leaflet-control-attribution a { color: var(--ink-dim); }
+.cf-pin { border-radius: 50%; border: 1px solid rgba(255,255,255,0.55); box-shadow: 0 0 0 2px rgba(0,0,0,0.35);
+    display: flex; align-items: center; justify-content: center; font-size: 0.55rem; color: #131311; font-weight: 600; }
+@media (max-width: 900px) { .cf-body { flex-direction: column; }
+    .cf-map-wrap { flex: 0 0 300px; border-left: 0; border-top: 1px solid var(--line-soft); } }
 .cf-list { flex: 1 1 auto; min-height: 130px; overflow-y: auto; scrollbar-width: thin; overscroll-behavior: contain; }
 .cf-item { display: block; padding: 0.55rem 0.9rem; border-bottom: 1px solid var(--line-soft); text-decoration: none; color: inherit; }
 .cf-item:last-child { border-bottom: 0; }
@@ -192,7 +215,13 @@
             <div class="cf-row" id="cfWhenRow"><span class="cf-key">Window</span></div>
         </div>
 
-        <div class="cf-list" id="cfList"><div class="cf-state">Loading the wire…</div></div>
+        <div class="cf-body">
+            <div class="cf-list" id="cfList"><div class="cf-state">Loading the wire…</div></div>
+            <div class="cf-map-wrap" id="cfMapWrap">
+                <div class="cf-map" id="cfMap"></div>
+                <div class="cf-map-note"><span id="cfMapCount">—</span><span id="cfMapUnplaced"></span></div>
+            </div>
+        </div>
     </section>
 
     <div class="cf-sheet" id="cfSheetAbout" role="dialog" aria-label="How this feed works">
@@ -231,6 +260,21 @@
             (1); a scheduled or pending step (1); a named place (1); and a primary source (1). At three or more
             the row is marked well documented. A score is not a judgement of truth — an official statement scores
             well and can still be false. It records what kind of thing the story is.
+        </p>
+        <p class="cf-note">
+            <strong>The map.</strong> Satellite imagery from Esri's free World Imagery layer — no account, no
+            key, nothing tracked beyond the tiles your browser requests. Every story that resolved to a place is
+            drawn at that place; several stories on one point collapse into a single pin carrying the count, and
+            clicking it lists them, each linking out to the publisher exactly as the rows do. The pins are built
+            from the same filtered set as the list, so every toggle above applies to both — filter to
+            de-escalation in the Levant and the map shows only that. Stories that named nowhere in particular are
+            counted as unplaced under the map rather than being guessed at and dropped somewhere false.
+        </p>
+        <p class="cf-note">
+            <strong>What a pin means.</strong> It is the centroid of the most specific place the story resolved
+            to — a country, or a subregion when only that was named. It is not the location of the event. A story
+            about a strike in eastern Ukraine sits at the middle of Ukraine, because the feed reads headlines, not
+            coordinates. Treat the map as a locator for what is being covered where, not as a map of events.
         </p>
         <p class="cf-note">
             <strong>Region.</strong> Placement runs three levels deep: pick a region, then a subregion, then a
@@ -496,8 +540,9 @@ async function load() {
         title: i.t, link: i.u, outlet: i.o, lang: i.g, region: i.r,
         kind: i.k, ts: i.d, snippet: i.s, topics: i.x || ['climate'],
         score: i.p || 0, why: i.y || [], places: i.w || ['unlocated'],
-        standing: i.st || 'press', kinds: i.k || ['taken'],
-        subs: i.sr || ['unlocated'], spots: i.pl || ['unlocated']
+        standing: i.st || 'press', kinds: i.k || ['escalation'],
+        subs: i.sr || ['unlocated'], spots: i.pl || ['unlocated'],
+        ll: (i.ll && i.ll.length === 2) ? i.ll : null
     }));
     state.docScore = data.notable_score || 3;
     state.standings = data.standings || [];
@@ -604,6 +649,7 @@ function render() {
         }
     }
     chipCounts();
+    renderMap(items);
 }
 
 function chip(row, key, value, label, color) {
@@ -856,6 +902,81 @@ document.addEventListener('keydown', e => {
     document.querySelectorAll('.cf-tab').forEach(t => t.classList.remove('on'));
 });
 
+
+/* ============================================================
+   The map. Satellite imagery from Esri's free World Imagery layer —
+   no key, no account. Every story that resolved to a place is drawn
+   at that place, and the pins obey the filters exactly as the list
+   does, because they are built from the same visible() call.
+   ============================================================ */
+let cfMap = null, cfLayer = null;
+
+function initMap() {
+    if (cfMap || typeof L === 'undefined') return;
+    const el = document.getElementById('cfMap');
+    if (!el) return;
+    cfMap = L.map(el, { worldCopyJump: true, zoomControl: true, attributionControl: true })
+             .setView([20, 10], 1);
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 16,
+        attribution: 'Imagery © Esri, Maxar, Earthstar Geographics'
+    }).addTo(cfMap);
+    cfLayer = L.layerGroup().addTo(cfMap);
+    // Leaflet measures its container once; tell it when that changes
+    setTimeout(() => cfMap.invalidateSize(), 60);
+    window.addEventListener('resize', () => cfMap.invalidateSize());
+}
+
+function placeNameFor(item) {
+    return placeLabel(item);
+}
+
+function renderMap(items) {
+    if (typeof L === 'undefined') {
+        const wrap = document.getElementById('cfMapWrap');
+        if (wrap) wrap.style.display = 'none';
+        return;
+    }
+    initMap();
+    if (!cfMap || !cfLayer) return;
+    cfLayer.clearLayers();
+
+    // one pin per point, however many stories sit on it
+    const byPoint = new Map();
+    let unplaced = 0;
+    items.forEach(i => {
+        if (!i.ll || i.ll.length !== 2) { unplaced++; return; }
+        const key = i.ll[0] + ',' + i.ll[1];
+        if (!byPoint.has(key)) byPoint.set(key, { ll: i.ll, items: [] });
+        byPoint.get(key).items.push(i);
+    });
+
+    byPoint.forEach(group => {
+        const n = group.items.length;
+        const size = Math.min(30, 12 + Math.round(Math.sqrt(n) * 5));
+        const colour = TOPIC_COLOR[group.items[0].topics[0]] || '#a49f98';
+        const icon = L.divIcon({
+            className: '',
+            html: '<div class="cf-pin" style="width:' + size + 'px;height:' + size + 'px;background:' +
+                  colour + ';">' + (n > 1 ? n : '') + '</div>',
+            iconSize: [size, size], iconAnchor: [size / 2, size / 2]
+        });
+        const marker = L.marker(group.ll, { icon: icon }).addTo(cfLayer);
+        const head = '<div class="cf-pop-place">' + esc(placeNameFor(group.items[0])) +
+                     (n > 1 ? ' · ' + n + ' stories' : '') + '</div>';
+        const body = group.items.slice(0, 12).map(i =>
+            '<a href="' + esc(i.link) + '" target="_blank" rel="noopener noreferrer">' +
+            esc(trText(i.title, state.tl)) + '</a>').join('');
+        const more = n > 12 ? '<div class="cf-pop-place">and ' + (n - 12) + ' more</div>' : '';
+        marker.bindPopup(head + body + more, { maxWidth: 280 });
+    });
+
+    const drawn = items.length - unplaced;
+    const c = document.getElementById('cfMapCount');
+    const u = document.getElementById('cfMapUnplaced');
+    if (c) c.textContent = drawn + (drawn === 1 ? ' story mapped' : ' stories mapped');
+    if (u) u.textContent = unplaced ? unplaced + ' unplaced' : '';
+}
 
 /* translation control */
 (function () {
