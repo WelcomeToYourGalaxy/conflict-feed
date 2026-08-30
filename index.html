@@ -128,6 +128,7 @@
     font: inherit; font-size: 0.5rem; letter-spacing: 0.08em; text-transform: uppercase;
     padding: 0.1rem 0.4rem; border-radius: 3px; cursor: pointer; }
 .cf-gm-open:hover { color: var(--accent); border-color: var(--accent); }
+.cf-gm-open.on { color: var(--accent); border-color: var(--accent); }
 .cf-map-note { flex: 0 0 auto; font-size: 0.55rem; color: var(--ink-faint); padding: 0.28rem 0.6rem;
     border-top: 1px solid var(--line-soft); display: flex; align-items: center; gap: 0.5rem; }
 .cf-map .leaflet-container { background: #0e0f0c; font-family: inherit; }
@@ -244,13 +245,13 @@
 
         <div class="cf-body">
             <div class="cf-list" id="cfList"><div class="cf-state">Loading the wire…</div></div>
-            <div class="cf-map-wrap" id="cfMapWrap">
+            <div class="cf-map-wrap gm-open" id="cfMapWrap">
                 <div class="cf-map" id="cfMap"></div>
                 <div class="cf-map-note">
                     <span id="cfMapCount">—</span><span id="cfMapUnplaced"></span>
-                    <button class="cf-gm-open" id="cfGmOpen" type="button">+ overlays</button>
+                    <button class="cf-gm-open on" id="cfGmOpen" type="button">– overlays</button>
                 </div>
-                <div class="cf-gm" id="cfGm" hidden>
+                <div class="cf-gm" id="cfGm">
                     <div class="cf-gm-bar">
                         <span class="cf-gm-name">Guerillamap overlays</span>
                         <label class="cf-gm-follow"><input type="checkbox" id="cfGmSync" checked> follow this map</label>
@@ -953,6 +954,13 @@ function renderSources() {
 const GM_HOME = 'https://guerillamap.com/';
 const GM_GRID = '-0.35,0.5,10,10,null,null';
 const GM_BASEMAP = 'esri-aerial-layer';
+/* Their panel is shorter and wider than this map, so handing it the same
+   centre puts the ground higher in their frame than in ours. This drops their
+   centre south by a share of their own frame height — a proportion, not a
+   fixed number of degrees, so it stays the same on screen at every zoom.
+   Tune it live with gmShift(0.3); gmShift(0) turns it off. */
+let GM_SHIFT = 0.22;
+
 const GM_OVERLAYS = [
     'feature_group_geoNews', 'feature_group_geoNewsHist', 'feature_group_conflicts',
     'feature_group_activity', 'feature_group_losses', 'feature_group_nuctests',
@@ -961,7 +969,7 @@ const GM_OVERLAYS = [
     'feature_group_strong_borders', 'feature_group_borders'
 ].join(',');
 
-let gmOpen = false, gmTimer = null, gmLast = '';
+let gmOpen = true, gmTimer = null, gmLast = '';
 
 function gmUrl() {
     let lat = 20, lon = 10, z = 3;
@@ -970,6 +978,16 @@ function gmUrl() {
         lat = c.lat; lon = c.lng;
         z = Math.max(2, Math.min(18, Math.round(cfMap.getZoom())));
     } catch (e) { /* map not ready; the defaults stand */ }
+    // drop south by GM_SHIFT of their frame height. Web Mercator: a pixel is
+    // (360 / 256·2^z) degrees of longitude, and that many degrees of latitude
+    // narrowed by cos(lat).
+    try {
+        const f = document.getElementById('cfGmFrame');
+        const hpx = (f && f.clientHeight) || 260;
+        const degPerPx = (360 / (256 * Math.pow(2, z))) * Math.cos(lat * Math.PI / 180);
+        lat = Math.max(-78, Math.min(82, lat - GM_SHIFT * hpx * degPerPx));
+    } catch (e) { /* no frame yet; centre as-is */ }
+
     // their app reads a bare lat,lng pair and an integer zoom
     return GM_HOME + '?coords=' + encodeURIComponent(lat.toFixed(5) + ',' + lon.toFixed(5)) +
            '&zoom=' + z +
@@ -977,6 +995,8 @@ function gmUrl() {
            '&basemap=' + GM_BASEMAP +
            '&overlays=' + encodeURIComponent(GM_OVERLAYS);
 }
+
+window.gmShift = v => { if (v != null) GM_SHIFT = v; gmSync(true); return GM_SHIFT; };
 
 function gmSync(force) {
     if (!gmOpen) return;
@@ -1009,7 +1029,7 @@ function gmToggle(on) {
     const wrap = document.getElementById('cfMapWrap');
     if (panel) panel.hidden = !on;
     if (wrap) wrap.classList.toggle('gm-open', on);
-    if (btn) btn.textContent = on ? '– overlays' : '+ overlays';
+    if (btn) { btn.textContent = on ? '– overlays' : '+ overlays'; btn.classList.toggle('on', on); }
     if (on) gmSync(true);
     // the map container just changed height: let Leaflet remeasure, then put
     // the screen-anchored fills, the plate and the pins back where they belong
@@ -1072,6 +1092,10 @@ $langRow.addEventListener('click', e => {
 });
 
 $refresh.addEventListener('click', load);
+// if the wire never arrives the map never initialises, and the panel would sit
+// on "Loading" for ever. Load it from the default view instead.
+setTimeout(() => { if (gmOpen && !gmLast) gmSync(true); }, 1500);
+
 const gmOpenBtn = document.getElementById('cfGmOpen');
 if (gmOpenBtn) gmOpenBtn.addEventListener('click', () => gmToggle(!gmOpen));
 const gmCloseBtn = document.getElementById('cfGmClose');
@@ -1148,8 +1172,10 @@ function initMap() {
     dressSatellite();
     setTimeout(() => cfMap.invalidateSize(), 60);
     window.addEventListener('resize', () => cfMap.invalidateSize());
-    try { cfMap.on('moveend zoomend', gmQueue); }
-    catch (e) { console.warn('map: overlay companion not wired:', e); }
+    try {
+        cfMap.on('moveend zoomend', gmQueue);
+        gmSync(true);                  // the panel opens with the map's own view
+    } catch (e) { console.warn('map: overlay companion not wired:', e); }
 }
 
 /* ============================================================
