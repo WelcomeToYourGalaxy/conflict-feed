@@ -1,1719 +1,3573 @@
 {
-  "_note": "Wires for the conflict feed: invasions and offensives, strikes, attacks on civilians, the arms industry and the money behind it, bases and corridors, officials and command, law and accountability, nuclear and strategic forces, and humanitarian consequence. Each wire carries a 'standing': official (UN bodies, courts, ministries, alliances), research (SIPRI, ACLED, HRW, Amnesty, Bellingcat, Airwars), trade (defence trade press), or press. Locale coverage is expanded by the same market-and-slice method as the other feeds. Locale coverage is expanded: several country editions per language, and each query split into slices so no single search hits Google News's ~100-result cap. Seven direct feeds were dropped after the first live run returned 403 or 404 for them (war.gov, OHCHR, The New Humanitarian, ICRC, NATO, SIPRI, the old Kyiv Independent path); those organisations are now read through site-scoped searches, and four working feeds replaced them.",
-  "direct": [
-    {
-      "name": "UN News — Peace & Security",
-      "lang": "en",
-      "standing": "official",
-      "url": "https://news.un.org/feed/subscribe/en/news/topic/peace-and-security/feed/rss.xml"
-    },
-    {
-      "name": "ReliefWeb — updates",
-      "lang": "en",
-      "standing": "official",
-      "url": "https://reliefweb.int/updates/rss.xml"
-    },
-    {
-      "name": "Bellingcat",
-      "lang": "en",
-      "standing": "research",
-      "url": "https://www.bellingcat.com/feed/"
-    },
-    {
-      "name": "Airwars",
-      "lang": "en",
-      "standing": "research",
-      "url": "https://airwars.org/feed/"
-    },
-    {
-      "name": "Human Rights Watch",
-      "lang": "en",
-      "standing": "research",
-      "url": "https://www.hrw.org/rss/news"
-    },
-    {
-      "name": "Amnesty International",
-      "lang": "en",
-      "standing": "research",
-      "url": "https://www.amnesty.org/en/rss/"
-    },
-    {
-      "name": "War on the Rocks",
-      "lang": "en",
-      "standing": "research",
-      "url": "https://warontherocks.com/feed/"
-    },
-    {
-      "name": "Defense News",
-      "lang": "en",
-      "standing": "trade",
-      "url": "https://www.defensenews.com/arc/outboundfeeds/rss/?outputType=xml"
-    },
-    {
-      "name": "Breaking Defense",
-      "lang": "en",
-      "standing": "trade",
-      "url": "https://breakingdefense.com/feed/"
-    },
-    {
-      "name": "Defence Blog",
-      "lang": "en",
-      "standing": "trade",
-      "url": "https://defence-blog.com/feed/"
-    },
-    {
-      "name": "Naval News",
-      "lang": "en",
-      "standing": "trade",
-      "url": "https://www.navalnews.com/feed/"
-    },
-    {
-      "name": "Al Jazeera",
-      "lang": "en",
-      "standing": "press",
-      "url": "https://www.aljazeera.com/xml/rss/all.xml"
-    },
-    {
-      "name": "The Guardian — World",
-      "lang": "en",
-      "standing": "press",
-      "url": "https://www.theguardian.com/world/rss"
-    },
-    {
-      "name": "Middle East Eye",
-      "lang": "en",
-      "standing": "press",
-      "url": "https://www.middleeasteye.net/rss"
-    },
-    {
-      "name": "UN News — all",
-      "lang": "en",
-      "standing": "official",
-      "url": "https://news.un.org/feed/subscribe/en/news/all/rss.xml"
-    },
-    {
-      "name": "Crisis Group",
-      "lang": "en",
-      "standing": "research",
-      "url": "https://www.crisisgroup.org/rss.xml"
-    },
-    {
-      "name": "The Kyiv Independent",
-      "lang": "en",
-      "standing": "press",
-      "url": "https://kyivindependent.com/rss/"
-    },
-    {
-      "name": "Defense One",
-      "lang": "en",
-      "standing": "trade",
-      "url": "https://www.defenseone.com/rss/all/"
-    }
-  ],
-  "gnews": [
-    {
-      "label": "English (US) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "military offensive OR airstrike killed OR troops cross border"
-    },
-    {
-      "label": "English (US) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "arms deal signed OR defence budget approved"
-    },
-    {
-      "label": "English (GB) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-GB",
-      "gl": "GB",
-      "ceid": "GB:en",
-      "query": "military offensive OR airstrike killed OR troops cross border"
-    },
-    {
-      "label": "English (GB) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-GB",
-      "gl": "GB",
-      "ceid": "GB:en",
-      "query": "arms deal signed OR defence budget approved"
-    },
-    {
-      "label": "English (IN) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-IN",
-      "gl": "IN",
-      "ceid": "IN:en",
-      "query": "military offensive OR airstrike killed OR troops cross border"
-    },
-    {
-      "label": "English (IN) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-IN",
-      "gl": "IN",
-      "ceid": "IN:en",
-      "query": "arms deal signed OR defence budget approved"
-    },
-    {
-      "label": "English (AU) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-AU",
-      "gl": "AU",
-      "ceid": "AU:en",
-      "query": "military offensive OR airstrike killed OR troops cross border"
-    },
-    {
-      "label": "English (AU) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-AU",
-      "gl": "AU",
-      "ceid": "AU:en",
-      "query": "arms deal signed OR defence budget approved"
-    },
-    {
-      "label": "English (UK) (US) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "armed conflict OR arms export licence OR defence spending"
-    },
-    {
-      "label": "English (UK) (US) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "ceasefire talks OR war crimes inquiry"
-    },
-    {
-      "label": "English (UK) (GB) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-GB",
-      "gl": "GB",
-      "ceid": "GB:en",
-      "query": "armed conflict OR arms export licence OR defence spending"
-    },
-    {
-      "label": "English (UK) (GB) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-GB",
-      "gl": "GB",
-      "ceid": "GB:en",
-      "query": "ceasefire talks OR war crimes inquiry"
-    },
-    {
-      "label": "English (UK) (IN) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-IN",
-      "gl": "IN",
-      "ceid": "IN:en",
-      "query": "armed conflict OR arms export licence OR defence spending"
-    },
-    {
-      "label": "English (UK) (IN) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-IN",
-      "gl": "IN",
-      "ceid": "IN:en",
-      "query": "ceasefire talks OR war crimes inquiry"
-    },
-    {
-      "label": "English (UK) (AU) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-AU",
-      "gl": "AU",
-      "ceid": "AU:en",
-      "query": "armed conflict OR arms export licence OR defence spending"
-    },
-    {
-      "label": "English (UK) (AU) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-AU",
-      "gl": "AU",
-      "ceid": "AU:en",
-      "query": "ceasefire talks OR war crimes inquiry"
-    },
-    {
-      "label": "English (India) (US) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "border clash OR defence procurement OR ceasefire violation"
-    },
-    {
-      "label": "English (India) (US) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "militant attack security forces"
-    },
-    {
-      "label": "English (India) (GB) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-GB",
-      "gl": "GB",
-      "ceid": "GB:en",
-      "query": "border clash OR defence procurement OR ceasefire violation"
-    },
-    {
-      "label": "English (India) (GB) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-GB",
-      "gl": "GB",
-      "ceid": "GB:en",
-      "query": "militant attack security forces"
-    },
-    {
-      "label": "English (India) (IN) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-IN",
-      "gl": "IN",
-      "ceid": "IN:en",
-      "query": "border clash OR defence procurement OR ceasefire violation"
-    },
-    {
-      "label": "English (India) (IN) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-IN",
-      "gl": "IN",
-      "ceid": "IN:en",
-      "query": "militant attack security forces"
-    },
-    {
-      "label": "English (India) (AU) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-AU",
-      "gl": "AU",
-      "ceid": "AU:en",
-      "query": "border clash OR defence procurement OR ceasefire violation"
-    },
-    {
-      "label": "English (India) (AU) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-AU",
-      "gl": "AU",
-      "ceid": "AU:en",
-      "query": "militant attack security forces"
-    },
-    {
-      "label": "English (Nigeria) (NG) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-NG",
-      "gl": "NG",
-      "ceid": "NG:en",
-      "query": "insurgency attack OR military operation OR abducted civilians"
-    },
-    {
-      "label": "English (Nigeria) (NG) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-NG",
-      "gl": "NG",
-      "ceid": "NG:en",
-      "query": "armed group ambush"
-    },
-    {
-      "label": "English (Nigeria) (US) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "insurgency attack OR military operation OR abducted civilians"
-    },
-    {
-      "label": "English (Nigeria) (US) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "armed group ambush"
-    },
-    {
-      "label": "English (Nigeria) (GB) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-GB",
-      "gl": "GB",
-      "ceid": "GB:en",
-      "query": "insurgency attack OR military operation OR abducted civilians"
-    },
-    {
-      "label": "English (Nigeria) (GB) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-GB",
-      "gl": "GB",
-      "ceid": "GB:en",
-      "query": "armed group ambush"
-    },
-    {
-      "label": "English (Nigeria) (IN) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-IN",
-      "gl": "IN",
-      "ceid": "IN:en",
-      "query": "insurgency attack OR military operation OR abducted civilians"
-    },
-    {
-      "label": "English (Nigeria) (IN) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-IN",
-      "gl": "IN",
-      "ceid": "IN:en",
-      "query": "armed group ambush"
-    },
-    {
-      "label": "English (Kenya) (KE) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-KE",
-      "gl": "KE",
-      "ceid": "KE:en",
-      "query": "al-shabaab attack OR peacekeeping mission OR military operation"
-    },
-    {
-      "label": "English (Kenya) (KE) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-KE",
-      "gl": "KE",
-      "ceid": "KE:en",
-      "query": "border incursion"
-    },
-    {
-      "label": "English (Kenya) (US) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "al-shabaab attack OR peacekeeping mission OR military operation"
-    },
-    {
-      "label": "English (Kenya) (US) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "border incursion"
-    },
-    {
-      "label": "English (Kenya) (GB) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-GB",
-      "gl": "GB",
-      "ceid": "GB:en",
-      "query": "al-shabaab attack OR peacekeeping mission OR military operation"
-    },
-    {
-      "label": "English (Kenya) (GB) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-GB",
-      "gl": "GB",
-      "ceid": "GB:en",
-      "query": "border incursion"
-    },
-    {
-      "label": "English (Kenya) (IN) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-IN",
-      "gl": "IN",
-      "ceid": "IN:en",
-      "query": "al-shabaab attack OR peacekeeping mission OR military operation"
-    },
-    {
-      "label": "English (Kenya) (IN) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-IN",
-      "gl": "IN",
-      "ceid": "IN:en",
-      "query": "border incursion"
-    },
-    {
-      "label": "English (S. Africa) (ZA) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-ZA",
-      "gl": "ZA",
-      "ceid": "ZA:en",
-      "query": "armed conflict africa OR arms trade OR peacekeepers"
-    },
-    {
-      "label": "English (S. Africa) (ZA) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-ZA",
-      "gl": "ZA",
-      "ceid": "ZA:en",
-      "query": "military coup"
-    },
-    {
-      "label": "English (S. Africa) (US) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "armed conflict africa OR arms trade OR peacekeepers"
-    },
-    {
-      "label": "English (S. Africa) (US) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "military coup"
-    },
-    {
-      "label": "English (S. Africa) (GB) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-GB",
-      "gl": "GB",
-      "ceid": "GB:en",
-      "query": "armed conflict africa OR arms trade OR peacekeepers"
-    },
-    {
-      "label": "English (S. Africa) (GB) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-GB",
-      "gl": "GB",
-      "ceid": "GB:en",
-      "query": "military coup"
-    },
-    {
-      "label": "English (S. Africa) (IN) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-IN",
-      "gl": "IN",
-      "ceid": "IN:en",
-      "query": "armed conflict africa OR arms trade OR peacekeepers"
-    },
-    {
-      "label": "English (S. Africa) (IN) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-IN",
-      "gl": "IN",
-      "ceid": "IN:en",
-      "query": "military coup"
-    },
-    {
-      "label": "English (Philippines) (PH) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-PH",
-      "gl": "PH",
-      "ceid": "PH:en",
-      "query": "south china sea incident OR military drills OR defence pact"
-    },
-    {
-      "label": "English (Philippines) (PH) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-PH",
-      "gl": "PH",
-      "ceid": "PH:en",
-      "query": "maritime standoff"
-    },
-    {
-      "label": "English (Philippines) (US) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "south china sea incident OR military drills OR defence pact"
-    },
-    {
-      "label": "English (Philippines) (US) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "maritime standoff"
-    },
-    {
-      "label": "English (Philippines) (GB) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-GB",
-      "gl": "GB",
-      "ceid": "GB:en",
-      "query": "south china sea incident OR military drills OR defence pact"
-    },
-    {
-      "label": "English (Philippines) (GB) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-GB",
-      "gl": "GB",
-      "ceid": "GB:en",
-      "query": "maritime standoff"
-    },
-    {
-      "label": "English (Philippines) (IN) 1",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-IN",
-      "gl": "IN",
-      "ceid": "IN:en",
-      "query": "south china sea incident OR military drills OR defence pact"
-    },
-    {
-      "label": "English (Philippines) (IN) 2",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-IN",
-      "gl": "IN",
-      "ceid": "IN:en",
-      "query": "maritime standoff"
-    },
-    {
-      "label": "Español (ES) 1",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es",
-      "gl": "ES",
-      "ceid": "ES:es",
-      "query": "ofensiva militar OR ataque armado OR gasto militar"
-    },
-    {
-      "label": "Español (ES) 2",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es",
-      "gl": "ES",
-      "ceid": "ES:es",
-      "query": "alto el fuego OR venta de armas"
-    },
-    {
-      "label": "Español (MX) 1",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es-419",
-      "gl": "MX",
-      "ceid": "MX:es-419",
-      "query": "ofensiva militar OR ataque armado OR gasto militar"
-    },
-    {
-      "label": "Español (MX) 2",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es-419",
-      "gl": "MX",
-      "ceid": "MX:es-419",
-      "query": "alto el fuego OR venta de armas"
-    },
-    {
-      "label": "Español (AR) 1",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es-419",
-      "gl": "AR",
-      "ceid": "AR:es-419",
-      "query": "ofensiva militar OR ataque armado OR gasto militar"
-    },
-    {
-      "label": "Español (AR) 2",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es-419",
-      "gl": "AR",
-      "ceid": "AR:es-419",
-      "query": "alto el fuego OR venta de armas"
-    },
-    {
-      "label": "Español (CO) 1",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es-419",
-      "gl": "CO",
-      "ceid": "CO:es-419",
-      "query": "ofensiva militar OR ataque armado OR gasto militar"
-    },
-    {
-      "label": "Español (CO) 2",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es-419",
-      "gl": "CO",
-      "ceid": "CO:es-419",
-      "query": "alto el fuego OR venta de armas"
-    },
-    {
-      "label": "Español (Colombia) (ES) 1",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es",
-      "gl": "ES",
-      "ceid": "ES:es",
-      "query": "grupo armado ataque OR ofensiva militar OR acuerdo de paz"
-    },
-    {
-      "label": "Español (Colombia) (ES) 2",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es",
-      "gl": "ES",
-      "ceid": "ES:es",
-      "query": "desplazamiento forzado conflicto"
-    },
-    {
-      "label": "Español (Colombia) (MX) 1",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es-419",
-      "gl": "MX",
-      "ceid": "MX:es-419",
-      "query": "grupo armado ataque OR ofensiva militar OR acuerdo de paz"
-    },
-    {
-      "label": "Español (Colombia) (MX) 2",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es-419",
-      "gl": "MX",
-      "ceid": "MX:es-419",
-      "query": "desplazamiento forzado conflicto"
-    },
-    {
-      "label": "Español (Colombia) (AR) 1",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es-419",
-      "gl": "AR",
-      "ceid": "AR:es-419",
-      "query": "grupo armado ataque OR ofensiva militar OR acuerdo de paz"
-    },
-    {
-      "label": "Español (Colombia) (AR) 2",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es-419",
-      "gl": "AR",
-      "ceid": "AR:es-419",
-      "query": "desplazamiento forzado conflicto"
-    },
-    {
-      "label": "Español (Colombia) (CO) 1",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es-419",
-      "gl": "CO",
-      "ceid": "CO:es-419",
-      "query": "grupo armado ataque OR ofensiva militar OR acuerdo de paz"
-    },
-    {
-      "label": "Español (Colombia) (CO) 2",
-      "lang": "es",
-      "standing": "press",
-      "hl": "es-419",
-      "gl": "CO",
-      "ceid": "CO:es-419",
-      "query": "desplazamiento forzado conflicto"
-    },
-    {
-      "label": "Português (BR) 1",
-      "lang": "pt",
-      "standing": "press",
-      "hl": "pt-BR",
-      "gl": "BR",
-      "ceid": "BR:pt-419",
-      "query": "conflito armado OR gastos militares OR ataque armado"
-    },
-    {
-      "label": "Português (BR) 2",
-      "lang": "pt",
-      "standing": "press",
-      "hl": "pt-BR",
-      "gl": "BR",
-      "ceid": "BR:pt-419",
-      "query": "cessar-fogo OR venda de armas"
-    },
-    {
-      "label": "Português (PT) 1",
-      "lang": "pt",
-      "standing": "press",
-      "hl": "pt-BR",
-      "gl": "PT",
-      "ceid": "PT:pt-150",
-      "query": "conflito armado OR gastos militares OR ataque armado"
-    },
-    {
-      "label": "Português (PT) 2",
-      "lang": "pt",
-      "standing": "press",
-      "hl": "pt-BR",
-      "gl": "PT",
-      "ceid": "PT:pt-150",
-      "query": "cessar-fogo OR venda de armas"
-    },
-    {
-      "label": "Português (AO) 1",
-      "lang": "pt",
-      "standing": "press",
-      "hl": "pt-BR",
-      "gl": "AO",
-      "ceid": "AO:pt-150",
-      "query": "conflito armado OR gastos militares OR ataque armado"
-    },
-    {
-      "label": "Português (AO) 2",
-      "lang": "pt",
-      "standing": "press",
-      "hl": "pt-BR",
-      "gl": "AO",
-      "ceid": "AO:pt-150",
-      "query": "cessar-fogo OR venda de armas"
-    },
-    {
-      "label": "Français (FR) 1",
-      "lang": "fr",
-      "standing": "press",
-      "hl": "fr",
-      "gl": "FR",
-      "ceid": "FR:fr",
-      "query": "offensive militaire OR frappe aérienne OR vente d'armes"
-    },
-    {
-      "label": "Français (FR) 2",
-      "lang": "fr",
-      "standing": "press",
-      "hl": "fr",
-      "gl": "FR",
-      "ceid": "FR:fr",
-      "query": "cessez-le-feu OR budget de la défense"
-    },
-    {
-      "label": "Français (BE) 1",
-      "lang": "fr",
-      "standing": "press",
-      "hl": "fr",
-      "gl": "BE",
-      "ceid": "BE:fr",
-      "query": "offensive militaire OR frappe aérienne OR vente d'armes"
-    },
-    {
-      "label": "Français (BE) 2",
-      "lang": "fr",
-      "standing": "press",
-      "hl": "fr",
-      "gl": "BE",
-      "ceid": "BE:fr",
-      "query": "cessez-le-feu OR budget de la défense"
-    },
-    {
-      "label": "Français (CA) 1",
-      "lang": "fr",
-      "standing": "press",
-      "hl": "fr",
-      "gl": "CA",
-      "ceid": "CA:fr",
-      "query": "offensive militaire OR frappe aérienne OR vente d'armes"
-    },
-    {
-      "label": "Français (CA) 2",
-      "lang": "fr",
-      "standing": "press",
-      "hl": "fr",
-      "gl": "CA",
-      "ceid": "CA:fr",
-      "query": "cessez-le-feu OR budget de la défense"
-    },
-    {
-      "label": "Français (SN) 1",
-      "lang": "fr",
-      "standing": "press",
-      "hl": "fr",
-      "gl": "SN",
-      "ceid": "SN:fr",
-      "query": "offensive militaire OR frappe aérienne OR vente d'armes"
-    },
-    {
-      "label": "Français (SN) 2",
-      "lang": "fr",
-      "standing": "press",
-      "hl": "fr",
-      "gl": "SN",
-      "ceid": "SN:fr",
-      "query": "cessez-le-feu OR budget de la défense"
-    },
-    {
-      "label": "Deutsch (DE) 1",
-      "lang": "de",
-      "standing": "press",
-      "hl": "de",
-      "gl": "DE",
-      "ceid": "DE:de",
-      "query": "Militäroffensive OR Luftangriff OR Rüstungsexport"
-    },
-    {
-      "label": "Deutsch (DE) 2",
-      "lang": "de",
-      "standing": "press",
-      "hl": "de",
-      "gl": "DE",
-      "ceid": "DE:de",
-      "query": "Waffenstillstand OR Verteidigungshaushalt"
-    },
-    {
-      "label": "Deutsch (AT) 1",
-      "lang": "de",
-      "standing": "press",
-      "hl": "de",
-      "gl": "AT",
-      "ceid": "AT:de",
-      "query": "Militäroffensive OR Luftangriff OR Rüstungsexport"
-    },
-    {
-      "label": "Deutsch (AT) 2",
-      "lang": "de",
-      "standing": "press",
-      "hl": "de",
-      "gl": "AT",
-      "ceid": "AT:de",
-      "query": "Waffenstillstand OR Verteidigungshaushalt"
-    },
-    {
-      "label": "Deutsch (CH) 1",
-      "lang": "de",
-      "standing": "press",
-      "hl": "de",
-      "gl": "CH",
-      "ceid": "CH:de",
-      "query": "Militäroffensive OR Luftangriff OR Rüstungsexport"
-    },
-    {
-      "label": "Deutsch (CH) 2",
-      "lang": "de",
-      "standing": "press",
-      "hl": "de",
-      "gl": "CH",
-      "ceid": "CH:de",
-      "query": "Waffenstillstand OR Verteidigungshaushalt"
-    },
-    {
-      "label": "Italiano (IT) 1",
-      "lang": "it",
-      "standing": "press",
-      "hl": "it",
-      "gl": "IT",
-      "ceid": "IT:it",
-      "query": "offensiva militare OR attacco aereo OR export di armi"
-    },
-    {
-      "label": "Italiano (IT) 2",
-      "lang": "it",
-      "standing": "press",
-      "hl": "it",
-      "gl": "IT",
-      "ceid": "IT:it",
-      "query": "cessate il fuoco OR spesa militare"
-    },
-    {
-      "label": "Italiano (CH) 1",
-      "lang": "it",
-      "standing": "press",
-      "hl": "it",
-      "gl": "CH",
-      "ceid": "CH:it",
-      "query": "offensiva militare OR attacco aereo OR export di armi"
-    },
-    {
-      "label": "Italiano (CH) 2",
-      "lang": "it",
-      "standing": "press",
-      "hl": "it",
-      "gl": "CH",
-      "ceid": "CH:it",
-      "query": "cessate il fuoco OR spesa militare"
-    },
-    {
-      "label": "Nederlands (NL) 1",
-      "lang": "nl",
-      "standing": "press",
-      "hl": "nl",
-      "gl": "NL",
-      "ceid": "NL:nl",
-      "query": "militaire operatie OR luchtaanval OR wapenexport"
-    },
-    {
-      "label": "Nederlands (NL) 2",
-      "lang": "nl",
-      "standing": "press",
-      "hl": "nl",
-      "gl": "NL",
-      "ceid": "NL:nl",
-      "query": "staakt-het-vuren OR defensiebegroting"
-    },
-    {
-      "label": "Nederlands (BE) 1",
-      "lang": "nl",
-      "standing": "press",
-      "hl": "nl",
-      "gl": "BE",
-      "ceid": "BE:nl",
-      "query": "militaire operatie OR luchtaanval OR wapenexport"
-    },
-    {
-      "label": "Nederlands (BE) 2",
-      "lang": "nl",
-      "standing": "press",
-      "hl": "nl",
-      "gl": "BE",
-      "ceid": "BE:nl",
-      "query": "staakt-het-vuren OR defensiebegroting"
-    },
-    {
-      "label": "Svenska 1",
-      "lang": "sv",
-      "standing": "press",
-      "hl": "sv",
-      "gl": "SE",
-      "ceid": "SE:sv",
-      "query": "militär offensiv OR flyganfall OR vapenexport"
-    },
-    {
-      "label": "Svenska 2",
-      "lang": "sv",
-      "standing": "press",
-      "hl": "sv",
-      "gl": "SE",
-      "ceid": "SE:sv",
-      "query": "vapenvila OR försvarsbudget"
-    },
-    {
-      "label": "Polski 1",
-      "lang": "pl",
-      "standing": "press",
-      "hl": "pl",
-      "gl": "PL",
-      "ceid": "PL:pl",
-      "query": "ofensywa wojskowa OR atak rakietowy OR eksport broni"
-    },
-    {
-      "label": "Polski 2",
-      "lang": "pl",
-      "standing": "press",
-      "hl": "pl",
-      "gl": "PL",
-      "ceid": "PL:pl",
-      "query": "zawieszenie broni OR budżet obronny"
-    },
-    {
-      "label": "Ελληνικά 1",
-      "lang": "el",
-      "standing": "press",
-      "hl": "el",
-      "gl": "GR",
-      "ceid": "GR:el",
-      "query": "στρατιωτική επιχείρηση OR αεροπορική επιδρομή OR εξοπλισμοί"
-    },
-    {
-      "label": "Ελληνικά 2",
-      "lang": "el",
-      "standing": "press",
-      "hl": "el",
-      "gl": "GR",
-      "ceid": "GR:el",
-      "query": "κατάπαυση πυρός"
-    },
-    {
-      "label": "Русский (RU) 1",
-      "lang": "ru",
-      "standing": "press",
-      "hl": "ru",
-      "gl": "RU",
-      "ceid": "RU:ru",
-      "query": "военная операция OR ракетный удар OR поставки оружия"
-    },
-    {
-      "label": "Русский (RU) 2",
-      "lang": "ru",
-      "standing": "press",
-      "hl": "ru",
-      "gl": "RU",
-      "ceid": "RU:ru",
-      "query": "перемирие OR оборонный бюджет"
-    },
-    {
-      "label": "Русский (KZ) 1",
-      "lang": "ru",
-      "standing": "press",
-      "hl": "ru",
-      "gl": "KZ",
-      "ceid": "KZ:ru",
-      "query": "военная операция OR ракетный удар OR поставки оружия"
-    },
-    {
-      "label": "Русский (KZ) 2",
-      "lang": "ru",
-      "standing": "press",
-      "hl": "ru",
-      "gl": "KZ",
-      "ceid": "KZ:ru",
-      "query": "перемирие OR оборонный бюджет"
-    },
-    {
-      "label": "Русский (BY) 1",
-      "lang": "ru",
-      "standing": "press",
-      "hl": "ru",
-      "gl": "BY",
-      "ceid": "BY:ru",
-      "query": "военная операция OR ракетный удар OR поставки оружия"
-    },
-    {
-      "label": "Русский (BY) 2",
-      "lang": "ru",
-      "standing": "press",
-      "hl": "ru",
-      "gl": "BY",
-      "ceid": "BY:ru",
-      "query": "перемирие OR оборонный бюджет"
-    },
-    {
-      "label": "Українська 1",
-      "lang": "uk",
-      "standing": "press",
-      "hl": "uk",
-      "gl": "UA",
-      "ceid": "UA:uk",
-      "query": "військова операція OR ракетний удар OR постачання зброї"
-    },
-    {
-      "label": "Українська 2",
-      "lang": "uk",
-      "standing": "press",
-      "hl": "uk",
-      "gl": "UA",
-      "ceid": "UA:uk",
-      "query": "перемир'я OR оборонний бюджет"
-    },
-    {
-      "label": "Türkçe 1",
-      "lang": "tr",
-      "standing": "press",
-      "hl": "tr",
-      "gl": "TR",
-      "ceid": "TR:tr",
-      "query": "askeri operasyon OR hava saldırısı OR silah ihracatı"
-    },
-    {
-      "label": "Türkçe 2",
-      "lang": "tr",
-      "standing": "press",
-      "hl": "tr",
-      "gl": "TR",
-      "ceid": "TR:tr",
-      "query": "ateşkes OR savunma bütçesi"
-    },
-    {
-      "label": "العربية (EG) 1",
-      "lang": "ar",
-      "standing": "press",
-      "hl": "ar",
-      "gl": "EG",
-      "ceid": "EG:ar",
-      "query": "عملية عسكرية OR غارة جوية OR صفقة أسلحة"
-    },
-    {
-      "label": "العربية (EG) 2",
-      "lang": "ar",
-      "standing": "press",
-      "hl": "ar",
-      "gl": "EG",
-      "ceid": "EG:ar",
-      "query": "وقف إطلاق النار OR ميزانية الدفاع"
-    },
-    {
-      "label": "العربية (SA) 1",
-      "lang": "ar",
-      "standing": "press",
-      "hl": "ar",
-      "gl": "SA",
-      "ceid": "SA:ar",
-      "query": "عملية عسكرية OR غارة جوية OR صفقة أسلحة"
-    },
-    {
-      "label": "العربية (SA) 2",
-      "lang": "ar",
-      "standing": "press",
-      "hl": "ar",
-      "gl": "SA",
-      "ceid": "SA:ar",
-      "query": "وقف إطلاق النار OR ميزانية الدفاع"
-    },
-    {
-      "label": "العربية (AE) 1",
-      "lang": "ar",
-      "standing": "press",
-      "hl": "ar",
-      "gl": "AE",
-      "ceid": "AE:ar",
-      "query": "عملية عسكرية OR غارة جوية OR صفقة أسلحة"
-    },
-    {
-      "label": "العربية (AE) 2",
-      "lang": "ar",
-      "standing": "press",
-      "hl": "ar",
-      "gl": "AE",
-      "ceid": "AE:ar",
-      "query": "وقف إطلاق النار OR ميزانية الدفاع"
-    },
-    {
-      "label": "العربية (MA) 1",
-      "lang": "ar",
-      "standing": "press",
-      "hl": "ar",
-      "gl": "MA",
-      "ceid": "MA:ar",
-      "query": "عملية عسكرية OR غارة جوية OR صفقة أسلحة"
-    },
-    {
-      "label": "العربية (MA) 2",
-      "lang": "ar",
-      "standing": "press",
-      "hl": "ar",
-      "gl": "MA",
-      "ceid": "MA:ar",
-      "query": "وقف إطلاق النار OR ميزانية الدفاع"
-    },
-    {
-      "label": "עברית 1",
-      "lang": "he",
-      "standing": "press",
-      "hl": "iw",
-      "gl": "IL",
-      "ceid": "IL:iw",
-      "query": "מבצע צבאי OR תקיפה אווירית OR עסקת נשק"
-    },
-    {
-      "label": "עברית 2",
-      "lang": "he",
-      "standing": "press",
-      "hl": "iw",
-      "gl": "IL",
-      "ceid": "IL:iw",
-      "query": "הפסקת אש OR תקציב הביטחון"
-    },
-    {
-      "label": "فارسی 1",
-      "lang": "fa",
-      "standing": "press",
-      "hl": "fa",
-      "gl": "IR",
-      "ceid": "IR:fa",
-      "query": "عملیات نظامی OR حمله هوایی OR فروش تسلیحات"
-    },
-    {
-      "label": "فارسی 2",
-      "lang": "fa",
-      "standing": "press",
-      "hl": "fa",
-      "gl": "IR",
-      "ceid": "IR:fa",
-      "query": "آتش‌بس OR بودجه دفاعی"
-    },
-    {
-      "label": "हिन्दी 1",
-      "lang": "hi",
-      "standing": "press",
-      "hl": "hi",
-      "gl": "IN",
-      "ceid": "IN:hi",
-      "query": "सैन्य अभियान OR हवाई हमला OR रक्षा सौदा"
-    },
-    {
-      "label": "हिन्दी 2",
-      "lang": "hi",
-      "standing": "press",
-      "hl": "hi",
-      "gl": "IN",
-      "ceid": "IN:hi",
-      "query": "युद्धविराम OR रक्षा बजट"
-    },
-    {
-      "label": "বাংলা (BD) 1",
-      "lang": "bn",
-      "standing": "press",
-      "hl": "bn",
-      "gl": "BD",
-      "ceid": "BD:bn",
-      "query": "সামরিক অভিযান OR বিমান হামলা OR অস্ত্র চুক্তি"
-    },
-    {
-      "label": "বাংলা (BD) 2",
-      "lang": "bn",
-      "standing": "press",
-      "hl": "bn",
-      "gl": "BD",
-      "ceid": "BD:bn",
-      "query": "যুদ্ধবিরতি"
-    },
-    {
-      "label": "বাংলা (IN) 1",
-      "lang": "bn",
-      "standing": "press",
-      "hl": "bn",
-      "gl": "IN",
-      "ceid": "IN:bn",
-      "query": "সামরিক অভিযান OR বিমান হামলা OR অস্ত্র চুক্তি"
-    },
-    {
-      "label": "বাংলা (IN) 2",
-      "lang": "bn",
-      "standing": "press",
-      "hl": "bn",
-      "gl": "IN",
-      "ceid": "IN:bn",
-      "query": "যুদ্ধবিরতি"
-    },
-    {
-      "label": "Bahasa Indonesia 1",
-      "lang": "id",
-      "standing": "press",
-      "hl": "id",
-      "gl": "ID",
-      "ceid": "ID:id",
-      "query": "operasi militer OR serangan udara OR pembelian senjata"
-    },
-    {
-      "label": "Bahasa Indonesia 2",
-      "lang": "id",
-      "standing": "press",
-      "hl": "id",
-      "gl": "ID",
-      "ceid": "ID:id",
-      "query": "gencatan senjata OR anggaran pertahanan"
-    },
-    {
-      "label": "Tiếng Việt 1",
-      "lang": "vi",
-      "standing": "press",
-      "hl": "vi",
-      "gl": "VN",
-      "ceid": "VN:vi",
-      "query": "chiến dịch quân sự OR không kích OR mua sắm vũ khí"
-    },
-    {
-      "label": "Tiếng Việt 2",
-      "lang": "vi",
-      "standing": "press",
-      "hl": "vi",
-      "gl": "VN",
-      "ceid": "VN:vi",
-      "query": "ngừng bắn OR ngân sách quốc phòng"
-    },
-    {
-      "label": "ไทย 1",
-      "lang": "th",
-      "standing": "press",
-      "hl": "th",
-      "gl": "TH",
-      "ceid": "TH:th",
-      "query": "ปฏิบัติการทางทหาร OR โจมตีทางอากาศ OR จัดซื้ออาวุธ"
-    },
-    {
-      "label": "ไทย 2",
-      "lang": "th",
-      "standing": "press",
-      "hl": "th",
-      "gl": "TH",
-      "ceid": "TH:th",
-      "query": "หยุดยิง"
-    },
-    {
-      "label": "日本語 1",
-      "lang": "ja",
-      "standing": "press",
-      "hl": "ja",
-      "gl": "JP",
-      "ceid": "JP:ja",
-      "query": "軍事作戦 OR 空爆 OR 防衛費"
-    },
-    {
-      "label": "日本語 2",
-      "lang": "ja",
-      "standing": "press",
-      "hl": "ja",
-      "gl": "JP",
-      "ceid": "JP:ja",
-      "query": "武器輸出 OR 停戦 OR 安全保障"
-    },
-    {
-      "label": "简体中文 (CN) 1",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-CN",
-      "gl": "CN",
-      "ceid": "CN:zh-Hans",
-      "query": "军事行动 OR 空袭 OR 军费预算"
-    },
-    {
-      "label": "简体中文 (CN) 2",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-CN",
-      "gl": "CN",
-      "ceid": "CN:zh-Hans",
-      "query": "军售 OR 停火 OR 边境冲突"
-    },
-    {
-      "label": "简体中文 (TW) 1",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-TW",
-      "gl": "TW",
-      "ceid": "TW:zh-Hant",
-      "query": "军事行动 OR 空袭 OR 军费预算"
-    },
-    {
-      "label": "简体中文 (TW) 2",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-TW",
-      "gl": "TW",
-      "ceid": "TW:zh-Hant",
-      "query": "军售 OR 停火 OR 边境冲突"
-    },
-    {
-      "label": "简体中文 (HK) 1",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-HK",
-      "gl": "HK",
-      "ceid": "HK:zh-Hant",
-      "query": "军事行动 OR 空袭 OR 军费预算"
-    },
-    {
-      "label": "简体中文 (HK) 2",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-HK",
-      "gl": "HK",
-      "ceid": "HK:zh-Hant",
-      "query": "军售 OR 停火 OR 边境冲突"
-    },
-    {
-      "label": "简体中文 (SG) 1",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-CN",
-      "gl": "SG",
-      "ceid": "SG:zh-Hans",
-      "query": "军事行动 OR 空袭 OR 军费预算"
-    },
-    {
-      "label": "简体中文 (SG) 2",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-CN",
-      "gl": "SG",
-      "ceid": "SG:zh-Hans",
-      "query": "军售 OR 停火 OR 边境冲突"
-    },
-    {
-      "label": "繁體中文 (CN) 1",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-CN",
-      "gl": "CN",
-      "ceid": "CN:zh-Hans",
-      "query": "軍事行動 OR 空襲 OR 國防預算"
-    },
-    {
-      "label": "繁體中文 (CN) 2",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-CN",
-      "gl": "CN",
-      "ceid": "CN:zh-Hans",
-      "query": "軍售 OR 停火 OR 台海情勢"
-    },
-    {
-      "label": "繁體中文 (TW) 1",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-TW",
-      "gl": "TW",
-      "ceid": "TW:zh-Hant",
-      "query": "軍事行動 OR 空襲 OR 國防預算"
-    },
-    {
-      "label": "繁體中文 (TW) 2",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-TW",
-      "gl": "TW",
-      "ceid": "TW:zh-Hant",
-      "query": "軍售 OR 停火 OR 台海情勢"
-    },
-    {
-      "label": "繁體中文 (HK) 1",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-HK",
-      "gl": "HK",
-      "ceid": "HK:zh-Hant",
-      "query": "軍事行動 OR 空襲 OR 國防預算"
-    },
-    {
-      "label": "繁體中文 (HK) 2",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-HK",
-      "gl": "HK",
-      "ceid": "HK:zh-Hant",
-      "query": "軍售 OR 停火 OR 台海情勢"
-    },
-    {
-      "label": "繁體中文 (SG) 1",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-CN",
-      "gl": "SG",
-      "ceid": "SG:zh-Hans",
-      "query": "軍事行動 OR 空襲 OR 國防預算"
-    },
-    {
-      "label": "繁體中文 (SG) 2",
-      "lang": "zh",
-      "standing": "press",
-      "hl": "zh-CN",
-      "gl": "SG",
-      "ceid": "SG:zh-Hans",
-      "query": "軍售 OR 停火 OR 台海情勢"
-    },
-    {
-      "label": "한국어 1",
-      "lang": "ko",
-      "standing": "press",
-      "hl": "ko",
-      "gl": "KR",
-      "ceid": "KR:ko",
-      "query": "군사 작전 OR 공습 OR 국방 예산"
-    },
-    {
-      "label": "한국어 2",
-      "lang": "ko",
-      "standing": "press",
-      "hl": "ko",
-      "gl": "KR",
-      "ceid": "KR:ko",
-      "query": "무기 수출 OR 휴전 OR 미사일 발사"
-    },
-    {
-      "label": "Kiswahili (KE) 1",
-      "lang": "sw",
-      "standing": "press",
-      "hl": "sw",
-      "gl": "KE",
-      "ceid": "KE:sw",
-      "query": "operesheni ya kijeshi OR shambulio la anga OR bajeti ya ulinzi"
-    },
-    {
-      "label": "Kiswahili (KE) 2",
-      "lang": "sw",
-      "standing": "press",
-      "hl": "sw",
-      "gl": "KE",
-      "ceid": "KE:sw",
-      "query": "usitishaji mapigano"
-    },
-    {
-      "label": "Kiswahili (TZ) 1",
-      "lang": "sw",
-      "standing": "press",
-      "hl": "sw",
-      "gl": "TZ",
-      "ceid": "TZ:sw",
-      "query": "operesheni ya kijeshi OR shambulio la anga OR bajeti ya ulinzi"
-    },
-    {
-      "label": "Kiswahili (TZ) 2",
-      "lang": "sw",
-      "standing": "press",
-      "hl": "sw",
-      "gl": "TZ",
-      "ceid": "TZ:sw",
-      "query": "usitishaji mapigano"
-    }
-  ],
-  "events": [
-    {
-      "label": "Offensives & incursions",
-      "lang": "en",
-      "standing": "official",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "launched an offensive OR crossed the border troops OR seized the town OR front line advance OR incursion into territory"
-    },
-    {
-      "label": "Strikes & bombardment",
-      "lang": "en",
-      "standing": "official",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "airstrike hit OR missile strike killed OR drone strike OR shelling residential OR bombardment overnight"
-    },
-    {
-      "label": "Attacks on civilians",
-      "lang": "en",
-      "standing": "research",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "civilians killed strike OR massacre reported OR hospital hit OR bombing market OR suicide attack claimed"
-    },
-    {
-      "label": "Arms industry & exports",
-      "lang": "en",
-      "standing": "trade",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "arms export licence OR weapons contract awarded OR defence firm order OR missile production line OR ammunition plant"
-    },
-    {
-      "label": "Money & budgets",
-      "lang": "en",
-      "standing": "official",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "defence budget increase OR military aid package OR procurement programme cost OR sanctions military OR arms sales approved"
-    },
-    {
-      "label": "Bases & corridors",
-      "lang": "en",
-      "standing": "official",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "foreign military base OR basing agreement OR port access naval OR troop deployment agreement OR overflight rights"
-    },
-    {
-      "label": "Law & accountability",
-      "lang": "en",
-      "standing": "official",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "war crimes charges OR ICC arrest warrant OR commission of inquiry conflict OR ceasefire agreement signed OR peace deal talks"
-    },
-    {
-      "label": "Nuclear & strategic",
-      "lang": "en",
-      "standing": "official",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "nuclear warhead OR missile test launched OR nuclear doctrine OR arms control treaty OR enrichment inspectors"
-    },
-    {
-      "label": "Humanitarian consequence",
-      "lang": "en",
-      "standing": "research",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "displaced by fighting OR famine conflict OR aid convoy blocked OR refugees fleeing conflict OR casualties toll conflict"
-    },
-    {
-      "label": "Research institutes (site)",
-      "lang": "en",
-      "standing": "research",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "site:sipri.org OR site:acleddata.com OR site:iiss.org OR site:crisisgroup.org conflict OR arms OR military"
-    },
-    {
-      "label": "UN & courts (site)",
-      "lang": "en",
-      "standing": "official",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "site:un.org OR site:icc-cpi.int OR site:icj-cij.org conflict OR war crimes OR peacekeeping"
-    },
-    {
-      "label": "Coups & irregular power",
-      "lang": "en",
-      "standing": "press",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "military coup OR junta announced OR mutiny soldiers OR mercenaries deployed OR private military company"
-    },
-    {
-      "label": "NATO, ICRC & ministries (site)",
-      "lang": "en",
-      "standing": "official",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "site:nato.int OR site:icrc.org OR site:ohchr.org OR site:war.gov statement OR operation OR deployment"
-    },
-    {
-      "label": "SIPRI & humanitarian monitors (site)",
-      "lang": "en",
-      "standing": "official",
-      "hl": "en-US",
-      "gl": "US",
-      "ceid": "US:en",
-      "query": "site:sipri.org OR site:thenewhumanitarian.org OR site:reliefweb.int arms OR conflict OR displacement"
-    }
-  ]
+ "_note": "Wires for the conflict feed: invasions and offensives, strikes, attacks on civilians, the arms industry and the money behind it, bases and corridors, officials and command, law and accountability, nuclear and strategic forces, and humanitarian consequence. Each wire carries a 'standing': official (UN bodies, courts, ministries, alliances), research (SIPRI, ACLED, HRW, Amnesty, Bellingcat, Airwars), trade (defence trade press), or press. Locale coverage is expanded by the same market-and-slice method as the other feeds. Locale coverage is expanded: several country editions per language, and each query split into slices so no single search hits Google News's ~100-result cap. Seven direct feeds were dropped after the first live run returned 403 or 404 for them (war.gov, OHCHR, The New Humanitarian, ICRC, NATO, SIPRI, the old Kyiv Independent path); those organisations are now read through site-scoped searches, and four working feeds replaced them.",
+ "direct": [
+  {
+   "name": "UN News — Peace & Security",
+   "lang": "en",
+   "standing": "official",
+   "url": "https://news.un.org/feed/subscribe/en/news/topic/peace-and-security/feed/rss.xml"
+  },
+  {
+   "name": "ReliefWeb — updates",
+   "lang": "en",
+   "standing": "official",
+   "url": "https://reliefweb.int/updates/rss.xml"
+  },
+  {
+   "name": "Bellingcat",
+   "lang": "en",
+   "standing": "research",
+   "url": "https://www.bellingcat.com/feed/"
+  },
+  {
+   "name": "Airwars",
+   "lang": "en",
+   "standing": "research",
+   "url": "https://airwars.org/feed/"
+  },
+  {
+   "name": "Human Rights Watch",
+   "lang": "en",
+   "standing": "research",
+   "url": "https://www.hrw.org/rss/news"
+  },
+  {
+   "name": "Amnesty International",
+   "lang": "en",
+   "standing": "research",
+   "url": "https://www.amnesty.org/en/rss/"
+  },
+  {
+   "name": "War on the Rocks",
+   "lang": "en",
+   "standing": "research",
+   "url": "https://warontherocks.com/feed/"
+  },
+  {
+   "name": "Defense News",
+   "lang": "en",
+   "standing": "trade",
+   "url": "https://www.defensenews.com/arc/outboundfeeds/rss/?outputType=xml"
+  },
+  {
+   "name": "Breaking Defense",
+   "lang": "en",
+   "standing": "trade",
+   "url": "https://breakingdefense.com/feed/"
+  },
+  {
+   "name": "Defence Blog",
+   "lang": "en",
+   "standing": "trade",
+   "url": "https://defence-blog.com/feed/"
+  },
+  {
+   "name": "Naval News",
+   "lang": "en",
+   "standing": "trade",
+   "url": "https://www.navalnews.com/feed/"
+  },
+  {
+   "name": "Al Jazeera",
+   "lang": "en",
+   "standing": "press",
+   "url": "https://www.aljazeera.com/xml/rss/all.xml"
+  },
+  {
+   "name": "The Guardian — World",
+   "lang": "en",
+   "standing": "press",
+   "url": "https://www.theguardian.com/world/rss"
+  },
+  {
+   "name": "Middle East Eye",
+   "lang": "en",
+   "standing": "press",
+   "url": "https://www.middleeasteye.net/rss"
+  },
+  {
+   "name": "UN News — all",
+   "lang": "en",
+   "standing": "official",
+   "url": "https://news.un.org/feed/subscribe/en/news/all/rss.xml"
+  },
+  {
+   "name": "Crisis Group",
+   "lang": "en",
+   "standing": "research",
+   "url": "https://www.crisisgroup.org/rss.xml"
+  },
+  {
+   "name": "The Kyiv Independent",
+   "lang": "en",
+   "standing": "press",
+   "url": "https://kyivindependent.com/rss/"
+  },
+  {
+   "name": "Defense One",
+   "lang": "en",
+   "standing": "trade",
+   "url": "https://www.defenseone.com/rss/all/"
+  }
+ ],
+ "gnews": [
+  {
+   "label": "English (US) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "military offensive"
+  },
+  {
+   "label": "English (US) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "airstrike killed"
+  },
+  {
+   "label": "English (US) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "troops cross border"
+  },
+  {
+   "label": "English (GB) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "military offensive"
+  },
+  {
+   "label": "English (GB) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "airstrike killed"
+  },
+  {
+   "label": "English (GB) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "troops cross border"
+  },
+  {
+   "label": "English (IN) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "military offensive"
+  },
+  {
+   "label": "English (IN) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "airstrike killed"
+  },
+  {
+   "label": "English (IN) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "troops cross border"
+  },
+  {
+   "label": "English (AU) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-AU",
+   "gl": "AU",
+   "ceid": "AU:en",
+   "query": "military offensive"
+  },
+  {
+   "label": "English (AU) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-AU",
+   "gl": "AU",
+   "ceid": "AU:en",
+   "query": "airstrike killed"
+  },
+  {
+   "label": "English (AU) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-AU",
+   "gl": "AU",
+   "ceid": "AU:en",
+   "query": "troops cross border"
+  },
+  {
+   "label": "English (UK) (US) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "armed conflict"
+  },
+  {
+   "label": "English (UK) (US) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "arms export licence"
+  },
+  {
+   "label": "English (UK) (US) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "defence spending"
+  },
+  {
+   "label": "English (UK) (GB) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "armed conflict"
+  },
+  {
+   "label": "English (UK) (GB) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "arms export licence"
+  },
+  {
+   "label": "English (UK) (GB) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "defence spending"
+  },
+  {
+   "label": "English (UK) (IN) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "armed conflict"
+  },
+  {
+   "label": "English (UK) (IN) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "arms export licence"
+  },
+  {
+   "label": "English (UK) (IN) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "defence spending"
+  },
+  {
+   "label": "English (UK) (AU) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-AU",
+   "gl": "AU",
+   "ceid": "AU:en",
+   "query": "armed conflict"
+  },
+  {
+   "label": "English (UK) (AU) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-AU",
+   "gl": "AU",
+   "ceid": "AU:en",
+   "query": "arms export licence"
+  },
+  {
+   "label": "English (UK) (AU) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-AU",
+   "gl": "AU",
+   "ceid": "AU:en",
+   "query": "defence spending"
+  },
+  {
+   "label": "English (India) (US) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "border clash"
+  },
+  {
+   "label": "English (India) (US) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "defence procurement"
+  },
+  {
+   "label": "English (India) (US) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "ceasefire violation"
+  },
+  {
+   "label": "English (India) (GB) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "border clash"
+  },
+  {
+   "label": "English (India) (GB) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "defence procurement"
+  },
+  {
+   "label": "English (India) (GB) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "ceasefire violation"
+  },
+  {
+   "label": "English (India) (IN) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "border clash"
+  },
+  {
+   "label": "English (India) (IN) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "defence procurement"
+  },
+  {
+   "label": "English (India) (IN) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "ceasefire violation"
+  },
+  {
+   "label": "English (India) (AU) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-AU",
+   "gl": "AU",
+   "ceid": "AU:en",
+   "query": "border clash"
+  },
+  {
+   "label": "English (India) (AU) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-AU",
+   "gl": "AU",
+   "ceid": "AU:en",
+   "query": "defence procurement"
+  },
+  {
+   "label": "English (India) (AU) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-AU",
+   "gl": "AU",
+   "ceid": "AU:en",
+   "query": "ceasefire violation"
+  },
+  {
+   "label": "English (Nigeria) (NG) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-NG",
+   "gl": "NG",
+   "ceid": "NG:en",
+   "query": "insurgency attack"
+  },
+  {
+   "label": "English (Nigeria) (NG) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-NG",
+   "gl": "NG",
+   "ceid": "NG:en",
+   "query": "military operation"
+  },
+  {
+   "label": "English (Nigeria) (NG) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-NG",
+   "gl": "NG",
+   "ceid": "NG:en",
+   "query": "abducted civilians"
+  },
+  {
+   "label": "English (Nigeria) (US) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "insurgency attack"
+  },
+  {
+   "label": "English (Nigeria) (US) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "military operation"
+  },
+  {
+   "label": "English (Nigeria) (US) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "abducted civilians"
+  },
+  {
+   "label": "English (Nigeria) (GB) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "insurgency attack"
+  },
+  {
+   "label": "English (Nigeria) (GB) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "military operation"
+  },
+  {
+   "label": "English (Nigeria) (GB) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "abducted civilians"
+  },
+  {
+   "label": "English (Nigeria) (IN) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "insurgency attack"
+  },
+  {
+   "label": "English (Nigeria) (IN) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "military operation"
+  },
+  {
+   "label": "English (Nigeria) (IN) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "abducted civilians"
+  },
+  {
+   "label": "English (Kenya) (KE) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-KE",
+   "gl": "KE",
+   "ceid": "KE:en",
+   "query": "al-shabaab attack"
+  },
+  {
+   "label": "English (Kenya) (KE) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-KE",
+   "gl": "KE",
+   "ceid": "KE:en",
+   "query": "peacekeeping mission"
+  },
+  {
+   "label": "English (Kenya) (KE) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-KE",
+   "gl": "KE",
+   "ceid": "KE:en",
+   "query": "military operation"
+  },
+  {
+   "label": "English (Kenya) (US) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "al-shabaab attack"
+  },
+  {
+   "label": "English (Kenya) (US) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "peacekeeping mission"
+  },
+  {
+   "label": "English (Kenya) (US) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "military operation"
+  },
+  {
+   "label": "English (Kenya) (GB) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "al-shabaab attack"
+  },
+  {
+   "label": "English (Kenya) (GB) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "peacekeeping mission"
+  },
+  {
+   "label": "English (Kenya) (GB) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "military operation"
+  },
+  {
+   "label": "English (Kenya) (IN) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "al-shabaab attack"
+  },
+  {
+   "label": "English (Kenya) (IN) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "peacekeeping mission"
+  },
+  {
+   "label": "English (Kenya) (IN) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "military operation"
+  },
+  {
+   "label": "English (S. Africa) (ZA) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-ZA",
+   "gl": "ZA",
+   "ceid": "ZA:en",
+   "query": "armed conflict africa"
+  },
+  {
+   "label": "English (S. Africa) (ZA) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-ZA",
+   "gl": "ZA",
+   "ceid": "ZA:en",
+   "query": "arms trade"
+  },
+  {
+   "label": "English (S. Africa) (ZA) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-ZA",
+   "gl": "ZA",
+   "ceid": "ZA:en",
+   "query": "peacekeepers"
+  },
+  {
+   "label": "English (S. Africa) (US) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "armed conflict africa"
+  },
+  {
+   "label": "English (S. Africa) (US) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "arms trade"
+  },
+  {
+   "label": "English (S. Africa) (US) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "peacekeepers"
+  },
+  {
+   "label": "English (S. Africa) (GB) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "armed conflict africa"
+  },
+  {
+   "label": "English (S. Africa) (GB) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "arms trade"
+  },
+  {
+   "label": "English (S. Africa) (GB) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "peacekeepers"
+  },
+  {
+   "label": "English (S. Africa) (IN) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "armed conflict africa"
+  },
+  {
+   "label": "English (S. Africa) (IN) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "arms trade"
+  },
+  {
+   "label": "English (S. Africa) (IN) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "peacekeepers"
+  },
+  {
+   "label": "English (Philippines) (PH) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-PH",
+   "gl": "PH",
+   "ceid": "PH:en",
+   "query": "south china sea incident"
+  },
+  {
+   "label": "English (Philippines) (PH) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-PH",
+   "gl": "PH",
+   "ceid": "PH:en",
+   "query": "military drills"
+  },
+  {
+   "label": "English (Philippines) (PH) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-PH",
+   "gl": "PH",
+   "ceid": "PH:en",
+   "query": "defence pact"
+  },
+  {
+   "label": "English (Philippines) (US) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "south china sea incident"
+  },
+  {
+   "label": "English (Philippines) (US) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "military drills"
+  },
+  {
+   "label": "English (Philippines) (US) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "defence pact"
+  },
+  {
+   "label": "English (Philippines) (GB) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "south china sea incident"
+  },
+  {
+   "label": "English (Philippines) (GB) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "military drills"
+  },
+  {
+   "label": "English (Philippines) (GB) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "defence pact"
+  },
+  {
+   "label": "English (Philippines) (IN) · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "south china sea incident"
+  },
+  {
+   "label": "English (Philippines) (IN) · strikes",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "military drills"
+  },
+  {
+   "label": "English (Philippines) (IN) 1",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "defence pact"
+  },
+  {
+   "label": "Español (ES) · offensive",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es",
+   "gl": "ES",
+   "ceid": "ES:es",
+   "query": "ofensiva militar"
+  },
+  {
+   "label": "Español (ES) · strikes",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es",
+   "gl": "ES",
+   "ceid": "ES:es",
+   "query": "ataque armado"
+  },
+  {
+   "label": "Español (ES) 1",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es",
+   "gl": "ES",
+   "ceid": "ES:es",
+   "query": "gasto militar"
+  },
+  {
+   "label": "Español (MX) · offensive",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "MX",
+   "ceid": "MX:es-419",
+   "query": "ofensiva militar"
+  },
+  {
+   "label": "Español (MX) · strikes",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "MX",
+   "ceid": "MX:es-419",
+   "query": "ataque armado"
+  },
+  {
+   "label": "Español (MX) 1",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "MX",
+   "ceid": "MX:es-419",
+   "query": "gasto militar"
+  },
+  {
+   "label": "Español (AR) · offensive",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "AR",
+   "ceid": "AR:es-419",
+   "query": "ofensiva militar"
+  },
+  {
+   "label": "Español (AR) · strikes",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "AR",
+   "ceid": "AR:es-419",
+   "query": "ataque armado"
+  },
+  {
+   "label": "Español (AR) 1",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "AR",
+   "ceid": "AR:es-419",
+   "query": "gasto militar"
+  },
+  {
+   "label": "Español (CO) · offensive",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "CO",
+   "ceid": "CO:es-419",
+   "query": "ofensiva militar"
+  },
+  {
+   "label": "Español (CO) · strikes",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "CO",
+   "ceid": "CO:es-419",
+   "query": "ataque armado"
+  },
+  {
+   "label": "Español (CO) 1",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "CO",
+   "ceid": "CO:es-419",
+   "query": "gasto militar"
+  },
+  {
+   "label": "Español (Colombia) (ES) · offensive",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es",
+   "gl": "ES",
+   "ceid": "ES:es",
+   "query": "grupo armado ataque"
+  },
+  {
+   "label": "Español (Colombia) (ES) · strikes",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es",
+   "gl": "ES",
+   "ceid": "ES:es",
+   "query": "ofensiva militar"
+  },
+  {
+   "label": "Español (Colombia) (ES) 1",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es",
+   "gl": "ES",
+   "ceid": "ES:es",
+   "query": "acuerdo de paz"
+  },
+  {
+   "label": "Español (Colombia) (MX) · offensive",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "MX",
+   "ceid": "MX:es-419",
+   "query": "grupo armado ataque"
+  },
+  {
+   "label": "Español (Colombia) (MX) · strikes",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "MX",
+   "ceid": "MX:es-419",
+   "query": "ofensiva militar"
+  },
+  {
+   "label": "Español (Colombia) (MX) 1",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "MX",
+   "ceid": "MX:es-419",
+   "query": "acuerdo de paz"
+  },
+  {
+   "label": "Español (Colombia) (AR) · offensive",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "AR",
+   "ceid": "AR:es-419",
+   "query": "grupo armado ataque"
+  },
+  {
+   "label": "Español (Colombia) (AR) · strikes",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "AR",
+   "ceid": "AR:es-419",
+   "query": "ofensiva militar"
+  },
+  {
+   "label": "Español (Colombia) (AR) 1",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "AR",
+   "ceid": "AR:es-419",
+   "query": "acuerdo de paz"
+  },
+  {
+   "label": "Español (Colombia) (CO) · offensive",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "CO",
+   "ceid": "CO:es-419",
+   "query": "grupo armado ataque"
+  },
+  {
+   "label": "Español (Colombia) (CO) · strikes",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "CO",
+   "ceid": "CO:es-419",
+   "query": "ofensiva militar"
+  },
+  {
+   "label": "Español (Colombia) (CO) 1",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "CO",
+   "ceid": "CO:es-419",
+   "query": "acuerdo de paz"
+  },
+  {
+   "label": "Português (BR) · offensive",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "BR",
+   "ceid": "BR:pt-419",
+   "query": "conflito armado"
+  },
+  {
+   "label": "Português (BR) · strikes",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "BR",
+   "ceid": "BR:pt-419",
+   "query": "gastos militares"
+  },
+  {
+   "label": "Português (BR) 1",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "BR",
+   "ceid": "BR:pt-419",
+   "query": "ataque armado"
+  },
+  {
+   "label": "Português (PT) · offensive",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "PT",
+   "ceid": "PT:pt-150",
+   "query": "conflito armado"
+  },
+  {
+   "label": "Português (PT) · strikes",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "PT",
+   "ceid": "PT:pt-150",
+   "query": "gastos militares"
+  },
+  {
+   "label": "Português (PT) 1",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "PT",
+   "ceid": "PT:pt-150",
+   "query": "ataque armado"
+  },
+  {
+   "label": "Português (AO) · offensive",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "AO",
+   "ceid": "AO:pt-150",
+   "query": "conflito armado"
+  },
+  {
+   "label": "Português (AO) · strikes",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "AO",
+   "ceid": "AO:pt-150",
+   "query": "gastos militares"
+  },
+  {
+   "label": "Português (AO) 1",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "AO",
+   "ceid": "AO:pt-150",
+   "query": "ataque armado"
+  },
+  {
+   "label": "Français (FR) · offensive",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "FR",
+   "ceid": "FR:fr",
+   "query": "offensive militaire"
+  },
+  {
+   "label": "Français (FR) · strikes",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "FR",
+   "ceid": "FR:fr",
+   "query": "frappe aérienne"
+  },
+  {
+   "label": "Français (FR) 1",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "FR",
+   "ceid": "FR:fr",
+   "query": "vente d'armes"
+  },
+  {
+   "label": "Français (BE) · offensive",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "BE",
+   "ceid": "BE:fr",
+   "query": "offensive militaire"
+  },
+  {
+   "label": "Français (BE) · strikes",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "BE",
+   "ceid": "BE:fr",
+   "query": "frappe aérienne"
+  },
+  {
+   "label": "Français (BE) 1",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "BE",
+   "ceid": "BE:fr",
+   "query": "vente d'armes"
+  },
+  {
+   "label": "Français (CA) · offensive",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "CA",
+   "ceid": "CA:fr",
+   "query": "offensive militaire"
+  },
+  {
+   "label": "Français (CA) · strikes",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "CA",
+   "ceid": "CA:fr",
+   "query": "frappe aérienne"
+  },
+  {
+   "label": "Français (CA) 1",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "CA",
+   "ceid": "CA:fr",
+   "query": "vente d'armes"
+  },
+  {
+   "label": "Français (SN) · offensive",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "SN",
+   "ceid": "SN:fr",
+   "query": "offensive militaire"
+  },
+  {
+   "label": "Français (SN) · strikes",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "SN",
+   "ceid": "SN:fr",
+   "query": "frappe aérienne"
+  },
+  {
+   "label": "Français (SN) 1",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "SN",
+   "ceid": "SN:fr",
+   "query": "vente d'armes"
+  },
+  {
+   "label": "Deutsch (DE) · offensive",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "DE",
+   "ceid": "DE:de",
+   "query": "Militäroffensive"
+  },
+  {
+   "label": "Deutsch (DE) · strikes",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "DE",
+   "ceid": "DE:de",
+   "query": "Luftangriff"
+  },
+  {
+   "label": "Deutsch (DE) 1",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "DE",
+   "ceid": "DE:de",
+   "query": "Rüstungsexport"
+  },
+  {
+   "label": "Deutsch (AT) · offensive",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "AT",
+   "ceid": "AT:de",
+   "query": "Militäroffensive"
+  },
+  {
+   "label": "Deutsch (AT) · strikes",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "AT",
+   "ceid": "AT:de",
+   "query": "Luftangriff"
+  },
+  {
+   "label": "Deutsch (AT) 1",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "AT",
+   "ceid": "AT:de",
+   "query": "Rüstungsexport"
+  },
+  {
+   "label": "Deutsch (CH) · offensive",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "CH",
+   "ceid": "CH:de",
+   "query": "Militäroffensive"
+  },
+  {
+   "label": "Deutsch (CH) · strikes",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "CH",
+   "ceid": "CH:de",
+   "query": "Luftangriff"
+  },
+  {
+   "label": "Deutsch (CH) 1",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "CH",
+   "ceid": "CH:de",
+   "query": "Rüstungsexport"
+  },
+  {
+   "label": "Italiano (IT) · offensive",
+   "lang": "it",
+   "standing": "press",
+   "hl": "it",
+   "gl": "IT",
+   "ceid": "IT:it",
+   "query": "offensiva militare"
+  },
+  {
+   "label": "Italiano (IT) · strikes",
+   "lang": "it",
+   "standing": "press",
+   "hl": "it",
+   "gl": "IT",
+   "ceid": "IT:it",
+   "query": "attacco aereo"
+  },
+  {
+   "label": "Italiano (IT) 1",
+   "lang": "it",
+   "standing": "press",
+   "hl": "it",
+   "gl": "IT",
+   "ceid": "IT:it",
+   "query": "export di armi"
+  },
+  {
+   "label": "Italiano (CH) · offensive",
+   "lang": "it",
+   "standing": "press",
+   "hl": "it",
+   "gl": "CH",
+   "ceid": "CH:it",
+   "query": "offensiva militare"
+  },
+  {
+   "label": "Italiano (CH) · strikes",
+   "lang": "it",
+   "standing": "press",
+   "hl": "it",
+   "gl": "CH",
+   "ceid": "CH:it",
+   "query": "attacco aereo"
+  },
+  {
+   "label": "Italiano (CH) 1",
+   "lang": "it",
+   "standing": "press",
+   "hl": "it",
+   "gl": "CH",
+   "ceid": "CH:it",
+   "query": "export di armi"
+  },
+  {
+   "label": "Nederlands (NL) · offensive",
+   "lang": "nl",
+   "standing": "press",
+   "hl": "nl",
+   "gl": "NL",
+   "ceid": "NL:nl",
+   "query": "militaire operatie"
+  },
+  {
+   "label": "Nederlands (NL) · strikes",
+   "lang": "nl",
+   "standing": "press",
+   "hl": "nl",
+   "gl": "NL",
+   "ceid": "NL:nl",
+   "query": "luchtaanval"
+  },
+  {
+   "label": "Nederlands (NL) 1",
+   "lang": "nl",
+   "standing": "press",
+   "hl": "nl",
+   "gl": "NL",
+   "ceid": "NL:nl",
+   "query": "wapenexport"
+  },
+  {
+   "label": "Nederlands (BE) · offensive",
+   "lang": "nl",
+   "standing": "press",
+   "hl": "nl",
+   "gl": "BE",
+   "ceid": "BE:nl",
+   "query": "militaire operatie"
+  },
+  {
+   "label": "Nederlands (BE) · strikes",
+   "lang": "nl",
+   "standing": "press",
+   "hl": "nl",
+   "gl": "BE",
+   "ceid": "BE:nl",
+   "query": "luchtaanval"
+  },
+  {
+   "label": "Nederlands (BE) 1",
+   "lang": "nl",
+   "standing": "press",
+   "hl": "nl",
+   "gl": "BE",
+   "ceid": "BE:nl",
+   "query": "wapenexport"
+  },
+  {
+   "label": "Svenska · offensive",
+   "lang": "sv",
+   "standing": "press",
+   "hl": "sv",
+   "gl": "SE",
+   "ceid": "SE:sv",
+   "query": "militär offensiv"
+  },
+  {
+   "label": "Svenska · strikes",
+   "lang": "sv",
+   "standing": "press",
+   "hl": "sv",
+   "gl": "SE",
+   "ceid": "SE:sv",
+   "query": "flyganfall"
+  },
+  {
+   "label": "Svenska 1",
+   "lang": "sv",
+   "standing": "press",
+   "hl": "sv",
+   "gl": "SE",
+   "ceid": "SE:sv",
+   "query": "vapenexport"
+  },
+  {
+   "label": "Polski · offensive",
+   "lang": "pl",
+   "standing": "press",
+   "hl": "pl",
+   "gl": "PL",
+   "ceid": "PL:pl",
+   "query": "ofensywa wojskowa"
+  },
+  {
+   "label": "Polski · strikes",
+   "lang": "pl",
+   "standing": "press",
+   "hl": "pl",
+   "gl": "PL",
+   "ceid": "PL:pl",
+   "query": "atak rakietowy"
+  },
+  {
+   "label": "Polski 1",
+   "lang": "pl",
+   "standing": "press",
+   "hl": "pl",
+   "gl": "PL",
+   "ceid": "PL:pl",
+   "query": "eksport broni"
+  },
+  {
+   "label": "Ελληνικά · offensive",
+   "lang": "el",
+   "standing": "press",
+   "hl": "el",
+   "gl": "GR",
+   "ceid": "GR:el",
+   "query": "στρατιωτική επιχείρηση"
+  },
+  {
+   "label": "Ελληνικά · strikes",
+   "lang": "el",
+   "standing": "press",
+   "hl": "el",
+   "gl": "GR",
+   "ceid": "GR:el",
+   "query": "αεροπορική επιδρομή"
+  },
+  {
+   "label": "Ελληνικά 1",
+   "lang": "el",
+   "standing": "press",
+   "hl": "el",
+   "gl": "GR",
+   "ceid": "GR:el",
+   "query": "εξοπλισμοί"
+  },
+  {
+   "label": "Русский (RU) · offensive",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "RU",
+   "ceid": "RU:ru",
+   "query": "военная операция"
+  },
+  {
+   "label": "Русский (RU) · strikes",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "RU",
+   "ceid": "RU:ru",
+   "query": "ракетный удар"
+  },
+  {
+   "label": "Русский (RU) 1",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "RU",
+   "ceid": "RU:ru",
+   "query": "поставки оружия"
+  },
+  {
+   "label": "Русский (KZ) · offensive",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "KZ",
+   "ceid": "KZ:ru",
+   "query": "военная операция"
+  },
+  {
+   "label": "Русский (KZ) · strikes",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "KZ",
+   "ceid": "KZ:ru",
+   "query": "ракетный удар"
+  },
+  {
+   "label": "Русский (KZ) 1",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "KZ",
+   "ceid": "KZ:ru",
+   "query": "поставки оружия"
+  },
+  {
+   "label": "Русский (BY) · offensive",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "BY",
+   "ceid": "BY:ru",
+   "query": "военная операция"
+  },
+  {
+   "label": "Русский (BY) · strikes",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "BY",
+   "ceid": "BY:ru",
+   "query": "ракетный удар"
+  },
+  {
+   "label": "Русский (BY) 1",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "BY",
+   "ceid": "BY:ru",
+   "query": "поставки оружия"
+  },
+  {
+   "label": "Українська · offensive",
+   "lang": "uk",
+   "standing": "press",
+   "hl": "uk",
+   "gl": "UA",
+   "ceid": "UA:uk",
+   "query": "військова операція"
+  },
+  {
+   "label": "Українська · strikes",
+   "lang": "uk",
+   "standing": "press",
+   "hl": "uk",
+   "gl": "UA",
+   "ceid": "UA:uk",
+   "query": "ракетний удар"
+  },
+  {
+   "label": "Українська 1",
+   "lang": "uk",
+   "standing": "press",
+   "hl": "uk",
+   "gl": "UA",
+   "ceid": "UA:uk",
+   "query": "постачання зброї"
+  },
+  {
+   "label": "Türkçe · offensive",
+   "lang": "tr",
+   "standing": "press",
+   "hl": "tr",
+   "gl": "TR",
+   "ceid": "TR:tr",
+   "query": "askeri operasyon"
+  },
+  {
+   "label": "Türkçe · strikes",
+   "lang": "tr",
+   "standing": "press",
+   "hl": "tr",
+   "gl": "TR",
+   "ceid": "TR:tr",
+   "query": "hava saldırısı"
+  },
+  {
+   "label": "Türkçe 1",
+   "lang": "tr",
+   "standing": "press",
+   "hl": "tr",
+   "gl": "TR",
+   "ceid": "TR:tr",
+   "query": "silah ihracatı"
+  },
+  {
+   "label": "العربية (EG) · offensive",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "EG",
+   "ceid": "EG:ar",
+   "query": "عملية عسكرية"
+  },
+  {
+   "label": "العربية (EG) · strikes",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "EG",
+   "ceid": "EG:ar",
+   "query": "غارة جوية"
+  },
+  {
+   "label": "العربية (EG) 1",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "EG",
+   "ceid": "EG:ar",
+   "query": "صفقة أسلحة"
+  },
+  {
+   "label": "العربية (SA) · offensive",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "SA",
+   "ceid": "SA:ar",
+   "query": "عملية عسكرية"
+  },
+  {
+   "label": "العربية (SA) · strikes",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "SA",
+   "ceid": "SA:ar",
+   "query": "غارة جوية"
+  },
+  {
+   "label": "العربية (SA) 1",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "SA",
+   "ceid": "SA:ar",
+   "query": "صفقة أسلحة"
+  },
+  {
+   "label": "العربية (AE) · offensive",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "AE",
+   "ceid": "AE:ar",
+   "query": "عملية عسكرية"
+  },
+  {
+   "label": "العربية (AE) · strikes",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "AE",
+   "ceid": "AE:ar",
+   "query": "غارة جوية"
+  },
+  {
+   "label": "العربية (AE) 1",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "AE",
+   "ceid": "AE:ar",
+   "query": "صفقة أسلحة"
+  },
+  {
+   "label": "العربية (MA) · offensive",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "MA",
+   "ceid": "MA:ar",
+   "query": "عملية عسكرية"
+  },
+  {
+   "label": "العربية (MA) · strikes",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "MA",
+   "ceid": "MA:ar",
+   "query": "غارة جوية"
+  },
+  {
+   "label": "العربية (MA) 1",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "MA",
+   "ceid": "MA:ar",
+   "query": "صفقة أسلحة"
+  },
+  {
+   "label": "עברית · offensive",
+   "lang": "he",
+   "standing": "press",
+   "hl": "iw",
+   "gl": "IL",
+   "ceid": "IL:iw",
+   "query": "מבצע צבאי"
+  },
+  {
+   "label": "עברית · strikes",
+   "lang": "he",
+   "standing": "press",
+   "hl": "iw",
+   "gl": "IL",
+   "ceid": "IL:iw",
+   "query": "תקיפה אווירית"
+  },
+  {
+   "label": "עברית 1",
+   "lang": "he",
+   "standing": "press",
+   "hl": "iw",
+   "gl": "IL",
+   "ceid": "IL:iw",
+   "query": "עסקת נשק"
+  },
+  {
+   "label": "فارسی · offensive",
+   "lang": "fa",
+   "standing": "press",
+   "hl": "fa",
+   "gl": "IR",
+   "ceid": "IR:fa",
+   "query": "عملیات نظامی"
+  },
+  {
+   "label": "فارسی · strikes",
+   "lang": "fa",
+   "standing": "press",
+   "hl": "fa",
+   "gl": "IR",
+   "ceid": "IR:fa",
+   "query": "حمله هوایی"
+  },
+  {
+   "label": "فارسی 1",
+   "lang": "fa",
+   "standing": "press",
+   "hl": "fa",
+   "gl": "IR",
+   "ceid": "IR:fa",
+   "query": "فروش تسلیحات"
+  },
+  {
+   "label": "हिन्दी · offensive",
+   "lang": "hi",
+   "standing": "press",
+   "hl": "hi",
+   "gl": "IN",
+   "ceid": "IN:hi",
+   "query": "सैन्य अभियान"
+  },
+  {
+   "label": "हिन्दी · strikes",
+   "lang": "hi",
+   "standing": "press",
+   "hl": "hi",
+   "gl": "IN",
+   "ceid": "IN:hi",
+   "query": "हवाई हमला"
+  },
+  {
+   "label": "हिन्दी 1",
+   "lang": "hi",
+   "standing": "press",
+   "hl": "hi",
+   "gl": "IN",
+   "ceid": "IN:hi",
+   "query": "रक्षा सौदा"
+  },
+  {
+   "label": "বাংলা (BD) · offensive",
+   "lang": "bn",
+   "standing": "press",
+   "hl": "bn",
+   "gl": "BD",
+   "ceid": "BD:bn",
+   "query": "সামরিক অভিযান"
+  },
+  {
+   "label": "বাংলা (BD) · strikes",
+   "lang": "bn",
+   "standing": "press",
+   "hl": "bn",
+   "gl": "BD",
+   "ceid": "BD:bn",
+   "query": "বিমান হামলা"
+  },
+  {
+   "label": "বাংলা (BD) 1",
+   "lang": "bn",
+   "standing": "press",
+   "hl": "bn",
+   "gl": "BD",
+   "ceid": "BD:bn",
+   "query": "অস্ত্র চুক্তি"
+  },
+  {
+   "label": "বাংলা (IN) · offensive",
+   "lang": "bn",
+   "standing": "press",
+   "hl": "bn",
+   "gl": "IN",
+   "ceid": "IN:bn",
+   "query": "সামরিক অভিযান"
+  },
+  {
+   "label": "বাংলা (IN) · strikes",
+   "lang": "bn",
+   "standing": "press",
+   "hl": "bn",
+   "gl": "IN",
+   "ceid": "IN:bn",
+   "query": "বিমান হামলা"
+  },
+  {
+   "label": "বাংলা (IN) 1",
+   "lang": "bn",
+   "standing": "press",
+   "hl": "bn",
+   "gl": "IN",
+   "ceid": "IN:bn",
+   "query": "অস্ত্র চুক্তি"
+  },
+  {
+   "label": "Bahasa Indonesia · offensive",
+   "lang": "id",
+   "standing": "press",
+   "hl": "id",
+   "gl": "ID",
+   "ceid": "ID:id",
+   "query": "operasi militer"
+  },
+  {
+   "label": "Bahasa Indonesia · strikes",
+   "lang": "id",
+   "standing": "press",
+   "hl": "id",
+   "gl": "ID",
+   "ceid": "ID:id",
+   "query": "serangan udara"
+  },
+  {
+   "label": "Bahasa Indonesia 1",
+   "lang": "id",
+   "standing": "press",
+   "hl": "id",
+   "gl": "ID",
+   "ceid": "ID:id",
+   "query": "pembelian senjata"
+  },
+  {
+   "label": "Tiếng Việt · offensive",
+   "lang": "vi",
+   "standing": "press",
+   "hl": "vi",
+   "gl": "VN",
+   "ceid": "VN:vi",
+   "query": "chiến dịch quân sự"
+  },
+  {
+   "label": "Tiếng Việt · strikes",
+   "lang": "vi",
+   "standing": "press",
+   "hl": "vi",
+   "gl": "VN",
+   "ceid": "VN:vi",
+   "query": "không kích"
+  },
+  {
+   "label": "Tiếng Việt 1",
+   "lang": "vi",
+   "standing": "press",
+   "hl": "vi",
+   "gl": "VN",
+   "ceid": "VN:vi",
+   "query": "mua sắm vũ khí"
+  },
+  {
+   "label": "ไทย · offensive",
+   "lang": "th",
+   "standing": "press",
+   "hl": "th",
+   "gl": "TH",
+   "ceid": "TH:th",
+   "query": "ปฏิบัติการทางทหาร"
+  },
+  {
+   "label": "ไทย · strikes",
+   "lang": "th",
+   "standing": "press",
+   "hl": "th",
+   "gl": "TH",
+   "ceid": "TH:th",
+   "query": "โจมตีทางอากาศ"
+  },
+  {
+   "label": "ไทย 1",
+   "lang": "th",
+   "standing": "press",
+   "hl": "th",
+   "gl": "TH",
+   "ceid": "TH:th",
+   "query": "จัดซื้ออาวุธ"
+  },
+  {
+   "label": "日本語 · offensive",
+   "lang": "ja",
+   "standing": "press",
+   "hl": "ja",
+   "gl": "JP",
+   "ceid": "JP:ja",
+   "query": "軍事作戦"
+  },
+  {
+   "label": "日本語 · strikes",
+   "lang": "ja",
+   "standing": "press",
+   "hl": "ja",
+   "gl": "JP",
+   "ceid": "JP:ja",
+   "query": "空爆"
+  },
+  {
+   "label": "日本語 1",
+   "lang": "ja",
+   "standing": "press",
+   "hl": "ja",
+   "gl": "JP",
+   "ceid": "JP:ja",
+   "query": "防衛費"
+  },
+  {
+   "label": "简体中文 (CN) · offensive",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-CN",
+   "gl": "CN",
+   "ceid": "CN:zh-Hans",
+   "query": "军事行动"
+  },
+  {
+   "label": "简体中文 (CN) · strikes",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-CN",
+   "gl": "CN",
+   "ceid": "CN:zh-Hans",
+   "query": "空袭"
+  },
+  {
+   "label": "简体中文 (CN) 1",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-CN",
+   "gl": "CN",
+   "ceid": "CN:zh-Hans",
+   "query": "军费预算"
+  },
+  {
+   "label": "繁體中文 (TW) · offensive",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-TW",
+   "gl": "TW",
+   "ceid": "TW:zh-Hant",
+   "query": "軍事行動"
+  },
+  {
+   "label": "繁體中文 (TW) · strikes",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-TW",
+   "gl": "TW",
+   "ceid": "TW:zh-Hant",
+   "query": "空襲"
+  },
+  {
+   "label": "繁體中文 (TW) 1",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-TW",
+   "gl": "TW",
+   "ceid": "TW:zh-Hant",
+   "query": "軍費預算"
+  },
+  {
+   "label": "繁體中文 (HK) · offensive",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-HK",
+   "gl": "HK",
+   "ceid": "HK:zh-Hant",
+   "query": "軍事行動"
+  },
+  {
+   "label": "繁體中文 (HK) · strikes",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-HK",
+   "gl": "HK",
+   "ceid": "HK:zh-Hant",
+   "query": "空襲"
+  },
+  {
+   "label": "繁體中文 (HK) 1",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-HK",
+   "gl": "HK",
+   "ceid": "HK:zh-Hant",
+   "query": "軍費預算"
+  },
+  {
+   "label": "简体中文 (SG) · offensive",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-CN",
+   "gl": "SG",
+   "ceid": "SG:zh-Hans",
+   "query": "军事行动"
+  },
+  {
+   "label": "简体中文 (SG) · strikes",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-CN",
+   "gl": "SG",
+   "ceid": "SG:zh-Hans",
+   "query": "空袭"
+  },
+  {
+   "label": "简体中文 (SG) 1",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-CN",
+   "gl": "SG",
+   "ceid": "SG:zh-Hans",
+   "query": "军费预算"
+  },
+  {
+   "label": "繁體中文 (CN) · offensive",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-CN",
+   "gl": "CN",
+   "ceid": "CN:zh-Hans",
+   "query": "軍事行動"
+  },
+  {
+   "label": "繁體中文 (CN) · strikes",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-CN",
+   "gl": "CN",
+   "ceid": "CN:zh-Hans",
+   "query": "空襲"
+  },
+  {
+   "label": "繁體中文 (CN) 1",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-CN",
+   "gl": "CN",
+   "ceid": "CN:zh-Hans",
+   "query": "國防預算"
+  },
+  {
+   "label": "繁體中文 (TW) · offensive",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-TW",
+   "gl": "TW",
+   "ceid": "TW:zh-Hant",
+   "query": "軍事行動"
+  },
+  {
+   "label": "繁體中文 (TW) · strikes",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-TW",
+   "gl": "TW",
+   "ceid": "TW:zh-Hant",
+   "query": "空襲"
+  },
+  {
+   "label": "繁體中文 (TW) 1",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-TW",
+   "gl": "TW",
+   "ceid": "TW:zh-Hant",
+   "query": "國防預算"
+  },
+  {
+   "label": "繁體中文 (HK) · offensive",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-HK",
+   "gl": "HK",
+   "ceid": "HK:zh-Hant",
+   "query": "軍事行動"
+  },
+  {
+   "label": "繁體中文 (HK) · strikes",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-HK",
+   "gl": "HK",
+   "ceid": "HK:zh-Hant",
+   "query": "空襲"
+  },
+  {
+   "label": "繁體中文 (HK) 1",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-HK",
+   "gl": "HK",
+   "ceid": "HK:zh-Hant",
+   "query": "國防預算"
+  },
+  {
+   "label": "繁體中文 (SG) · offensive",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-CN",
+   "gl": "SG",
+   "ceid": "SG:zh-Hans",
+   "query": "軍事行動"
+  },
+  {
+   "label": "繁體中文 (SG) · strikes",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-CN",
+   "gl": "SG",
+   "ceid": "SG:zh-Hans",
+   "query": "空襲"
+  },
+  {
+   "label": "繁體中文 (SG) 1",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-CN",
+   "gl": "SG",
+   "ceid": "SG:zh-Hans",
+   "query": "國防預算"
+  },
+  {
+   "label": "한국어 · offensive",
+   "lang": "ko",
+   "standing": "press",
+   "hl": "ko",
+   "gl": "KR",
+   "ceid": "KR:ko",
+   "query": "군사 작전"
+  },
+  {
+   "label": "한국어 · strikes",
+   "lang": "ko",
+   "standing": "press",
+   "hl": "ko",
+   "gl": "KR",
+   "ceid": "KR:ko",
+   "query": "공습"
+  },
+  {
+   "label": "한국어 1",
+   "lang": "ko",
+   "standing": "press",
+   "hl": "ko",
+   "gl": "KR",
+   "ceid": "KR:ko",
+   "query": "국방 예산"
+  },
+  {
+   "label": "Kiswahili (KE) · offensive",
+   "lang": "sw",
+   "standing": "press",
+   "hl": "sw",
+   "gl": "KE",
+   "ceid": "KE:sw",
+   "query": "operesheni ya kijeshi"
+  },
+  {
+   "label": "Kiswahili (KE) · strikes",
+   "lang": "sw",
+   "standing": "press",
+   "hl": "sw",
+   "gl": "KE",
+   "ceid": "KE:sw",
+   "query": "shambulio la anga"
+  },
+  {
+   "label": "Kiswahili (KE) 1",
+   "lang": "sw",
+   "standing": "press",
+   "hl": "sw",
+   "gl": "KE",
+   "ceid": "KE:sw",
+   "query": "bajeti ya ulinzi"
+  },
+  {
+   "label": "Kiswahili (TZ) · offensive",
+   "lang": "sw",
+   "standing": "press",
+   "hl": "sw",
+   "gl": "TZ",
+   "ceid": "TZ:sw",
+   "query": "operesheni ya kijeshi"
+  },
+  {
+   "label": "Kiswahili (TZ) · strikes",
+   "lang": "sw",
+   "standing": "press",
+   "hl": "sw",
+   "gl": "TZ",
+   "ceid": "TZ:sw",
+   "query": "shambulio la anga"
+  },
+  {
+   "label": "Kiswahili (TZ) 1",
+   "lang": "sw",
+   "standing": "press",
+   "hl": "sw",
+   "gl": "TZ",
+   "ceid": "TZ:sw",
+   "query": "bajeti ya ulinzi"
+  },
+  {
+   "label": "English (US) · arms",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "arms deal signed"
+  },
+  {
+   "label": "English (US) · money",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "defence budget approved"
+  },
+  {
+   "label": "English (GB) · arms",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "arms deal signed"
+  },
+  {
+   "label": "English (GB) · money",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "defence budget approved"
+  },
+  {
+   "label": "English (IN) · arms",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "arms deal signed"
+  },
+  {
+   "label": "English (IN) · money",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "defence budget approved"
+  },
+  {
+   "label": "English (AU) · arms",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-AU",
+   "gl": "AU",
+   "ceid": "AU:en",
+   "query": "arms deal signed"
+  },
+  {
+   "label": "English (AU) · money",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-AU",
+   "gl": "AU",
+   "ceid": "AU:en",
+   "query": "defence budget approved"
+  },
+  {
+   "label": "English (UK) (US) · arms",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "ceasefire talks"
+  },
+  {
+   "label": "English (UK) (US) · money",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "war crimes inquiry"
+  },
+  {
+   "label": "English (UK) (GB) · arms",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "ceasefire talks"
+  },
+  {
+   "label": "English (UK) (GB) · money",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "war crimes inquiry"
+  },
+  {
+   "label": "English (UK) (IN) · arms",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "ceasefire talks"
+  },
+  {
+   "label": "English (UK) (IN) · money",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "war crimes inquiry"
+  },
+  {
+   "label": "English (UK) (AU) · arms",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-AU",
+   "gl": "AU",
+   "ceid": "AU:en",
+   "query": "ceasefire talks"
+  },
+  {
+   "label": "English (UK) (AU) · money",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-AU",
+   "gl": "AU",
+   "ceid": "AU:en",
+   "query": "war crimes inquiry"
+  },
+  {
+   "label": "English (India) (US) 2",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "militant attack security forces"
+  },
+  {
+   "label": "English (India) (GB) 2",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "militant attack security forces"
+  },
+  {
+   "label": "English (India) (IN) 2",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "militant attack security forces"
+  },
+  {
+   "label": "English (India) (AU) 2",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-AU",
+   "gl": "AU",
+   "ceid": "AU:en",
+   "query": "militant attack security forces"
+  },
+  {
+   "label": "English (Nigeria) (NG) 2",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-NG",
+   "gl": "NG",
+   "ceid": "NG:en",
+   "query": "armed group ambush"
+  },
+  {
+   "label": "English (Nigeria) (US) 2",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "armed group ambush"
+  },
+  {
+   "label": "English (Nigeria) (GB) 2",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "armed group ambush"
+  },
+  {
+   "label": "English (Nigeria) (IN) 2",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "armed group ambush"
+  },
+  {
+   "label": "English (Kenya) (KE) 2",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-KE",
+   "gl": "KE",
+   "ceid": "KE:en",
+   "query": "border incursion"
+  },
+  {
+   "label": "English (Kenya) (US) 2",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "border incursion"
+  },
+  {
+   "label": "English (Kenya) (GB) 2",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "border incursion"
+  },
+  {
+   "label": "English (Kenya) (IN) 2",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "border incursion"
+  },
+  {
+   "label": "English (S. Africa) (ZA) 2",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-ZA",
+   "gl": "ZA",
+   "ceid": "ZA:en",
+   "query": "military coup"
+  },
+  {
+   "label": "English (S. Africa) (US) 2",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "military coup"
+  },
+  {
+   "label": "English (S. Africa) (GB) 2",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "military coup"
+  },
+  {
+   "label": "English (S. Africa) (IN) 2",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "military coup"
+  },
+  {
+   "label": "English (Philippines) (PH) 2",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-PH",
+   "gl": "PH",
+   "ceid": "PH:en",
+   "query": "maritime standoff"
+  },
+  {
+   "label": "English (Philippines) (US) 2",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "maritime standoff"
+  },
+  {
+   "label": "English (Philippines) (GB) 2",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-GB",
+   "gl": "GB",
+   "ceid": "GB:en",
+   "query": "maritime standoff"
+  },
+  {
+   "label": "English (Philippines) (IN) 2",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-IN",
+   "gl": "IN",
+   "ceid": "IN:en",
+   "query": "maritime standoff"
+  },
+  {
+   "label": "Español (ES) · arms",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es",
+   "gl": "ES",
+   "ceid": "ES:es",
+   "query": "alto el fuego"
+  },
+  {
+   "label": "Español (ES) · money",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es",
+   "gl": "ES",
+   "ceid": "ES:es",
+   "query": "venta de armas"
+  },
+  {
+   "label": "Español (MX) · arms",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "MX",
+   "ceid": "MX:es-419",
+   "query": "alto el fuego"
+  },
+  {
+   "label": "Español (MX) · money",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "MX",
+   "ceid": "MX:es-419",
+   "query": "venta de armas"
+  },
+  {
+   "label": "Español (AR) · arms",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "AR",
+   "ceid": "AR:es-419",
+   "query": "alto el fuego"
+  },
+  {
+   "label": "Español (AR) · money",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "AR",
+   "ceid": "AR:es-419",
+   "query": "venta de armas"
+  },
+  {
+   "label": "Español (CO) · arms",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "CO",
+   "ceid": "CO:es-419",
+   "query": "alto el fuego"
+  },
+  {
+   "label": "Español (CO) · money",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "CO",
+   "ceid": "CO:es-419",
+   "query": "venta de armas"
+  },
+  {
+   "label": "Español (Colombia) (ES) 2",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es",
+   "gl": "ES",
+   "ceid": "ES:es",
+   "query": "desplazamiento forzado conflicto"
+  },
+  {
+   "label": "Español (Colombia) (MX) 2",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "MX",
+   "ceid": "MX:es-419",
+   "query": "desplazamiento forzado conflicto"
+  },
+  {
+   "label": "Español (Colombia) (AR) 2",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "AR",
+   "ceid": "AR:es-419",
+   "query": "desplazamiento forzado conflicto"
+  },
+  {
+   "label": "Español (Colombia) (CO) 2",
+   "lang": "es",
+   "standing": "press",
+   "hl": "es-419",
+   "gl": "CO",
+   "ceid": "CO:es-419",
+   "query": "desplazamiento forzado conflicto"
+  },
+  {
+   "label": "Português (BR) · arms",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "BR",
+   "ceid": "BR:pt-419",
+   "query": "cessar-fogo"
+  },
+  {
+   "label": "Português (BR) · money",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "BR",
+   "ceid": "BR:pt-419",
+   "query": "venda de armas"
+  },
+  {
+   "label": "Português (PT) · arms",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "PT",
+   "ceid": "PT:pt-150",
+   "query": "cessar-fogo"
+  },
+  {
+   "label": "Português (PT) · money",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "PT",
+   "ceid": "PT:pt-150",
+   "query": "venda de armas"
+  },
+  {
+   "label": "Português (AO) · arms",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "AO",
+   "ceid": "AO:pt-150",
+   "query": "cessar-fogo"
+  },
+  {
+   "label": "Português (AO) · money",
+   "lang": "pt",
+   "standing": "press",
+   "hl": "pt-BR",
+   "gl": "AO",
+   "ceid": "AO:pt-150",
+   "query": "venda de armas"
+  },
+  {
+   "label": "Français (FR) · arms",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "FR",
+   "ceid": "FR:fr",
+   "query": "cessez-le-feu"
+  },
+  {
+   "label": "Français (FR) · money",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "FR",
+   "ceid": "FR:fr",
+   "query": "budget de la défense"
+  },
+  {
+   "label": "Français (BE) · arms",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "BE",
+   "ceid": "BE:fr",
+   "query": "cessez-le-feu"
+  },
+  {
+   "label": "Français (BE) · money",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "BE",
+   "ceid": "BE:fr",
+   "query": "budget de la défense"
+  },
+  {
+   "label": "Français (CA) · arms",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "CA",
+   "ceid": "CA:fr",
+   "query": "cessez-le-feu"
+  },
+  {
+   "label": "Français (CA) · money",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "CA",
+   "ceid": "CA:fr",
+   "query": "budget de la défense"
+  },
+  {
+   "label": "Français (SN) · arms",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "SN",
+   "ceid": "SN:fr",
+   "query": "cessez-le-feu"
+  },
+  {
+   "label": "Français (SN) · money",
+   "lang": "fr",
+   "standing": "press",
+   "hl": "fr",
+   "gl": "SN",
+   "ceid": "SN:fr",
+   "query": "budget de la défense"
+  },
+  {
+   "label": "Deutsch (DE) · arms",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "DE",
+   "ceid": "DE:de",
+   "query": "Waffenstillstand"
+  },
+  {
+   "label": "Deutsch (DE) · money",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "DE",
+   "ceid": "DE:de",
+   "query": "Verteidigungshaushalt"
+  },
+  {
+   "label": "Deutsch (AT) · arms",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "AT",
+   "ceid": "AT:de",
+   "query": "Waffenstillstand"
+  },
+  {
+   "label": "Deutsch (AT) · money",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "AT",
+   "ceid": "AT:de",
+   "query": "Verteidigungshaushalt"
+  },
+  {
+   "label": "Deutsch (CH) · arms",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "CH",
+   "ceid": "CH:de",
+   "query": "Waffenstillstand"
+  },
+  {
+   "label": "Deutsch (CH) · money",
+   "lang": "de",
+   "standing": "press",
+   "hl": "de",
+   "gl": "CH",
+   "ceid": "CH:de",
+   "query": "Verteidigungshaushalt"
+  },
+  {
+   "label": "Italiano (IT) · arms",
+   "lang": "it",
+   "standing": "press",
+   "hl": "it",
+   "gl": "IT",
+   "ceid": "IT:it",
+   "query": "cessate il fuoco"
+  },
+  {
+   "label": "Italiano (IT) · money",
+   "lang": "it",
+   "standing": "press",
+   "hl": "it",
+   "gl": "IT",
+   "ceid": "IT:it",
+   "query": "spesa militare"
+  },
+  {
+   "label": "Italiano (CH) · arms",
+   "lang": "it",
+   "standing": "press",
+   "hl": "it",
+   "gl": "CH",
+   "ceid": "CH:it",
+   "query": "cessate il fuoco"
+  },
+  {
+   "label": "Italiano (CH) · money",
+   "lang": "it",
+   "standing": "press",
+   "hl": "it",
+   "gl": "CH",
+   "ceid": "CH:it",
+   "query": "spesa militare"
+  },
+  {
+   "label": "Nederlands (NL) · arms",
+   "lang": "nl",
+   "standing": "press",
+   "hl": "nl",
+   "gl": "NL",
+   "ceid": "NL:nl",
+   "query": "staakt-het-vuren"
+  },
+  {
+   "label": "Nederlands (NL) · money",
+   "lang": "nl",
+   "standing": "press",
+   "hl": "nl",
+   "gl": "NL",
+   "ceid": "NL:nl",
+   "query": "defensiebegroting"
+  },
+  {
+   "label": "Nederlands (BE) · arms",
+   "lang": "nl",
+   "standing": "press",
+   "hl": "nl",
+   "gl": "BE",
+   "ceid": "BE:nl",
+   "query": "staakt-het-vuren"
+  },
+  {
+   "label": "Nederlands (BE) · money",
+   "lang": "nl",
+   "standing": "press",
+   "hl": "nl",
+   "gl": "BE",
+   "ceid": "BE:nl",
+   "query": "defensiebegroting"
+  },
+  {
+   "label": "Svenska · arms",
+   "lang": "sv",
+   "standing": "press",
+   "hl": "sv",
+   "gl": "SE",
+   "ceid": "SE:sv",
+   "query": "vapenvila"
+  },
+  {
+   "label": "Svenska · money",
+   "lang": "sv",
+   "standing": "press",
+   "hl": "sv",
+   "gl": "SE",
+   "ceid": "SE:sv",
+   "query": "försvarsbudget"
+  },
+  {
+   "label": "Polski · arms",
+   "lang": "pl",
+   "standing": "press",
+   "hl": "pl",
+   "gl": "PL",
+   "ceid": "PL:pl",
+   "query": "zawieszenie broni"
+  },
+  {
+   "label": "Polski · money",
+   "lang": "pl",
+   "standing": "press",
+   "hl": "pl",
+   "gl": "PL",
+   "ceid": "PL:pl",
+   "query": "budżet obronny"
+  },
+  {
+   "label": "Ελληνικά 2",
+   "lang": "el",
+   "standing": "press",
+   "hl": "el",
+   "gl": "GR",
+   "ceid": "GR:el",
+   "query": "κατάπαυση πυρός"
+  },
+  {
+   "label": "Русский (RU) · arms",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "RU",
+   "ceid": "RU:ru",
+   "query": "перемирие"
+  },
+  {
+   "label": "Русский (RU) · money",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "RU",
+   "ceid": "RU:ru",
+   "query": "оборонный бюджет"
+  },
+  {
+   "label": "Русский (KZ) · arms",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "KZ",
+   "ceid": "KZ:ru",
+   "query": "перемирие"
+  },
+  {
+   "label": "Русский (KZ) · money",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "KZ",
+   "ceid": "KZ:ru",
+   "query": "оборонный бюджет"
+  },
+  {
+   "label": "Русский (BY) · arms",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "BY",
+   "ceid": "BY:ru",
+   "query": "перемирие"
+  },
+  {
+   "label": "Русский (BY) · money",
+   "lang": "ru",
+   "standing": "press",
+   "hl": "ru",
+   "gl": "BY",
+   "ceid": "BY:ru",
+   "query": "оборонный бюджет"
+  },
+  {
+   "label": "Українська · arms",
+   "lang": "uk",
+   "standing": "press",
+   "hl": "uk",
+   "gl": "UA",
+   "ceid": "UA:uk",
+   "query": "перемир'я"
+  },
+  {
+   "label": "Українська · money",
+   "lang": "uk",
+   "standing": "press",
+   "hl": "uk",
+   "gl": "UA",
+   "ceid": "UA:uk",
+   "query": "оборонний бюджет"
+  },
+  {
+   "label": "Türkçe · arms",
+   "lang": "tr",
+   "standing": "press",
+   "hl": "tr",
+   "gl": "TR",
+   "ceid": "TR:tr",
+   "query": "ateşkes"
+  },
+  {
+   "label": "Türkçe · money",
+   "lang": "tr",
+   "standing": "press",
+   "hl": "tr",
+   "gl": "TR",
+   "ceid": "TR:tr",
+   "query": "savunma bütçesi"
+  },
+  {
+   "label": "العربية (EG) · arms",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "EG",
+   "ceid": "EG:ar",
+   "query": "وقف إطلاق النار"
+  },
+  {
+   "label": "العربية (EG) · money",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "EG",
+   "ceid": "EG:ar",
+   "query": "ميزانية الدفاع"
+  },
+  {
+   "label": "العربية (SA) · arms",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "SA",
+   "ceid": "SA:ar",
+   "query": "وقف إطلاق النار"
+  },
+  {
+   "label": "العربية (SA) · money",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "SA",
+   "ceid": "SA:ar",
+   "query": "ميزانية الدفاع"
+  },
+  {
+   "label": "العربية (AE) · arms",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "AE",
+   "ceid": "AE:ar",
+   "query": "وقف إطلاق النار"
+  },
+  {
+   "label": "العربية (AE) · money",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "AE",
+   "ceid": "AE:ar",
+   "query": "ميزانية الدفاع"
+  },
+  {
+   "label": "العربية (MA) · arms",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "MA",
+   "ceid": "MA:ar",
+   "query": "وقف إطلاق النار"
+  },
+  {
+   "label": "العربية (MA) · money",
+   "lang": "ar",
+   "standing": "press",
+   "hl": "ar",
+   "gl": "MA",
+   "ceid": "MA:ar",
+   "query": "ميزانية الدفاع"
+  },
+  {
+   "label": "עברית · arms",
+   "lang": "he",
+   "standing": "press",
+   "hl": "iw",
+   "gl": "IL",
+   "ceid": "IL:iw",
+   "query": "הפסקת אש"
+  },
+  {
+   "label": "עברית · money",
+   "lang": "he",
+   "standing": "press",
+   "hl": "iw",
+   "gl": "IL",
+   "ceid": "IL:iw",
+   "query": "תקציב הביטחון"
+  },
+  {
+   "label": "فارسی · arms",
+   "lang": "fa",
+   "standing": "press",
+   "hl": "fa",
+   "gl": "IR",
+   "ceid": "IR:fa",
+   "query": "آتش‌بس"
+  },
+  {
+   "label": "فارسی · money",
+   "lang": "fa",
+   "standing": "press",
+   "hl": "fa",
+   "gl": "IR",
+   "ceid": "IR:fa",
+   "query": "بودجه دفاعی"
+  },
+  {
+   "label": "हिन्दी · arms",
+   "lang": "hi",
+   "standing": "press",
+   "hl": "hi",
+   "gl": "IN",
+   "ceid": "IN:hi",
+   "query": "युद्धविराम"
+  },
+  {
+   "label": "हिन्दी · money",
+   "lang": "hi",
+   "standing": "press",
+   "hl": "hi",
+   "gl": "IN",
+   "ceid": "IN:hi",
+   "query": "रक्षा बजट"
+  },
+  {
+   "label": "বাংলা (BD) 2",
+   "lang": "bn",
+   "standing": "press",
+   "hl": "bn",
+   "gl": "BD",
+   "ceid": "BD:bn",
+   "query": "যুদ্ধবিরতি"
+  },
+  {
+   "label": "বাংলা (IN) 2",
+   "lang": "bn",
+   "standing": "press",
+   "hl": "bn",
+   "gl": "IN",
+   "ceid": "IN:bn",
+   "query": "যুদ্ধবিরতি"
+  },
+  {
+   "label": "Bahasa Indonesia · arms",
+   "lang": "id",
+   "standing": "press",
+   "hl": "id",
+   "gl": "ID",
+   "ceid": "ID:id",
+   "query": "gencatan senjata"
+  },
+  {
+   "label": "Bahasa Indonesia · money",
+   "lang": "id",
+   "standing": "press",
+   "hl": "id",
+   "gl": "ID",
+   "ceid": "ID:id",
+   "query": "anggaran pertahanan"
+  },
+  {
+   "label": "Tiếng Việt · arms",
+   "lang": "vi",
+   "standing": "press",
+   "hl": "vi",
+   "gl": "VN",
+   "ceid": "VN:vi",
+   "query": "ngừng bắn"
+  },
+  {
+   "label": "Tiếng Việt · money",
+   "lang": "vi",
+   "standing": "press",
+   "hl": "vi",
+   "gl": "VN",
+   "ceid": "VN:vi",
+   "query": "ngân sách quốc phòng"
+  },
+  {
+   "label": "ไทย 2",
+   "lang": "th",
+   "standing": "press",
+   "hl": "th",
+   "gl": "TH",
+   "ceid": "TH:th",
+   "query": "หยุดยิง"
+  },
+  {
+   "label": "日本語 2",
+   "lang": "ja",
+   "standing": "press",
+   "hl": "ja",
+   "gl": "JP",
+   "ceid": "JP:ja",
+   "query": "武器輸出 OR 停戦 OR 安全保障"
+  },
+  {
+   "label": "简体中文 (CN) 2",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-CN",
+   "gl": "CN",
+   "ceid": "CN:zh-Hans",
+   "query": "军售 OR 停火 OR 边境冲突"
+  },
+  {
+   "label": "繁體中文 (TW) 2",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-TW",
+   "gl": "TW",
+   "ceid": "TW:zh-Hant",
+   "query": "軍售 OR 停火 OR 邊境衝突"
+  },
+  {
+   "label": "繁體中文 (HK) 2",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-HK",
+   "gl": "HK",
+   "ceid": "HK:zh-Hant",
+   "query": "軍售 OR 停火 OR 邊境衝突"
+  },
+  {
+   "label": "简体中文 (SG) 2",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-CN",
+   "gl": "SG",
+   "ceid": "SG:zh-Hans",
+   "query": "军售 OR 停火 OR 边境冲突"
+  },
+  {
+   "label": "繁體中文 (CN) 2",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-CN",
+   "gl": "CN",
+   "ceid": "CN:zh-Hans",
+   "query": "軍售 OR 停火 OR 台海情勢"
+  },
+  {
+   "label": "繁體中文 (TW) 2",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-TW",
+   "gl": "TW",
+   "ceid": "TW:zh-Hant",
+   "query": "軍售 OR 停火 OR 台海情勢"
+  },
+  {
+   "label": "繁體中文 (HK) 2",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-HK",
+   "gl": "HK",
+   "ceid": "HK:zh-Hant",
+   "query": "軍售 OR 停火 OR 台海情勢"
+  },
+  {
+   "label": "繁體中文 (SG) 2",
+   "lang": "zh",
+   "standing": "press",
+   "hl": "zh-CN",
+   "gl": "SG",
+   "ceid": "SG:zh-Hans",
+   "query": "軍售 OR 停火 OR 台海情勢"
+  },
+  {
+   "label": "한국어 2",
+   "lang": "ko",
+   "standing": "press",
+   "hl": "ko",
+   "gl": "KR",
+   "ceid": "KR:ko",
+   "query": "무기 수출 OR 휴전 OR 미사일 발사"
+  },
+  {
+   "label": "Kiswahili (KE) 2",
+   "lang": "sw",
+   "standing": "press",
+   "hl": "sw",
+   "gl": "KE",
+   "ceid": "KE:sw",
+   "query": "usitishaji mapigano"
+  },
+  {
+   "label": "Kiswahili (TZ) 2",
+   "lang": "sw",
+   "standing": "press",
+   "hl": "sw",
+   "gl": "TZ",
+   "ceid": "TZ:sw",
+   "query": "usitishaji mapigano"
+  }
+ ],
+ "events": [
+  {
+   "label": "Offensives & incursions · offensive",
+   "lang": "en",
+   "standing": "official",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "launched an offensive OR crossed the border troops OR seized the town OR front line advance OR incursion into territory"
+  },
+  {
+   "label": "Strikes & bombardment · offensive",
+   "lang": "en",
+   "standing": "official",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "airstrike hit OR missile strike killed OR drone strike OR shelling residential OR bombardment overnight"
+  },
+  {
+   "label": "Attacks on civilians · offensive",
+   "lang": "en",
+   "standing": "research",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "civilians killed strike OR massacre reported OR hospital hit OR bombing market OR suicide attack claimed"
+  },
+  {
+   "label": "Arms industry & exports · offensive",
+   "lang": "en",
+   "standing": "trade",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "arms export licence OR weapons contract awarded OR defence firm order OR missile production line OR ammunition plant"
+  },
+  {
+   "label": "Money & budgets · offensive",
+   "lang": "en",
+   "standing": "official",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "defence budget increase OR military aid package OR procurement programme cost OR sanctions military OR arms sales approved"
+  },
+  {
+   "label": "Bases & corridors · offensive",
+   "lang": "en",
+   "standing": "official",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "foreign military base OR basing agreement OR port access naval OR troop deployment agreement OR overflight rights"
+  },
+  {
+   "label": "Law & accountability · offensive",
+   "lang": "en",
+   "standing": "official",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "war crimes charges OR ICC arrest warrant OR commission of inquiry conflict OR ceasefire agreement signed OR peace deal talks"
+  },
+  {
+   "label": "Nuclear & strategic · offensive",
+   "lang": "en",
+   "standing": "official",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "nuclear warhead OR missile test launched OR nuclear doctrine OR arms control treaty OR enrichment inspectors"
+  },
+  {
+   "label": "Humanitarian consequence · offensive",
+   "lang": "en",
+   "standing": "research",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "displaced by fighting OR famine conflict OR aid convoy blocked OR refugees fleeing conflict OR casualties toll conflict"
+  },
+  {
+   "label": "Research institutes (site)",
+   "lang": "en",
+   "standing": "research",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "site:sipri.org OR site:acleddata.com OR site:iiss.org OR site:crisisgroup.org conflict OR arms OR military"
+  },
+  {
+   "label": "UN & courts (site) · offensive",
+   "lang": "en",
+   "standing": "official",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "site:un.org OR site:icc-cpi.int OR site:icj-cij.org conflict OR war crimes OR peacekeeping"
+  },
+  {
+   "label": "Coups & irregular power · offensive",
+   "lang": "en",
+   "standing": "press",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "military coup OR junta announced OR mutiny soldiers OR mercenaries deployed OR private military company"
+  },
+  {
+   "label": "NATO, ICRC & ministries (site)",
+   "lang": "en",
+   "standing": "official",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "site:nato.int OR site:icrc.org OR site:ohchr.org OR site:war.gov statement OR operation OR deployment"
+  },
+  {
+   "label": "SIPRI & humanitarian monitors (site) · offensive",
+   "lang": "en",
+   "standing": "official",
+   "hl": "en-US",
+   "gl": "US",
+   "ceid": "US:en",
+   "query": "site:sipri.org OR site:thenewhumanitarian.org OR site:reliefweb.int arms OR conflict OR displacement"
+  }
+ ]
 }
