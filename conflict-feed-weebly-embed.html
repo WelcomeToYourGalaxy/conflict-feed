@@ -2,15 +2,15 @@
      The Conflict Wire — worldwide · Weebly embed
      Paste this whole block into a Weebly "Embed Code" element.
 
-     HEIGHT. The frame is a fixed 1500px, written into the tag below in both the
+     HEIGHT. The frame is a fixed 1000px, written into the tag below in both the
      height attribute and the style, so it exists before any script runs and
      nothing moves it afterwards. To change the length, change BOTH numbers.
      ============================================================ -->
 <div id="galaxy-cffeed-embed" style="width:100%;margin:0;padding:0;">
   <iframe id="galaxy-cffeed-frame"
           title="The Conflict Wire — worldwide"
-          height="1500"
-          style="width:100%;height:1500px;border:0;display:block;background:#0c0d0b;border-radius:14px;overflow:hidden;"
+          height="1000"
+          style="width:100%;height:1000px;border:0;display:block;background:#0c0d0b;border-radius:14px;overflow:hidden;"
           scrolling="no"
           referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
@@ -124,29 +124,6 @@
         radial-gradient(ellipse 120% 85% at 50% 108%, rgba(12,16,11,0.40), transparent 54%); }
 .cf-placed { margin: 0.2rem 0 0; font-size: 0.68rem; line-height: 1.4; color: var(--ink-faint); }
 .cf-placed b { font-weight: 400; color: var(--ink-dim); }
-.cf-gm[hidden] { display: none; }
-.cf-gm { flex: 0 0 46%; min-height: 190px; display: flex; flex-direction: column;
-    border-top: 1px solid var(--line-soft); background: #0e0f0c; }
-.cf-gm-bar { flex: 0 0 auto; display: flex; align-items: center; gap: 0.5rem; padding: 0.3rem 0.55rem;
-    font-size: 0.55rem; color: var(--ink-faint); border-bottom: 1px solid var(--line-soft); }
-.cf-gm-name { letter-spacing: 0.1em; text-transform: uppercase; }
-.cf-gm-follow { display: flex; align-items: center; gap: 0.25rem; cursor: pointer; margin-left: auto; }
-.cf-gm-follow input { accent-color: var(--accent); }
-.cf-gm-out { color: var(--ink-dim); text-decoration: none; }
-.cf-gm-out:hover { color: var(--accent); }
-.cf-gm-close { background: none; border: 0; color: var(--ink-faint); font-size: 0.85rem; line-height: 1;
-    cursor: pointer; padding: 0 0.15rem; }
-.cf-gm-close:hover { color: var(--ink); }
-.cf-gm-frame { flex: 1 1 auto; width: 100%; border: 0; min-height: 0; background: #0e0f0c; }
-.cf-gm-wait { flex: 0 0 auto; margin: 0; padding: 0.5rem 0.55rem; font-size: 0.55rem; color: var(--ink-faint); }
-.cf-gm-wait[hidden] { display: none; }
-.cf-gm-cred { flex: 0 0 auto; margin: 0; padding: 0.22rem 0.55rem; font-size: 0.5rem; color: var(--ink-faint); }
-.cf-gm-cred a { color: var(--ink-dim); }
-.cf-gm-open { margin-left: auto; background: none; border: 1px solid var(--line-soft); color: var(--ink-dim);
-    font: inherit; font-size: 0.5rem; letter-spacing: 0.08em; text-transform: uppercase;
-    padding: 0.1rem 0.4rem; border-radius: 3px; cursor: pointer; }
-.cf-gm-open:hover { color: var(--accent); border-color: var(--accent); }
-.cf-gm-open.on { color: var(--accent); border-color: var(--accent); }
 .cf-map-note { flex: 0 0 auto; font-size: 0.55rem; color: var(--ink-faint); padding: 0.28rem 0.6rem;
     border-top: 1px solid var(--line-soft); display: flex; align-items: center; gap: 0.5rem; }
 .cf-map .leaflet-container { background: #0e0f0c; font-family: inherit; }
@@ -167,27 +144,11 @@
 .cf-pin-sm { border-width: 0.5px !important; box-shadow: 0 0 0 1px rgba(0,0,0,0.4) !important; }
 .cf-pin { border-radius: 50%; border: 1px solid rgba(255,255,255,0.55); box-shadow: 0 0 0 2px rgba(0,0,0,0.35);
     display: flex; align-items: center; justify-content: center; font-size: 0.55rem; color: #131311; font-weight: 600; }
-/* Narrow: the map goes under the list rather than beside it. Two regimes.
-   In a narrow FRAME on a desktop page the column has a definite height, so the
-   pieces take shares of it and the list scrolls inside — nothing lands below
-   the fold. In FLOW mode there is no definite height to take a share of, so
-   the map gets real pixels and the page scrolls. */
-/* 1200, not 900. A half-width column on a wide theme is 800–1000px, which
-   cleared a 900px breakpoint and stayed side-by-side. At 1200 a half-width
-   column stacks on any normal page width. */
-@media (max-width: 1200px) {
-    .cf-body { flex-direction: column; }
-    /* Stacked and inside a frame of definite height: the three pieces take
-       shares of it, so the list, the map and the overlays are all on screen at
-       once and only the list scrolls. Nothing sits below the fold, because
-       there is no fold — the frame does not grow. */
-    .cf-body > .cf-list { flex: 1 1 auto; min-height: 120px; }
-    .cf-map-wrap { flex: 0 0 52%; height: auto; min-height: 200px;
-        border-left: 0; border-top: 1px solid var(--line-soft); }
-    .cf-map-wrap.gm-open { flex: 0 0 68%; height: auto; }
-    .cf-map-wrap.gm-open .cf-map { flex: 1 1 52%; min-height: 150px; }
-    .cf-map-wrap.gm-open .cf-gm { flex: 0 0 48%; min-height: 150px; }
- }
+/* The map keeps its column beside the list at every width. Below 900px it
+   narrows rather than moving underneath. */
+@media (max-width: 900px) {
+    .cf-map-wrap { flex: 0 0 34%; min-width: 150px; }
+}
 .cf-list { flex: 1 1 auto; min-height: 130px; overflow-y: auto; scrollbar-width: thin; overscroll-behavior: contain; }
 .cf-item { display: block; padding: 0.55rem 0.9rem; border-bottom: 1px solid var(--line-soft); text-decoration: none; color: inherit; }
 .cf-item:last-child { border-bottom: 0; }
@@ -288,25 +249,9 @@
 
         <div class="cf-body">
             <div class="cf-list" id="cfList"><div class="cf-state">Loading the wire…</div></div>
-            <div class="cf-map-wrap gm-open" id="cfMapWrap">
+            <div class="cf-map-wrap" id="cfMapWrap">
                 <div class="cf-map" id="cfMap"></div>
-                <div class="cf-map-note">
-                    <span id="cfMapCount">—</span><span id="cfMapUnplaced"></span>
-                    <button class="cf-gm-open on" id="cfGmOpen" type="button">– overlays</button>
-                </div>
-                <div class="cf-gm" id="cfGm">
-                    <div class="cf-gm-bar">
-                        <span class="cf-gm-name">Guerillamap overlays</span>
-                        <label class="cf-gm-follow"><input type="checkbox" id="cfGmSync" checked> follow this map</label>
-                        <a class="cf-gm-out" id="cfGmOut" href="https://guerillamap.com/" target="_blank" rel="noopener">open ↗</a>
-                        <button class="cf-gm-close" id="cfGmClose" type="button" aria-label="Close overlays">×</button>
-                    </div>
-                    <p class="cf-gm-wait" id="cfGmWait">Loading guerillamap…</p>
-                    <iframe class="cf-gm-frame" id="cfGmFrame" title="Guerillamap conflict and geopolitical overlays"
-                            allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-                    <p class="cf-gm-cred">Overlays and data: <a href="https://guerillamap.com/" target="_blank" rel="noopener">guerillamap.com</a> ·
-                        third-party sources under their own terms</p>
-                </div>
+                <div class="cf-map-note"><span id="cfMapCount">—</span><span id="cfMapUnplaced"></span></div>
             </div>
         </div>
     </section>
@@ -362,25 +307,9 @@
             differently. If the hillshade fails to load it is dropped and the plain imagery stands.
         </p>
         <p class="cf-note">
-            <strong>Guerillamap overlays.</strong> The panel under the map is guerillamap.com in a frame,
-            open by default, with the conflict, news, losses, minefield, nuclear-test, terror, migration and
-            border layers switched on. It is their live map, not a copy of their data: a page cannot read
-            across into another site's frame, so nothing is extracted here and nothing goes stale behind them.
-            What it can do is follow — their app takes its whole state from its address, so the frame is
-            rebuilt to whatever this map is looking at, a moment after you stop moving. Their view sits a
-            little south of this one, by a share of their frame height rather than a fixed number of degrees,
-            because their panel is shorter and wider than this map. Untick "follow this map" to hold their view
-            while this one carries on, and use the button on the status strip to close the panel. Their terms
-            allow the use with attribution; the credit line under the panel is that attribution.
-        </p>
-        <p class="cf-note">
-            <strong>In a narrow frame.</strong> Below 1200px the map and the overlays move under the list
-            instead of beside it — 1200 rather than 900 because a half-width column on a wide theme is often
-            800 to 1000px, which clears a 900px breakpoint and stays side by side. Stacked, the list takes
-            about a third and scrolls on its own; the map and the overlays split the rest and are both fully
-            visible. The frame itself is a fixed height set in the embed tag, so nothing measures anything and
-            nothing resizes: every self-sizing version of this wandered, upward or downward, until the content
-            was gone.
+            <strong>In a narrow frame.</strong> The map keeps its column beside the list at every width; below 900px it narrows
+            rather than moving underneath. The frame itself is a fixed height set in the embed tag, so nothing
+            measures anything and nothing resizes.
         </p>
         <p class="cf-note">
             <strong>Where the pins come from.</strong> Nothing is geocoded by a service: a story is placed by the
@@ -997,116 +926,6 @@ function renderSources() {
         '</span></div>').join('');
 }
 
-/* ============================================================
-   GUERILLAMAP COMPANION
-
-   A cross-origin iframe cannot be read from this page — no DOM access, no
-   pulling their layers out. What it can be is DRIVEN: their app takes its
-   whole state from the query string, so this rebuilds the src to match
-   wherever this map is looking. One-way, this map to theirs.
-
-   Rebuilding the src reloads the frame, which makes their app re-fetch, so
-   the update is held until the pan or zoom has been still for a moment and
-   is skipped entirely when the view has not actually changed. Follow can be
-   switched off to pin their view while this one keeps moving.
-
-   Nothing here touches the map itself. The panel is a sibling element, not
-   a Leaflet layer or pane, so the plate and the satellite treatment are
-   untouched by it — opening and closing only changes the map container's
-   height, which is why invalidateSize and the redraws are called after.
-   ============================================================ */
-const GM_HOME = 'https://guerillamap.com/';
-const GM_GRID = '-0.35,0.5,10,10,null,null';
-const GM_BASEMAP = 'esri-aerial-layer';
-/* Their panel is shorter and wider than this map, so handing it the same
-   centre puts the ground higher in their frame than in ours. This drops their
-   centre south by a share of their own frame height — a proportion, not a
-   fixed number of degrees, so it stays the same on screen at every zoom.
-   Tune it live with gmShift(0.3); gmShift(0) turns it off. */
-let GM_SHIFT = 0.22;
-
-const GM_OVERLAYS = [
-    'feature_group_geoNews', 'feature_group_geoNewsHist', 'feature_group_conflicts',
-    'feature_group_activity', 'feature_group_losses', 'feature_group_nuctests',
-    'feature_group_minefields', 'feature_group_uyghurs', 'feature_group_terror',
-    'feature_group_UserMap', 'feature_group_migration_routes',
-    'feature_group_strong_borders', 'feature_group_borders'
-].join(',');
-
-let gmOpen = true, gmTimer = null, gmLast = '';
-
-function gmUrl() {
-    let lat = 20, lon = 10, z = 3;
-    try {
-        const c = cfMap.getCenter();
-        lat = c.lat; lon = c.lng;
-        z = Math.max(2, Math.min(18, Math.round(cfMap.getZoom())));
-    } catch (e) { /* map not ready; the defaults stand */ }
-    // drop south by GM_SHIFT of their frame height. Web Mercator: a pixel is
-    // (360 / 256·2^z) degrees of longitude, and that many degrees of latitude
-    // narrowed by cos(lat).
-    try {
-        const f = document.getElementById('cfGmFrame');
-        const hpx = (f && f.clientHeight) || 260;
-        const degPerPx = (360 / (256 * Math.pow(2, z))) * Math.cos(lat * Math.PI / 180);
-        lat = Math.max(-78, Math.min(82, lat - GM_SHIFT * hpx * degPerPx));
-    } catch (e) { /* no frame yet; centre as-is */ }
-
-    // their app reads a bare lat,lng pair and an integer zoom
-    return GM_HOME + '?coords=' + encodeURIComponent(lat.toFixed(5) + ',' + lon.toFixed(5)) +
-           '&zoom=' + z +
-           '&grid=' + encodeURIComponent(GM_GRID) +
-           '&basemap=' + GM_BASEMAP +
-           '&overlays=' + encodeURIComponent(GM_OVERLAYS);
-}
-
-window.gmShift = v => { if (v != null) GM_SHIFT = v; gmSync(true); return GM_SHIFT; };
-
-function gmSync(force) {
-    if (!gmOpen) return;
-    const follow = document.getElementById('cfGmSync');
-    if (!force && !(follow && follow.checked)) return;
-    const url = gmUrl();
-    if (url === gmLast) return;                 // same view: do not reload them for nothing
-    gmLast = url;
-    const f = document.getElementById('cfGmFrame');
-    const out = document.getElementById('cfGmOut');
-    const wait = document.getElementById('cfGmWait');
-    if (out) out.href = url;
-    if (!f) return;
-    if (wait) wait.hidden = false;
-    f.addEventListener('load', () => { if (wait) wait.hidden = true; }, { once: true });
-    // wait a frame: assigning src before the panel has been laid out can leave
-    // their app measuring a zero-height box and drawing nothing into it
-    requestAnimationFrame(() => { f.src = url; });
-}
-
-function gmQueue() {
-    clearTimeout(gmTimer);
-    gmTimer = setTimeout(gmSync, 900);          // wait until the gesture has settled
-}
-
-function gmToggle(on) {
-    gmOpen = on;
-    const panel = document.getElementById('cfGm');
-    const btn = document.getElementById('cfGmOpen');
-    const wrap = document.getElementById('cfMapWrap');
-    if (panel) panel.hidden = !on;
-    if (wrap) wrap.classList.toggle('gm-open', on);
-    if (btn) { btn.textContent = on ? '– overlays' : '+ overlays'; btn.classList.toggle('on', on); }
-    if (on) gmSync(true);
-    // the map container just changed height: let Leaflet remeasure, then put
-    // the screen-anchored fills, the plate and the pins back where they belong
-    setTimeout(() => {
-        try {
-            if (!cfMap) return;
-            cfMap.invalidateSize();
-            cfMap.fire('move');
-            resizePins();
-        } catch (e) { /* map not up */ }
-    }, 60);
-}
-
 /* ---- Wiring ---- */
 function single(row, key) {
     row.addEventListener('click', e => {
@@ -1156,17 +975,6 @@ $langRow.addEventListener('click', e => {
 });
 
 $refresh.addEventListener('click', load);
-// if the wire never arrives the map never initialises, and the panel would sit
-// on "Loading" for ever. Load it from the default view instead.
-setTimeout(() => { if (gmOpen && !gmLast) gmSync(true); }, 1500);
-
-const gmOpenBtn = document.getElementById('cfGmOpen');
-if (gmOpenBtn) gmOpenBtn.addEventListener('click', () => gmToggle(!gmOpen));
-const gmCloseBtn = document.getElementById('cfGmClose');
-if (gmCloseBtn) gmCloseBtn.addEventListener('click', () => gmToggle(false));
-const gmFollow = document.getElementById('cfGmSync');
-if (gmFollow) gmFollow.addEventListener('change', () => { if (gmFollow.checked) gmSync(true); });
-
 document.getElementById('cfClear').addEventListener('click', () => {
     state.topic = 'all'; state.standing = 'all'; state.evidence = 'all'; state.place = 'all';
     state.kind = 'all'; state.sub = 'all'; state.spot = 'all';
@@ -1236,10 +1044,6 @@ function initMap() {
     dressSatellite();
     setTimeout(() => cfMap.invalidateSize(), 60);
     window.addEventListener('resize', () => cfMap.invalidateSize());
-    try {
-        cfMap.on('moveend zoomend', gmQueue);
-        gmSync(true);                  // the panel opens with the map's own view
-    } catch (e) { console.warn('map: overlay companion not wired:', e); }
 }
 
 /* ============================================================

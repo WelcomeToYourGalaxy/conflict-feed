@@ -4,10 +4,8 @@ The embed frame is a FIXED height, written into the iframe tag in both the `heig
 inline style, so it exists before any script runs. The shell script only injects the document — no
 measuring, no resize listener, no messages. To change the length, change both numbers in the tag.
 
-Stacking switches at 1200px, not 900: a half-width column on a wide theme is often 800–1000px, which
-cleared a 900px breakpoint and stayed side-by-side. Stacked, the list takes a third and scrolls; the map
-and the guerillamap panel split the rest — `.cf-map-wrap.gm-open { flex: 0 0 68% }` in the stacked media
-query is that split.
+The map keeps its column beside the list at every width (38%); below 900px it narrows to 34% rather
+than moving underneath. The frame is 1000px tall.
 
 # conflict-feed
 
@@ -63,13 +61,6 @@ rings, so a crowded city reads as scattered rather than drawn. The spread is mea
 pixels against the current zoom, so the geographic error halves with every zoom step and the pins
 converge on their true coordinates; below zoom 5 it is capped, and a crowded city collapses to one
 dot whose popup still lists every story on it.
-
-A companion panel under the map embeds guerillamap.com with a fixed overlay set, open by default, and
-follows this map's centre and zoom by rebuilding the iframe address ~900ms after movement stops. One-way only: a cross-origin
-frame cannot be read from this page. Their centre is dropped south by 22% of their frame height, since their panel is shorter and wider than
-this map — `gmShift(0.3)` in the console to retune, `gmShift(0)` to switch it off. No guerillamap data is
-copied or stored here; attribution sits under
-the panel, as their terms require.
 
 Pins scale with the zoom — about half size at world view so they do not blot out the plate, full size
 from zoom 6 in.
